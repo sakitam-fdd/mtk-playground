@@ -1,0 +1,21 @@
+{
+  "git": {
+    "commitMessage": "chore: release v${version}",
+    "requireCleanWorkingDir": true,
+    "tagAnnotation": "Release v${version}",
+    "tagName": "v${version}"
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": "angular",
+      "infile": "CHANGELOG.md"
+    }
+  },
+  "hooks": {
+    "after:bump": "echo 更新版本成功",
+    "after:release": "echo Successfully released ${name} v${version} from repository ${repo.repository}."
+  },
+  "npm": {
+    "skipChecks": false
+  }
+}

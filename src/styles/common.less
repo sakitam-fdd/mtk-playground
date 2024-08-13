@@ -1,0 +1,89 @@
+.textOverflow() {
+  overflow: hidden;
+  white-space: nowrap!important;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+
+.textOverflowMulti(@line: 3, @bg: #fff) {
+  position: relative;
+  max-height: @line * 1.5em;
+  margin-right: -1em;
+  padding-right: 1em;
+  overflow: hidden;
+  line-height: 1.5em;
+  text-align: justify;
+
+  &::before {
+    position: absolute;
+    right: 14px;
+    bottom: 0;
+    padding: 0 1px;
+    background: @bg;
+    content: '...';
+  }
+
+  &::after {
+    position: absolute;
+    right: 14px;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    background: white;
+    content: '';
+  }
+}
+
+// mixins for clearfix
+// ------------------------
+.clearfix() {
+  zoom: 1;
+
+  &::before,
+  &::after {
+    display: table;
+    content: ' ';
+  }
+
+  &::after {
+    clear: both;
+    height: 0;
+    font-size: 0;
+    visibility: hidden;
+  }
+}
+
+.transformCenter() {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.placeholder(@color: @input-placeholder-color) {
+  // Firefox
+  /* stylelint-disable-next-line selector-no-vendor-prefix */
+  &::-moz-placeholder {
+    color: @color;
+    opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+  }
+  // Internet Explorer 10+
+  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+  &:input-placeholder {
+    color: @color;
+  }
+  // Safari and Chrome
+  /* stylelint-disable-next-line selector-pseudo-element-no-unknown */
+  &::input-placeholder {
+    color: @color;
+  }
+}
+
+.size(@width; @height) {
+  width: @width;
+  height: @height;
+}
+
+.square(@size) {
+  .size(@size; @size);
+}

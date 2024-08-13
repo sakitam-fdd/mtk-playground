@@ -1,0 +1,55 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# deps and artifacts
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+# 保留插件和部分配置
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/*.code-snippets
+.idea
+.DS_Store
+.history
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.zip
+*.bak.*
+
+# local env files
+.env.local
+.env.*.local
+
+# screenshot
+.eslintcache
+
+# test
+/coverage
+
+# Use the PNPM
+package-lock.json
+yarn.lock
+
+# types
+types/auto-imports.d.ts
+types/components.d.ts
+
+src/api/deploy.http
+
+mock.bundle.js.timestamp-*

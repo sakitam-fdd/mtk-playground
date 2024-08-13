@@ -1,0 +1,58 @@
+$color-primary: #3370FF;
+$color-success: #52c41a;
+$color-warning: #faad14;
+$color-danger: #EA0000;
+$color-info: #909399;
+$-colors: (
+  "primary": (
+    "base": $color-primary,
+  ),
+  "success": (
+    "base":  $color-success,
+  ),
+  "warning": (
+    "base":  $color-warning,
+  ),
+  "danger": (
+    "base":  $color-danger,
+  ),
+  "info": (
+    "base":  $color-info,
+  )
+);
+
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: $-colors,
+
+  $font-size: (
+    'base': 12px
+  ),
+
+  $text-color: (
+    'primary': #1F2329,
+    "regular": #1F2329,
+    "secondary": #999999,
+    "placeholder": #ADADAD,
+  ),
+  $border-radius: (
+    "base": 4px,
+    "small": 2px,
+    "round": 20px,
+    "circle": 100%,
+  ),
+
+  $bg-color: (
+    '': #ffffff,
+    'page': #f2f3f5,
+    'overlay': #fff,
+  ),
+);
+
+@use 'sass:math';
+
+.foo {
+  .bar {
+    color: #bbb;
+    padding-right: math.div(4, 2);
+  }
+}

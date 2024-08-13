@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "EditorConfig.EditorConfig",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "esbenp.prettier-vscode",
+    "Vue.volar",
+    "antfu.unocss",
+    "antfu.iconify",
+    "christian-kohler.path-intellisense",
+    "csstools.postcss",
+    "vitest.explorer",
+    "lokalise.i18n-ally",
+    "redhat.vscode-yaml",
+    "mikestead.dotenv"
+  ]
+}

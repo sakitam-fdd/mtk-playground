@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "types": ["vitest/globals", "node"]
+  },
+  "exclude": ["node_modules"],
+  "include": ["vite.config.ts", "rsbuild.config.ts", "build/**/*.ts", "types", "mock"]
+}
