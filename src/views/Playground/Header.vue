@@ -1,7 +1,7 @@
 <template>
   <nav>
     <h1>
-      <img alt="logo" src="@/assets/icon/send.svg" />
+      <img alt="logo" src="@/assets/icon/logo.svg" />
       <span>maptalks Playground</span>
     </h1>
     <div class="flex items-center">

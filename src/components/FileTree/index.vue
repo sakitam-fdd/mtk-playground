@@ -1,43 +1,52 @@
 <template>
-  <div class="file-tree">
-    <ul role="tree" aria-label="file tree" class="tree">
-      <li v-for="item in data" class="tree-item" tabindex="-1" :id="item.id">
-        <div
-          class="tree-item-container"
-          style="--level: 1; content-visibility: auto; contain-intrinsic-size: auto 2rem"
-        >
-          <div style="grid-area: spacer; display: flex">
-            <div style="width: 100%; display: flex"></div>
+  <ul role="tree" aria-label="file tree" class="tree">
+    <li v-for="item in data" class="tree-item" tabindex="-1" :key="item.id" :id="item.id">
+      <div class="tree-item-label" :style="{ paddingLeft: depth * 24 + 'px' }" @click="handleItem(item)">
+        <span class="tree-item-label-content">
+          <div>
+            <el-icon v-if="item.icon" size="14">
+              <span :class="item.icon"></span>
+            </el-icon>
+            <span :class="['label', item.icon ? 'ml-10px' : 'ml-0']">{{ item.label }}</span>
           </div>
-          <div class="tree-item-toggle tree-item-toggle--hover tree-item-toggle--end">
-            <span class="i-octicon:chevron-right-12"></span>
-          </div>
-          <div id=":r8d:" class="tree-item-content">
-            <div class="PRIVATE_VisuallyHidden" aria-hidden="true" id=":r8e:"></div>
-            <div class="tree-item-visual" aria-hidden="true">
-              <div class="tree-directory-icon">
-                <span class="i-octicon:file-directory-fill-24"></span>
-              </div>
-            </div>
-            <span class="tree-item-content-text">
-              <span>.github</span>
-            </span>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
+        </span>
+        <span
+          v-if="item.children && item.children.length > 0"
+          :class="['tree-item-arrow', item.collapse ? 'collapsed' : 'expand']"
+        ></span>
+      </div>
+
+      <FileTree
+        v-if="item.children && item.children.length > 0"
+        :data="item.children"
+        :class="[item.collapse || isUndefined(item.collapse) ? 'hidden' : 'show']"
+        :depth="depth + 1"
+      />
+    </li>
+  </ul>
 </template>
 
 <script setup lang="ts">
+  import { isUndefined } from 'lodash-es';
+
+  defineOptions({
+    name: 'FileTree',
+  });
+
   withDefaults(
     defineProps<{
       data?: any[];
+      depth?: number;
     }>(),
     {
       data: () => [],
+      depth: 1,
     },
   );
+
+  const handleItem = (item) => {
+    item.collapse = !item.collapse;
+  };
 </script>
 
 <style lang="less" scoped>
@@ -45,29 +54,122 @@
     list-style: none;
     padding: 0px;
     margin: 0px;
+    width: 100%;
+    box-shadow: none;
+    border: none;
+    box-sizing: border-box;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    font-size: 14px;
+    text-align: left;
+    outline: none;
+    color: var(--m-text-color);
+    transition:
+      background 0.3s,
+      width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
 
     &-item {
       outline: none;
+      box-sizing: border-box;
+      transition:
+        border-color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+        background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+        padding 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
 
-      &-container {
-        --level: 1;
-        --toggle-width: 1rem;
-        --min-item-height: 2rem;
+      &-label {
         position: relative;
-        display: grid;
-        --leading-action-width: calc(var(--has-leading-action, 0) * 1.5rem);
-        --spacer-width: calc(calc(var(--level) - 1) * (var(--toggle-width) / 2));
-        grid-template-columns: var(--spacer-width) var(--leading-action-width) var(--toggle-width) 1fr;
-        grid-template-areas: 'spacer leadingAction toggle content';
-        width: 100%;
-        font-size: 14px;
-        color: var(--fgColor-default, var(--color-fg-default, #1f2328));
-        border-radius: 6px;
+        height: 40px;
+        width: calc(100% + 1px);
+        line-height: 40px;
+        display: flex;
+        align-items: center;
+        margin-top: 4px;
+        margin-bottom: 4px;
+        padding: 0 34px 0 24px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         cursor: pointer;
+        transition:
+          border-color 0.3s,
+          background 0.3s,
+          padding 0.1s cubic-bezier(0.215, 0.61, 0.355, 1);
+
+        &-content {
+          flex: auto;
+          min-width: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          transition: color .3s;
+
+          .label {
+            display: inline-block;
+            width: calc(100% - 16px);
+            opacity: 1;
+            vertical-align: bottom;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            transition:
+              opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+              margin 0.3s,
+              color 0.3s;
+          }
+        }
       }
 
-      &-toggle {
+      &-arrow {
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        width: 10px;
+        flex: none;
+        transform: translateY(-2px);
+        transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+        &:after,
+        &:before {
+          position: absolute;
+          width: 6px;
+          height: 1.5px;
+          background-color: currentcolor;
+          border-radius: 2px;
+          transition:
+            background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+            transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+            top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+            color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+          content: '';
+        }
+
+        &.collapsed {
+          &:after {
+            transform: rotate(45deg) translate(-2.5px);
+          }
+
+          &:before {
+            transform: rotate(-45deg) translate(2.5px);
+          }
+        }
+
+        &.expand {
+          &:after {
+            transform: rotate(-45deg) translate(-2.5px);
+          }
+
+          &:before {
+            transform: rotate(45deg) translate(2.5px);
+          }
+        }
       }
+    }
+
+    &.hidden {
+      display: none;
+    }
+
+    &.show {
+      display: block;
     }
   }
 </style>

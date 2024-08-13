@@ -8,40 +8,90 @@
     @toggle-ssr="toggleSSR"
     @reload-page="reloadPage"
   />
-  <Repl
-    ref="replRef"
-    :theme="theme"
-    :editor="Monaco"
-    @keydown.ctrl.s.prevent
-    @keydown.meta.s.prevent
-    :ssr="useSSRMode"
-    :store="store"
-    :showCompileOutput="false"
-    :autoResize="true"
-    :showImportMap="true"
-    :clearConsole="false"
-    :preview-options="{
-      customCode: {
-        importCode: `import { initCustomFormatter } from 'vue'`,
-        useCode: `if (window.devtoolsFormatters) {
+  <div class="flex">
+    <div class="w-250px min-w-250px max-w-250px flex-[0_0_auto] bg-[var(--bg)] border-r-1 border-[var(--m-border)]">
+      <FileTree :data="list"></FileTree>
+    </div>
+    <div class="flex-auto min-h-0">
+      <Repl
+        ref="replRef"
+        :theme="theme"
+        :editor="Monaco"
+        @keydown.ctrl.s.prevent
+        @keydown.meta.s.prevent
+        :ssr="useSSRMode"
+        :store="store"
+        :showCompileOutput="false"
+        :autoResize="true"
+        :showImportMap="true"
+        :clearConsole="false"
+        :preview-options="{
+          customCode: {
+            importCode: `import { initCustomFormatter } from 'vue'`,
+            useCode: `if (window.devtoolsFormatters) {
     const index = window.devtoolsFormatters.findIndex((v) => v.__vue_custom_formatter)
     window.devtoolsFormatters.splice(index, 1)
     initCustomFormatter()
   } else {
     initCustomFormatter()
   }`,
-      },
-    }"
-  />
+          },
+        }"
+      />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
   import { Repl, useStore, SFCOptions, useVueImportMap } from '@vue/repl';
   import Monaco from '@vue/repl/monaco-editor';
   import { ref, watchEffect, onMounted, computed } from 'vue';
+  import FileTree from '@/components/FileTree/index.vue';
   import Header from './Header.vue';
 
   const replRef = ref<InstanceType<typeof Repl>>();
+  const list = ref<any[]>([
+    {
+      id: '0',
+      label: '基础功能',
+      icon: 'i-oui:app-gis',
+      collapse: true,
+      children: [
+        {
+          id: '0-0',
+          label: '地图',
+          icon: 'i-lets-icons:map',
+          collapse: true,
+          children: [
+            {
+              id: '0-0-0',
+              label: '初始化地图',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: '1',
+      label: '基础功能',
+      icon: 'i-oui:app-gis',
+      collapse: true,
+      children: [
+        {
+          id: '1-0',
+          label: '地图',
+          icon: 'i-lets-icons:map',
+          collapse: true,
+          children: [
+            {
+              id: '1-0-0',
+              label: '初始化地图',
+            },
+          ],
+        },
+      ],
+    },
+  ]);
 
   const setVH = () => {
     document.documentElement.style.setProperty('--vh', `${window.innerHeight}px`);
@@ -54,13 +104,13 @@
   const { productionMode, vueVersion, importMap } = useVueImportMap({
     runtimeDev: import.meta.env.PROD
       ? `${window.location.origin}/vue.runtime.esm-browser.js`
-      : `${window.location.origin}/src/vue-dev-proxy`,
+      : `${window.location.origin}/src/views/Playground/vue-dev-proxy`,
     runtimeProd: import.meta.env.PROD
       ? `${window.location.origin}/vue.runtime.esm-browser.prod.js`
-      : `${window.location.origin}/src/vue-dev-proxy-prod`,
+      : `${window.location.origin}/src/views/Playground/vue-dev-proxy-prod`,
     serverRenderer: import.meta.env.PROD
       ? `${window.location.origin}/server-renderer.esm-browser.js`
-      : `${window.location.origin}/src/vue-server-renderer-dev-proxy`,
+      : `${window.location.origin}/src/views/Playground/vue-server-renderer-dev-proxy`,
   });
 
   let hash = window.location.hash.slice(1);
