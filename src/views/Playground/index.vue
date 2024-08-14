@@ -58,11 +58,11 @@
   import { Repl, useStore, SFCOptions, useVueImportMap } from '@vue/repl';
   import Monaco from '@vue/repl/monaco-editor';
   import { ref, watchEffect, onMounted, computed } from 'vue';
-  import { Plus } from '@element-plus/icons-vue'
+  import { Plus } from '@element-plus/icons-vue';
   // import { useWindowSize } from '@vueuse/core';
   import FileTree from '@/components/FileTree/index.vue';
   import { to } from '@/utils/to';
-  import { createBranch, createFile, getFileTree, buildBranch } from '@/api/github';
+  import { createBranch, createFile, getFileTree, buildBranch, isSuccess } from '@/api/github';
   import Header from './Header.vue';
   import CreateForm from './CreateForm/index.vue';
   import { buildCommit } from './Download/download';
@@ -159,7 +159,7 @@
 
     const [error, data] = await to(createBranch({ branchName: branch }));
 
-    if (!error && data.code === 201) {
+    if (!error && isSuccess(data)) {
       const [error, data] = await to(
         createFile(content, {
           branch,

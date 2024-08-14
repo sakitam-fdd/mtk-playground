@@ -2,6 +2,7 @@ import { Octokit } from 'octokit';
 import { get } from 'lodash-es';
 import dayjs from 'dayjs';
 import { to } from '@/utils/to';
+import { playgroundTypes } from '@/api/common';
 
 // Octokit.js
 // https://github.com/octokit/core.js#readme
@@ -21,12 +22,12 @@ const commonAuthor = {
   email: '',
 };
 
-function isSuccess(res: Record<string, any>) {
-  return [201, 200].includes(res.code);
+export function isSuccess(res: Record<string, any>) {
+  return [201, 200].includes(res.status);
 }
 
 export function buildBranch() {
-  return `feature/docs-demo-${dayjs().format('YYYY-MM-DD HH:mm')}`;
+  return `feature/docs-demo-${dayjs().format('YYYY-MM-DD-HH-mm')}`;
 }
 
 export async function getBranch() {
@@ -128,13 +129,13 @@ export async function deleteFile(file: { path: string; sha: string }) {
   });
 }
 
-export async function createPR() {
+export async function createPR({ branch, title, body }: { branch: string; title: string; body: string }) {
   await octokit.request('POST /repos/{owner}/{repo}/pulls', {
     owner,
     repo,
-    title: 'Amazing new feature',
-    body: 'Please pull these awesome changes in!',
-    head: 'octocat:new-feature',
+    title,
+    body,
+    head: branch,
     base: baseBranch,
     headers: {
       ...commonHeaders,
@@ -142,10 +143,47 @@ export async function createPR() {
   });
 }
 
-export async function createFolder() {
+export async function createFolder(body: { name: string; playgroundType: string }) {
+  const branch = buildBranch();
+  const p = playgroundTypes.find((pl) => pl.id === body.playgroundType);
 
+  if (!p) {
+    return false;
+  }
+
+  const [error, data] = await to(createBranch({ branchName: branch }));
+
+  if (!error && isSuccess(data)) {
+    const [e, res] = await to(
+      octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+        owner,
+        repo,
+        path: `${p.label}/${body.name}/.gitkeep`,
+        message: 'docs: add folder',
+        committer: commonAuthor,
+        author: commonAuthor,
+        content: btoa(``),
+        branch,
+        headers: {
+          ...commonHeaders,
+        },
+      }),
+    );
+
+    if (!e && isSuccess(res)) {
+      await to(
+        createPR({
+          branch,
+          title: `update: add folder ${p.label}/${body.name}`,
+          body: `add folder ${p.label}/${body.name}`,
+        }),
+      );
+    }
+  } else {
+    console.log(error);
+  }
 }
 
-export async function updateFolder() {
-
+export async function updateFolder(body) {
+  console.log(body);
 }

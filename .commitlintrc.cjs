@@ -46,14 +46,24 @@ module.exports = {
     },
     types: [
       {
+        value: 'init',
+        name: 'init:  🎉  Init project',
+        emoji: '🎉 ',
+      },
+      {
         value: 'feat',
         name: 'feat: 🚀  A new feature',
         emoji: '🚀',
       },
       {
+        value: 'release',
+        name: 'release: 📦️  Release',
+        emoji: '📦️',
+      },
+      {
         value: 'fix',
-        name: 'fix: 🧩  A bug fix',
-        emoji: '🧩',
+        name: 'fix: 🐛  A bug fix',
+        emoji: '🐛',
       },
       {
         value: 'docs',
@@ -61,9 +71,19 @@ module.exports = {
         emoji: '📚',
       },
       {
+        value: 'ui',
+        name: 'ui:  🚀 Update ui',
+        emoji: '🚀'
+      },
+      {
         value: 'style',
         name: 'style: 🎨  Changes that do not affect the meaning of the code',
         emoji: '🎨',
+      },
+      {
+        value: 'wip',
+        name: 'wip: 📇  Work in progress, mostly for tip',
+        emoji: '📇',
       },
       {
         value: 'refactor',
@@ -84,6 +104,11 @@ module.exports = {
         value: 'build',
         name: 'build: 📦️   Changes that affect the build system or external dependencies',
         emoji: '📦️',
+      },
+      {
+        value: 'update',
+        name: 'update: 🚑  Update something',
+        emoji: '🚑'
       },
       {
         value: 'ci',
