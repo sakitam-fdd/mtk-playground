@@ -1,4 +1,4 @@
-# Vite Vue Starter
+# Maptalks Starter
 
 This is a project template using [Vite](https://vitejs.dev/). It requires [Node.js](https://nodejs.org) version 18+ or 20+.
 

@@ -1,5 +1,4 @@
 import { saveAs } from 'file-saver';
-
 import type { ReplStore } from '@vue/repl';
 import index from './template/index.html?raw';
 import main from './template/main.js?raw';
@@ -8,10 +7,6 @@ import config from './template/vite.config.js?raw';
 import readme from './template/README.md?raw';
 
 export async function downloadProject(store: ReplStore) {
-  if (!confirm('Download project files?')) {
-    return;
-  }
-
   const { default: JSZip } = await import('jszip');
   const zip = new JSZip();
 
@@ -26,6 +21,7 @@ export async function downloadProject(store: ReplStore) {
   src.file('main.js', main);
 
   const files = store.getFiles();
+  // eslint-disable-next-line no-restricted-syntax
   for (const file in files) {
     if (file !== 'import-map.json' && file !== 'tsconfig.json') {
       src.file(file, files[file]);
@@ -35,5 +31,26 @@ export async function downloadProject(store: ReplStore) {
   }
 
   const blob = await zip.generateAsync({ type: 'blob' });
-  saveAs(blob, 'vue-project.zip');
+  saveAs(blob, 'maptalks-project.zip');
+}
+
+export function buildCommit(store: ReplStore) {
+  const object = {
+    'package.json': pkg,
+    'vite.config.js': config,
+    'README.md': readme,
+    'index.html': index,
+  };
+
+  const files = store.getFiles();
+  // eslint-disable-next-line no-restricted-syntax
+  for (const file in files) {
+    if (file !== 'import-map.json' && file !== 'tsconfig.json') {
+      object[`src/${file}`] = files[file];
+    } else {
+      object[file] = files[file];
+    }
+  }
+
+  return object;
 }

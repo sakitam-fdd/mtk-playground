@@ -3,22 +3,30 @@
     :store="store"
     :prod="productionMode"
     :ssr="useSSRMode"
+    :save-loading="saveLoading"
     @toggle-theme="toggleTheme"
     @toggle-prod="toggleProdMode"
     @toggle-ssr="toggleSSR"
     @reload-page="reloadPage"
+    @save="handleSave"
   />
   <div class="flex">
     <div class="w-250px min-w-250px max-w-250px flex-[0_0_auto] bg-[var(--bg)] border-r-1 border-[var(--m-border)]">
-      <FileTree :data="list"></FileTree>
+      <FileTree v-if="list.length > 0" :data="list"></FileTree>
+      <div class="wh-full flex justify-center pt-20px">
+        <el-button type="primary" @click="handleCreate">
+          <el-icon class="el-icon--right">
+            <Plus />
+          </el-icon>
+          <span class="ml-8px">新建示例/目录</span>
+        </el-button>
+      </div>
     </div>
     <div class="flex-auto min-h-0">
       <Repl
         ref="replRef"
         :theme="theme"
         :editor="Monaco"
-        @keydown.ctrl.s.prevent
-        @keydown.meta.s.prevent
         :ssr="useSSRMode"
         :store="store"
         :showCompileOutput="false"
@@ -37,8 +45,12 @@
   }`,
           },
         }"
+        @keydown.ctrl.s.prevent
+        @keydown.meta.s.prevent
       />
     </div>
+
+    <CreateForm :visible="dialogVisible" @close="dialogVisible = false" />
   </div>
 </template>
 
@@ -46,52 +58,17 @@
   import { Repl, useStore, SFCOptions, useVueImportMap } from '@vue/repl';
   import Monaco from '@vue/repl/monaco-editor';
   import { ref, watchEffect, onMounted, computed } from 'vue';
+  import { Plus } from '@element-plus/icons-vue'
+  // import { useWindowSize } from '@vueuse/core';
   import FileTree from '@/components/FileTree/index.vue';
+  import { to } from '@/utils/to';
+  import { createBranch, createFile, getFileTree, buildBranch } from '@/api/github';
   import Header from './Header.vue';
+  import CreateForm from './CreateForm/index.vue';
+  import { buildCommit } from './Download/download';
 
   const replRef = ref<InstanceType<typeof Repl>>();
-  const list = ref<any[]>([
-    {
-      id: '0',
-      label: '基础功能',
-      icon: 'i-oui:app-gis',
-      collapse: true,
-      children: [
-        {
-          id: '0-0',
-          label: '地图',
-          icon: 'i-lets-icons:map',
-          collapse: true,
-          children: [
-            {
-              id: '0-0-0',
-              label: '初始化地图',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      id: '1',
-      label: '基础功能',
-      icon: 'i-oui:app-gis',
-      collapse: true,
-      children: [
-        {
-          id: '1-0',
-          label: '地图',
-          icon: 'i-lets-icons:map',
-          collapse: true,
-          children: [
-            {
-              id: '1-0-0',
-              label: '初始化地图',
-            },
-          ],
-        },
-      ],
-    },
-  ]);
+  const list = ref<any[]>([]);
 
   const setVH = () => {
     document.documentElement.style.setProperty('--vh', `${window.innerHeight}px`);
@@ -100,6 +77,9 @@
   setVH();
 
   const useSSRMode = ref(false);
+  const [saveLoading, setSaveLoading] = useState(false);
+  const [dialogVisible, setDialogVisible] = useState(false);
+  const [isCreate, setIsCreate] = useState(false);
 
   const { productionMode, vueVersion, importMap } = useVueImportMap({
     runtimeDev: import.meta.env.PROD
@@ -165,22 +145,63 @@
     // window.history.replaceState({}, '', newHash);
   });
 
-  function toggleProdMode() {
+  /**
+   * 示例保存
+   * 这里有两种情况
+   * 1. 新建
+   * 2. 已有的修改
+   */
+  const handleSave = async () => {
+    setSaveLoading(true);
+    const content = buildCommit(store);
+
+    const branch = buildBranch();
+
+    const [error, data] = await to(createBranch({ branchName: branch }));
+
+    if (!error && data.code === 201) {
+      const [error, data] = await to(
+        createFile(content, {
+          branch,
+        }),
+      );
+    } else {
+      console.log(error);
+    }
+
+    // createFile(content).then(() => {
+    //   setSaveLoading(false);
+    // });
+  };
+
+  const toggleProdMode = () => {
     productionMode.value = !productionMode.value;
-  }
+  };
 
-  function toggleSSR() {
+  const toggleSSR = () => {
     useSSRMode.value = !useSSRMode.value;
-  }
+  };
 
-  function reloadPage() {
+  const reloadPage = () => {
     replRef.value?.reload();
-  }
+  };
 
   const theme = ref<'dark' | 'light'>('dark');
-  function toggleTheme(isDark: boolean) {
+  const toggleTheme = (isDark: boolean) => {
     theme.value = isDark ? 'dark' : 'light';
-  }
+  };
+
+  const getMenuList = () => {
+    getFileTree();
+  };
+
+  getMenuList();
+
+  const handleCreate = () => {
+    setIsCreate(true);
+    setDialogVisible(true);
+  };
+
   onMounted(() => {
     const cls = document.documentElement.classList;
     toggleTheme(cls.contains('dark'));

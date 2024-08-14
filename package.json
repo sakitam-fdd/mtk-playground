@@ -58,6 +58,7 @@
     "nanoid": "^5.0.6",
     "nprogress": "^0.2.0",
     "shiki": "^1.12.1",
+    "octokit": "^4.0.2",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
     "qs": "^6.12.1",

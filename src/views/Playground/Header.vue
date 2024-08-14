@@ -5,8 +5,13 @@
       <span>maptalks Playground</span>
     </h1>
     <div class="flex items-center">
-      <VersionSelect :model-value="vueVersion" @update:model-value="setVueVersion" pkg="vue" label="Vue Version">
-        <li :class="{ active: vueVersion === `@${currentCommit}` }">
+      <VersionSelect
+        :model-value="maptalksVersion"
+        @update:model-value="setVueVersion"
+        pkg="maptalks"
+        label="Maptalks Version"
+      >
+        <li :class="{ active: maptalksVersion === `@${currentCommit}` }">
           <a @click="resetVueVersion">This Commit ({{ currentCommit }})</a>
         </li>
         <li>
@@ -31,19 +36,36 @@
       >
         <span>{{ ssr ? 'SSR ON' : 'SSR OFF' }}</span>
       </el-button>
-      <el-button type="text" title="Toggle dark mode" class="toggle-dark" @click="toggleDark">
-        <span v-if="!isDark" class="i-ant-design:sun-outlined w-1.5em h-1.5em"></span>
-        <span v-else class="i-ant-design:moon-outlined w-1.5em h-1.5em"></span>
-      </el-button>
-      <el-button type="text" title="Copy sharable URL" class="share" @click="copyLink">
-        <span class="i-ant-design:share-alt-outlined w-1.5em h-1.5em"></span>
-      </el-button>
-      <el-button type="text" title="Reload page" class="reload" @click="$emit('reload-page')">
-        <span class="i-ant-design:reload-outlined w-1.5em h-1.5em"></span>
-      </el-button>
-      <el-button type="text" title="Download project files" class="download" @click="downloadProject(store)">
-        <span class="i-ant-design:download-outlined w-1.5em h-1.5em"></span>
-      </el-button>
+      <el-tooltip :content="isDark ? '亮色' : '暗色'">
+        <el-button type="text" title="Toggle dark mode" class="toggle-dark" @click="toggleDark">
+          <span v-if="!isDark" class="i-ant-design:sun-outlined w-1.5em h-1.5em"></span>
+          <span v-else class="i-ant-design:moon-outlined w-1.5em h-1.5em"></span>
+        </el-button>
+      </el-tooltip>
+      <el-tooltip content="保存">
+        <el-button type="text" :loading="saveLoading" title="保存页面" class="save" @click="$emit('save')">
+          <span class="i-ant-design:save-outlined w-1.5em h-1.5em"></span>
+        </el-button>
+      </el-tooltip>
+      <el-tooltip content="刷新页面">
+        <el-button type="text" title=" 刷新页面" class="reload" @click="$emit('reload-page')">
+          <span class="i-ant-design:reload-outlined w-1.5em h-1.5em"></span>
+        </el-button>
+      </el-tooltip>
+      <el-tooltip content="复制分享链接">
+        <el-button type="text" title="复制分享链接" class="share" @click="copyLink">
+          <span class="i-ant-design:share-alt-outlined w-1.5em h-1.5em"></span>
+        </el-button>
+      </el-tooltip>
+      <el-tooltip content="打包下载项目">
+        <el-popconfirm title="确认打包下载项目文件?" @confirm="downloadProject(store)">
+          <template #reference>
+            <el-button type="text" title="打包下载项目" class="download">
+              <span class="i-ant-design:download-outlined w-1.5em h-1.5em"></span>
+            </el-button>
+          </template>
+        </el-popconfirm>
+      </el-tooltip>
       <el-link
         href="https://github.com/vuejs/core/tree/main/packages-private/sfc-playground"
         target="_blank"
@@ -62,16 +84,17 @@
   import type { ReplStore } from '@vue/repl';
   import { ElMessage } from 'element-plus';
   import { useDark } from '@vueuse/core';
-  import { downloadProject } from './download/download';
+  import { downloadProject } from './Download/download';
   import VersionSelect from './VersionSelect.vue';
 
   const props = defineProps<{
     store: ReplStore;
     prod: boolean;
     ssr: boolean;
+    saveLoading: boolean;
   }>();
 
-  const emit = defineEmits(['toggle-theme', 'toggle-ssr', 'toggle-prod', 'reload-page']);
+  const emit = defineEmits(['toggle-theme', 'toggle-ssr', 'toggle-prod', 'reload-page', 'save']);
 
   const isAppearanceTransition =
     document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -82,11 +105,11 @@
 
   const currentCommit = '3.4.27';
 
-  const vueVersion = computed(() => {
+  const maptalksVersion = computed(() => {
     if (store.loading) {
       return 'loading...';
     }
-    return store.vueVersion;
+    return '1.0.0-rc.35';
   });
 
   async function setVueVersion(v: string) {
@@ -104,7 +127,7 @@
       return;
     }
     await navigator.clipboard.writeText(window.location.href);
-    ElMessage.success('Sharable URL has been copied to clipboard.');
+    ElMessage.success('分享链接已经复制到剪切板.');
   }
 
   function toggleDark(event?: MouseEvent) {
@@ -219,5 +242,45 @@
   .toggle-ssr.enabled span {
     color: #fff;
     background-color: var(--green);
+  }
+
+  .version:hover .active-version::after {
+    border-top-color: var(--btn);
+  }
+
+  .dark .version:hover .active-version::after {
+    border-top-color: var(--highlight);
+  }
+
+  .versions {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 40px;
+    background-color: var(--bg-light);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    list-style-type: none;
+    padding: 8px;
+    margin: 0;
+    width: 200px;
+    max-height: calc(100vh - 70px);
+    overflow: scroll;
+  }
+
+  .versions a {
+    display: block;
+    padding: 6px 12px;
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--base);
+  }
+
+  .versions a:hover {
+    color: var(--green);
+  }
+
+  .versions.expanded {
+    display: block;
   }
 </style>
