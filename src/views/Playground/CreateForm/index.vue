@@ -20,9 +20,9 @@
             <el-select v-model="formData.playgroundType" clearable placeholder="请选择">
               <el-option
                 v-for="playgroundType in playgroundTypes"
-                :key="playgroundType.id"
+                :key="playgroundType.label"
                 :label="playgroundType.label"
-                :value="playgroundType.id"
+                :value="playgroundType.label"
               />
             </el-select>
           </el-form-item>

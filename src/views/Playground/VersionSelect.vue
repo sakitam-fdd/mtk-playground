@@ -113,7 +113,7 @@
   }
 
   .active-version .number {
-    color: var(--green);
+    color: var(--el-color-primary);
     margin-left: 4px;
   }
 
@@ -128,7 +128,7 @@
   }
 
   .versions .active a {
-    color: var(--green);
+    color: var(--el-color-primary);
   }
 
   .versions .versions-item {

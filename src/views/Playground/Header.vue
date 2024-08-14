@@ -227,7 +227,7 @@
   }
 
   .toggle-prod span {
-    background: var(--green);
+    background: var(--el-color-primary);
     color: #fff;
   }
 
@@ -241,7 +241,7 @@
 
   .toggle-ssr.enabled span {
     color: #fff;
-    background-color: var(--green);
+    background-color: var(--el-color-primary);
   }
 
   .version:hover .active-version::after {
@@ -277,7 +277,7 @@
   }
 
   .versions a:hover {
-    color: var(--green);
+    color: var(--el-color-primary);
   }
 
   .versions.expanded {

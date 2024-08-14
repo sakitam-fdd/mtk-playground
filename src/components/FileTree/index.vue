@@ -1,13 +1,13 @@
 <template>
   <ul role="tree" aria-label="file tree" class="tree">
-    <li v-for="item in data" class="tree-item" tabindex="-1" :key="item.id" :id="item.id">
+    <li v-for="item in data" class="tree-item" tabindex="-1" :key="item.sha" :id="item.sha">
       <div class="tree-item-label" :style="{ paddingLeft: depth * 24 + 'px' }" @click="handleItem(item)">
         <span class="tree-item-label-content">
           <div>
             <el-icon v-if="item.icon" size="14">
-              <span :class="item.icon"></span>
+              <component :is="item.icon"></component>
             </el-icon>
-            <span :class="['label', item.icon ? 'ml-10px' : 'ml-0']">{{ item.label }}</span>
+            <span :class="['label', item.icon ? 'ml-10px' : 'ml-0']">{{ item.path }}</span>
           </div>
         </span>
         <span

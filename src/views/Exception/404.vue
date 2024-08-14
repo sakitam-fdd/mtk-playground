@@ -1,10 +1,8 @@
 <template>
-  <div class="container-error">
-    <el-result class="content" sub-title="抱歉，页面不见了～">
-      <template #extra>
-        <el-button key="back" type="primary" @click="back">返回上一页</el-button>
-      </template>
-    </el-result>
+  <div class="container-error flex flex-col items-center justify-center">
+    <h1>404</h1>
+    <p>抱歉，页面不见了～</p>
+    <el-button class="mt-30px" key="back" type="primary" @click="back">返回上一页</el-button>
   </div>
 </template>
 
@@ -16,16 +14,5 @@
 </script>
 
 <style scoped>
-  .container-error {
-    width: 100%;
-    height: 100%;
-    position: relative;
-  }
-
-  .content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+  @import url(./style.less);
 </style>

@@ -1,3 +1,7 @@
+import GisIcon from '~icons/oui/app-gis';
+import LayerIcon from '~icons/gis/layer-height';
+import GLTFIcon from '~icons/file-icons/gltf';
+import SphereIcon from '~icons/tabler/cube-3d-sphere';
 import http from './request';
 import * as API from './apis';
 import { CommonEnumType } from './schema/common';
@@ -8,27 +12,23 @@ export function getEnums() {
 
 export const playgroundTypes = [
   {
-    id: '0',
     label: '基础功能',
-    icon: 'i-oui:app-gis',
+    icon: GisIcon,
     collapse: true,
   },
   {
-    id: '1',
     label: '矢量瓦片及点线面图层',
-    icon: 'i-gis:layer-height',
+    icon: LayerIcon,
     collapse: true,
   },
   {
-    id: '2',
     label: 'GLTF模型',
-    icon: 'i-file-icons:gltf',
+    icon: GLTFIcon,
     collapse: true,
   },
   {
-    id: '3',
     label: '三维功能',
-    icon: 'i-tabler:cube-3d-sphere',
+    icon: SphereIcon,
     collapse: true,
   },
 ];

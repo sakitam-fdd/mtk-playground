@@ -1,5 +1,5 @@
 import { Octokit } from 'octokit';
-import { get } from 'lodash-es';
+import { get, assign } from 'lodash-es';
 import dayjs from 'dayjs';
 import { to } from '@/utils/to';
 import { playgroundTypes } from '@/api/common';
@@ -88,19 +88,42 @@ export async function updateFile() {}
 /**
  * 获取仓库的文件目录树
  */
-export async function getFileTree() {
-  const res = await octokit.request('GET /repos/{owner}/{repo}/git/trees/{tree_sha}', {
-    owner,
-    repo,
-    tree_sha: 'main',
-    headers: {
-      ...commonHeaders,
-    },
-  });
+export async function getFileTree(sha = 'main', depth = 0) {
+  if (depth > 2) return [];
 
-  console.log(res);
+  const [error, res] = await to(
+    octokit.request('GET /repos/{owner}/{repo}/git/trees/{tree_sha}', {
+      owner,
+      repo,
+      tree_sha: sha,
+      headers: {
+        ...commonHeaders,
+      },
+    }),
+  );
 
-  return res;
+  if (!error && isSuccess(res)) {
+    const data = get(res, 'data.tree', []).filter((item) => item.type === 'tree');
+
+    for (let i = 0; i < data.length; i++) {
+      const item = data[i];
+      const p = playgroundTypes.find((pl) => pl.label === item.path);
+
+      if (p) {
+        assign(item, p);
+      }
+
+      const [e, r] = await to(getFileTree(item.sha, depth + 1));
+
+      if (!e && r) {
+        item.children = r && r?.length ? r : null;
+      }
+    }
+
+    return data;
+  }
+
+  return [];
 }
 
 export async function getFileContent(path: string) {
@@ -145,11 +168,6 @@ export async function createPR({ branch, title, body }: { branch: string; title:
 
 export async function createFolder(body: { name: string; playgroundType: string }) {
   const branch = buildBranch();
-  const p = playgroundTypes.find((pl) => pl.id === body.playgroundType);
-
-  if (!p) {
-    return false;
-  }
 
   const [error, data] = await to(createBranch({ branchName: branch }));
 
@@ -158,7 +176,7 @@ export async function createFolder(body: { name: string; playgroundType: string 
       octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
         owner,
         repo,
-        path: `${p.label}/${body.name}/.gitkeep`,
+        path: `${body.playgroundType}/${body.name}/.gitkeep`,
         message: 'docs: add folder',
         committer: commonAuthor,
         author: commonAuthor,
@@ -174,8 +192,8 @@ export async function createFolder(body: { name: string; playgroundType: string 
       await to(
         createPR({
           branch,
-          title: `update: add folder ${p.label}/${body.name}`,
-          body: `add folder ${p.label}/${body.name}`,
+          title: `update: add folder ${body.playgroundType}/${body.name}`,
+          body: `add folder ${body.playgroundType}/${body.name}`,
         }),
       );
     }

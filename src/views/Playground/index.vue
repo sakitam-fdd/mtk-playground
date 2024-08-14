@@ -12,7 +12,7 @@
   />
   <div class="flex">
     <div class="w-250px min-w-250px max-w-250px flex-[0_0_auto] bg-[var(--bg)] border-r-1 border-[var(--m-border)]">
-      <FileTree v-if="list.length > 0" :data="list"></FileTree>
+      <FileTree v-loading="loading" v-if="list.length > 0" :data="list"></FileTree>
       <div class="wh-full flex justify-center pt-20px">
         <el-button type="primary" @click="handleCreate">
           <el-icon class="el-icon--right">
@@ -59,7 +59,6 @@
   import Monaco from '@vue/repl/monaco-editor';
   import { ref, watchEffect, onMounted, computed } from 'vue';
   import { Plus } from '@element-plus/icons-vue';
-  // import { useWindowSize } from '@vueuse/core';
   import FileTree from '@/components/FileTree/index.vue';
   import { to } from '@/utils/to';
   import { createBranch, createFile, getFileTree, buildBranch, isSuccess } from '@/api/github';
@@ -69,6 +68,7 @@
 
   const replRef = ref<InstanceType<typeof Repl>>();
   const list = ref<any[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const setVH = () => {
     document.documentElement.style.setProperty('--vh', `${window.innerHeight}px`);
@@ -191,8 +191,13 @@
     theme.value = isDark ? 'dark' : 'light';
   };
 
-  const getMenuList = () => {
-    getFileTree();
+  const getMenuList = async () => {
+    setLoading(true);
+    const data = await getFileTree();
+
+    list.value = data;
+    setLoading(false);
+    console.log(data);
   };
 
   getMenuList();
@@ -227,6 +232,7 @@
 
   .vue-repl {
     height: calc(var(--vh) - var(--nav-height)) !important;
+    --color-branding: var(--el-color-primary);
   }
 
   button {
