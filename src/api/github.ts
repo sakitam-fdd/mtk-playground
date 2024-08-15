@@ -61,8 +61,9 @@ export async function createBranch({ branchName }: { branchName: string }) {
  * 创建新文件
  * @param files
  * @param branch
+ * @param folder
  */
-export async function createFile(files: Record<string, string>, { branch }) {
+export async function createFile(files: Record<string, string>, { branch, folder }) {
   const keys = Object.keys(files);
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
@@ -70,7 +71,7 @@ export async function createFile(files: Record<string, string>, { branch }) {
     await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
       owner,
       repo,
-      path: key,
+      path: folder ? `${folder}/${key}` : key,
       message: 'docs: add file',
       committer: commonAuthor,
       author: commonAuthor,
@@ -81,6 +82,14 @@ export async function createFile(files: Record<string, string>, { branch }) {
       },
     });
   }
+
+  await to(
+    createPR({
+      branch,
+      title: `feature: add ${folder} playground`,
+      body: `add ${folder} playground`,
+    }),
+  );
 }
 
 export async function updateFile() {}
@@ -88,7 +97,7 @@ export async function updateFile() {}
 /**
  * 获取仓库的文件目录树
  */
-export async function getFileTree(sha = 'main', depth = 0) {
+export async function getFileTree(sha = 'main', depth = 0, path = '') {
   if (depth > 2) return [];
 
   const [error, res] = await to(
@@ -107,13 +116,14 @@ export async function getFileTree(sha = 'main', depth = 0) {
 
     for (let i = 0; i < data.length; i++) {
       const item = data[i];
+      item.fullPath = path ? `${path}/${item.path}` : item.path;
       const p = playgroundTypes.find((pl) => pl.label === item.path);
 
       if (p) {
         assign(item, p);
       }
 
-      const [e, r] = await to(getFileTree(item.sha, depth + 1));
+      const [e, r] = await to(getFileTree(item.sha, depth + 1, item.fullPath));
 
       if (!e && r) {
         item.children = r && r?.length ? r : null;

@@ -11,9 +11,12 @@
     @save="handleSave"
   />
   <div class="flex">
-    <div class="w-250px min-w-250px max-w-250px flex-[0_0_auto] bg-[var(--bg)] border-r-1 border-[var(--m-border)]">
-      <FileTree v-loading="loading" v-if="list.length > 0" :data="list"></FileTree>
-      <div class="wh-full flex justify-center pt-20px">
+    <div
+      class="w-250px min-w-250px max-w-250px flex-[0_0_auto] bg-[var(--bg)] border-r-1 border-[var(--m-border)]"
+      v-loading="loading"
+    >
+      <FileTree v-if="list.length > 0" :data="list" :menu-key="current?.path" @change="handleMenuSelect"></FileTree>
+      <div v-if="enableAdd" class="wh-full flex justify-center pt-20px">
         <el-button type="primary" @click="handleCreate">
           <el-icon class="el-icon--right">
             <Plus />
@@ -51,11 +54,12 @@
     </div>
 
     <CreateForm :visible="dialogVisible" @close="dialogVisible = false" />
+    <PlaygroundForm :store="store" :current="current" :visible="saveVisible" @close="saveVisible = false" />
   </div>
 </template>
 
 <script setup lang="ts">
-  import { Repl, useStore, SFCOptions, useVueImportMap } from '@vue/repl';
+  import { Repl, useStore, SFCOptions, useVueImportMap, mergeImportMap } from '@vue/repl';
   import Monaco from '@vue/repl/monaco-editor';
   import { ref, watchEffect, onMounted, computed } from 'vue';
   import { Plus } from '@element-plus/icons-vue';
@@ -64,11 +68,13 @@
   import { createBranch, createFile, getFileTree, buildBranch, isSuccess } from '@/api/github';
   import Header from './Header.vue';
   import CreateForm from './CreateForm/index.vue';
+  import PlaygroundForm from './PlaygroundForm/index.vue';
   import { buildCommit } from './Download/download';
 
   const replRef = ref<InstanceType<typeof Repl>>();
   const list = ref<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [enableAdd] = useState(false);
 
   const setVH = () => {
     document.documentElement.style.setProperty('--vh', `${window.innerHeight}px`);
@@ -79,7 +85,9 @@
   const useSSRMode = ref(false);
   const [saveLoading, setSaveLoading] = useState(false);
   const [dialogVisible, setDialogVisible] = useState(false);
+  const [saveVisible, setSaveVisible] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
+  const [current, setCurrent] = useState<any>({});
 
   const { productionMode, vueVersion, importMap } = useVueImportMap({
     runtimeDev: import.meta.env.PROD
@@ -127,8 +135,16 @@
     }),
   );
 
+  console.log(importMap);
+
   const store = useStore({
-    builtinImportMap: importMap,
+    builtinImportMap: ref(
+      mergeImportMap(importMap.value, {
+        imports: {
+          maptalks: 'https://esm.sh/maptalks@1.0.0-rc.33',
+        },
+      }),
+    ),
     vueVersion,
     sfcOptions,
   });
@@ -153,25 +169,27 @@
    */
   const handleSave = async () => {
     setSaveLoading(true);
-    const content = buildCommit(store);
 
-    const branch = buildBranch();
+    if (current.value?.depth === 2) {
+      setSaveVisible(true);
+    } else if (current.value?.depth === 3) {
+      const content = buildCommit(store);
 
-    const [error, data] = await to(createBranch({ branchName: branch }));
+      const branch = buildBranch();
 
-    if (!error && isSuccess(data)) {
-      const [error, data] = await to(
-        createFile(content, {
-          branch,
-        }),
-      );
-    } else {
-      console.log(error);
+      const [error, data] = await to(createBranch({ branchName: branch }));
+
+      if (!error && isSuccess(data)) {
+        const [error, data] = await to(
+          createFile(content, {
+            branch,
+            folder: false,
+          }),
+        );
+      } else {
+        console.log(error);
+      }
     }
-
-    // createFile(content).then(() => {
-    //   setSaveLoading(false);
-    // });
   };
 
   const toggleProdMode = () => {
@@ -205,6 +223,13 @@
   const handleCreate = () => {
     setIsCreate(true);
     setDialogVisible(true);
+  };
+
+  const handleMenuSelect = (m, d) => {
+    setCurrent({
+      ...m,
+      depth: d,
+    });
   };
 
   onMounted(() => {

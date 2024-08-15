@@ -1,10 +1,16 @@
 <template>
   <ul role="tree" aria-label="file tree" class="tree">
-    <li v-for="item in data" class="tree-item" tabindex="-1" :key="item.sha" :id="item.sha">
-      <div class="tree-item-label" :style="{ paddingLeft: depth * 24 + 'px' }" @click="handleItem(item)">
+    <li
+      v-for="item in data"
+      :class="['tree-item', menuKey === item.path ? 'selected' : '']"
+      tabindex="-1"
+      :key="item.path"
+      :id="item.path"
+    >
+      <div class="tree-item-label" :style="{ paddingLeft: depth * 24 + 'px' }" @click="handleItem(item, depth)">
         <span class="tree-item-label-content">
           <div>
-            <el-icon v-if="item.icon" size="14">
+            <el-icon v-if="item.icon" class="vertical-text-top pt-4px" size="14">
               <component :is="item.icon"></component>
             </el-icon>
             <span :class="['label', item.icon ? 'ml-10px' : 'ml-0']">{{ item.path }}</span>
@@ -18,9 +24,11 @@
 
       <FileTree
         v-if="item.children && item.children.length > 0"
+        :menu-key="menuKey"
         :data="item.children"
         :class="[item.collapse || isUndefined(item.collapse) ? 'hidden' : 'show']"
         :depth="depth + 1"
+        @change="onChange"
       />
     </li>
   </ul>
@@ -35,6 +43,7 @@
 
   withDefaults(
     defineProps<{
+      menuKey?: string;
       data?: any[];
       depth?: number;
     }>(),
@@ -44,8 +53,19 @@
     },
   );
 
-  const handleItem = (item) => {
+  const emits = defineEmits(['update:modelValue', 'change']);
+
+  const onChange = (item, depth: number) => {
+    emits('update:modelValue', item, depth);
+    emits('change', item, depth);
+  };
+
+  const handleItem = (item, depth) => {
     item.collapse = !item.collapse;
+
+    if (depth >= 2) {
+      onChange(item, depth);
+    }
   };
 </script>
 
@@ -116,6 +136,10 @@
               color 0.3s;
           }
         }
+
+        &:hover {
+          color: var(--el-color-primary);
+        }
       }
 
       &-arrow {
@@ -161,6 +185,10 @@
             transform: rotate(45deg) translate(2.5px);
           }
         }
+      }
+
+      &.selected {
+        color: var(--el-color-primary);
       }
     }
 
