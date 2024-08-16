@@ -4,10 +4,10 @@ import GLTFIcon from '~icons/file-icons/gltf';
 import SphereIcon from '~icons/tabler/cube-3d-sphere';
 import http from './request';
 import * as API from './apis';
-import { CommonEnumType } from './schema/common';
+import { ITemplate } from './schema/template';
 
-export function getEnums() {
-  return http.get<CommonEnumType>(API.BASE_ENUM, {});
+export function getSomething() {
+  return http.get<ITemplate>(API.TEST_API, {});
 }
 
 export const playgroundTypes = [

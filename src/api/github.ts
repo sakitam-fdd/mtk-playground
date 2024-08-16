@@ -121,6 +121,10 @@ export async function getFileTree(sha = 'main', depth = 0, path = '') {
 
       if (p) {
         assign(item, p);
+      } else {
+        assign(item, {
+          collapse: true,
+        });
       }
 
       const [e, r] = await to(getFileTree(item.sha, depth + 1, item.fullPath));
@@ -134,6 +138,58 @@ export async function getFileTree(sha = 'main', depth = 0, path = '') {
   }
 
   return [];
+}
+
+// 以下文件无需拉取，这是通用公共文件
+const excludeFileName = ['index.html', 'vite.config.js', 'README.md', 'main.js', 'package.json', '.gitkeep'];
+
+export async function getPlaygroundLoop(item: any, files: any[]) {
+  const [error, res] = await to(
+    octokit.request('GET /repos/{owner}/{repo}/git/trees/{tree_sha}', {
+      owner,
+      repo,
+      tree_sha: item?.sha,
+      headers: {
+        ...commonHeaders,
+      },
+    }),
+  );
+
+  if (!error && isSuccess(res)) {
+    const data = get(res, 'data.tree', []);
+
+    // 示例目录下的所有文件加目录
+    for (let i = 0; i < data.length; i++) {
+      const d = data[i];
+      const pathArray = d.path.split('/');
+      const fileName = pathArray[pathArray.length - 1];
+      // 如果还是文件夹(默认应该是 src)，那么递归
+      if (d.type === 'tree') {
+        await getPlaygroundLoop({ sha: d.sha, fullPath: item.fullPath ? `${item.fullPath}/${d.path}` : d.path }, files);
+      } else if (!excludeFileName.includes(fileName)) {
+        // 如果是文件获取文件内容
+        const [e, r] = await to(getFileContent(`${item.fullPath}/${d.path}`));
+
+        if (!e && isSuccess(r)) {
+          files.push(r.data);
+        }
+      }
+    }
+  }
+
+  return files;
+}
+
+export async function getPlayground(item: any) {
+  const files = [];
+
+  await getPlaygroundLoop(item, files);
+
+  return files.map((f) => ({
+    ...f,
+    playgroundCode: atob(f.content),
+    playgroundPath: f.path.replace(`${item.fullPath}/`, ''),
+  }));
 }
 
 export async function getFileContent(path: string) {

@@ -8,7 +8,8 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.4.0"
+    "vue": "^3.4.0",
+    "maptalks": "1.0.0-rc.33"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.2",

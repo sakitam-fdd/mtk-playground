@@ -52,6 +52,7 @@
   const props = withDefaults(
     defineProps<{
       visible: boolean;
+      current: any;
       data?: any;
     }>(),
     {

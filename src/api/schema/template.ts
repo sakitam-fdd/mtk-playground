@@ -1,16 +1,16 @@
 import { z } from 'zod';
 import { res } from './base';
 
-const enumItem = z.object({
+const item = z.object({
   id: z.string().or(z.number()),
   label: z.string(),
   desc: z.string(),
 });
 
-export const commonEnum = res.extend({
+export const template = res.extend({
   data: z.object({
-    tags: z.array(enumItem),
+    tags: z.array(item),
   }),
 });
 
-export type CommonEnumType = z.infer<typeof commonEnum>;
+export type ITemplate = z.infer<typeof template>;

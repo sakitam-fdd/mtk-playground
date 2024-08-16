@@ -1,1 +1,1 @@
-export const BASE_ENUM = '/api/enum';
+export const TEST_API = '/api/test';

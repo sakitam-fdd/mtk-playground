@@ -2,18 +2,16 @@
   <nav>
     <h1>
       <img alt="logo" src="@/assets/icon/logo.svg" />
-      <span>maptalks Playground</span>
+      <span>Maptalks Playground</span>
     </h1>
     <div class="flex items-center">
       <VersionSelect
-        :model-value="maptalksVersion"
+        :model-value="mtkVersion"
         @update:model-value="setVueVersion"
         pkg="maptalks"
         label="Maptalks Version"
       >
-        <li :class="{ active: maptalksVersion === `@${currentCommit}` }">
-          <a @click="resetVueVersion">This Commit ({{ currentCommit }})</a>
-        </li>
+        <li :class="{ active: mtkVersion === `@${currentCommit}` }"></li>
         <li>
           <a href="https://app.netlify.com/sites/vue-sfc-playground/deploys" target="_blank">Commits History</a>
         </li>
@@ -105,7 +103,7 @@
 
   const currentCommit = '3.4.27';
 
-  const maptalksVersion = computed(() => {
+  const mtkVersion = computed(() => {
     if (store.loading) {
       return 'loading...';
     }
@@ -114,10 +112,6 @@
 
   async function setVueVersion(v: string) {
     store.vueVersion = v;
-  }
-
-  function resetVueVersion() {
-    store.vueVersion = null;
   }
 
   async function copyLink(e: MouseEvent) {

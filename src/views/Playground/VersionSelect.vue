@@ -92,9 +92,9 @@
           <span class="ant-design:copy-outlined"></span>
         </button>
       </li>
-      <div @click="expanded = false">
+      <li @click="expanded = false">
         <slot />
-      </div>
+      </li>
     </ul>
   </div>
 </template>

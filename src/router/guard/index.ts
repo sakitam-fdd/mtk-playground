@@ -2,7 +2,7 @@ import type { Router } from 'vue-router';
 import { isNavigationFailure } from 'vue-router';
 import NProgress from 'nprogress';
 import { isEmpty } from 'lodash-es';
-import { useEnumsStore } from '@/store/modules';
+import { useAppStore } from '@/store/modules';
 
 NProgress.configure({
   easing: 'ease',
@@ -13,18 +13,17 @@ NProgress.configure({
 });
 
 async function setupPageGuard(router: Router) {
-  const enumsStore = useEnumsStore();
+  const appStore = useAppStore();
 
   router.beforeEach(async (to, from, next) => {
     if (!NProgress.isStarted()) {
       NProgress.start();
     }
 
-    const commonEnum = toRaw(enumsStore.enum);
+    const templates = toRaw(appStore.templates);
 
-    // 正常来说我们仅请求一次全局枚举数据
-    if (isEmpty(commonEnum)) {
-      // await enumsStore.getEnums();
+    if (isEmpty(templates)) {
+      // await appStore.getTemplates();
     }
 
     next();
