@@ -15,6 +15,17 @@
             <el-input v-model="formData.name" clearable placeholder="请输入" />
           </el-form-item>
         </el-col>
+        <el-col :span="24">
+          <el-form-item class="mb-30px" prop="folder" label="所属目录">
+            <el-tree-select
+              node-key="fullPath"
+              :props="{ label: 'path' }"
+              v-model="formData.folder"
+              :data="filterFolders(tree)"
+              :render-after-expand="false"
+            />
+          </el-form-item>
+        </el-col>
       </el-row>
     </el-form>
     <template #footer>
@@ -28,36 +39,40 @@
   import { ref } from 'vue';
   import { extend } from 'lodash-es';
   import { ElMessage, FormInstance, FormRules } from 'element-plus';
-  import { buildBranch, createBranch, createFile, isSuccess } from '@/api/github';
+  import { buildBranch, createBranch, createFile, isSuccess, filterFolders } from '@/api/github';
   import type { ReplStore } from '@vue/repl';
   import { buildCommit } from '@/views/Playground/Download/download';
   import { to } from '@/utils/to';
 
   interface ICreateReq {
     name: string;
+    folder: string;
   }
 
   const props = withDefaults(
     defineProps<{
       visible: boolean;
       data?: any;
-      current: any;
+      tree?: any[];
       store: ReplStore;
     }>(),
     {
       visible: false,
+      tree: () => [],
     },
   );
 
   const DEFAULT_FORM_DATA = {
     name: '',
+    folder: '',
   };
   const dialogVisible = ref<boolean>(props.visible);
   const [loading, setLoading] = useState(false);
   const formRef = ref<FormInstance | null>(null);
   const formData = ref<ICreateReq>(JSON.parse(JSON.stringify(DEFAULT_FORM_DATA)));
-  const formRules: FormRules<Pick<ICreateReq, 'name'>> = {
+  const formRules: FormRules<Pick<ICreateReq, 'name' | 'folder'>> = {
     name: [{ required: true, trigger: 'blur', message: '请输入示例名称' }],
+    folder: [{ required: true, trigger: 'change', message: '请选择所属目录' }],
   };
 
   const emits = defineEmits(['update:visible', 'change']);
@@ -94,7 +109,7 @@
       const [e] = await to(
         createFile(content, {
           branch,
-          folder: `${props.current?.fullPath}/${formData.value.name}`,
+          folder: `${formData.value?.folder}/${formData.value.name}`,
         }),
       );
 
@@ -117,8 +132,8 @@
       dialogVisible.value = v;
       if (v && props.data) {
         const data = JSON.parse(JSON.stringify(props.data));
-        extend(DEFAULT_FORM_DATA, data);
-        formData.value = data;
+        extend(DEFAULT_FORM_DATA, { folder: data.fullPath });
+        formData.value = DEFAULT_FORM_DATA;
       }
     },
   );

@@ -34,21 +34,47 @@ export async function downloadProject(store: ReplStore) {
   saveAs(blob, 'maptalks-project.zip');
 }
 
-export function buildCommit(store: ReplStore) {
-  const object = {
-    'package.json': pkg,
-    'vite.config.js': config,
-    'README.md': readme,
-    'index.html': index,
-  };
+export function buildCommit(store: ReplStore, isEdit = false) {
+  const object = isEdit
+    ? []
+    : [
+        {
+          name: 'package.json',
+          path: 'package.json',
+          content: pkg,
+        },
+        {
+          name: 'vite.config.js',
+          path: 'vite.config.js',
+          content: config,
+        },
+        {
+          name: 'README.md',
+          path: 'README.md',
+          content: readme,
+        },
+        {
+          name: 'index.html',
+          path: 'index.html',
+          content: index,
+        },
+      ];
 
   const files = store.getFiles();
   // eslint-disable-next-line no-restricted-syntax
   for (const file in files) {
     if (file !== 'import-map.json' && file !== 'tsconfig.json') {
-      object[`src/${file}`] = files[file];
+      object.push({
+        name: file,
+        path: `src/${file}`,
+        content: files[file],
+      });
     } else {
-      object[file] = files[file];
+      object.push({
+        name: file,
+        path: file,
+        content: files[file],
+      });
     }
   }
 

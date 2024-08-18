@@ -150,21 +150,103 @@ export function filterFolders(list: any[]) {
   return list.map(filterFolder);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-shadow
+function generateQuery(owner: string, repo: string, path: string, depth: number): string {
+  let query = `
+  {
+    repository(owner: "${owner}", name: "${repo}") {
+      object(expression: "${path}") {
+        ... on Tree {
+          entries {
+            name
+            type
+  `;
+
+  // 添加递归部分
+  for (let i = 0; i < depth - 1; i++) {
+    query += `
+            object {
+              ... on Tree {
+                entries {
+                  name
+                  type
+      `;
+  }
+
+  // 关闭所有递归层次的括号
+  for (let i = 0; i < depth - 1; i++) {
+    query += `
+                }
+              }
+            }
+      `;
+  }
+
+  query += `
+          }
+        }
+      }
+    }
+  }
+  `;
+  return query;
+}
+
 /**
  * 获取仓库的文件目录树
  */
 export async function getFileTree(sha = 'main', depth = 0, path = '') {
   if (depth > 2) return [];
 
+  // const query = generateQuery(owner, repo, `${sha}:`, 2);
   const [error, res] = await to(
-    octokit.request('GET /repos/{owner}/{repo}/git/trees/{tree_sha}', {
-      owner,
-      repo,
-      tree_sha: sha,
-      headers: {
-        ...commonHeaders,
+    octokit.graphql(
+      `
+      query menus ( $owner: String!, $repo: String!, $expression: String!) {
+  repository(owner: $owner, name: $repo) {
+    object(expression: $expression) {
+      ... on Tree {
+        entries {
+          mode
+          path
+          name
+          type
+          object {
+            ... on Tree {
+              entries {
+                mode
+                path
+                name
+                type
+
+                object {
+                  ... on Tree {
+                    entries {
+                      mode
+                      path
+                      name
+                      type
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `,
+      {
+        owner,
+        repo,
+        tree_sha: sha,
+        headers: {
+          ...commonHeaders,
+        },
       },
-    }),
+    ),
   );
 
   if (!error && isSuccess(res)) {

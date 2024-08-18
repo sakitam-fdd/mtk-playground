@@ -15,7 +15,7 @@
       class="nav-wrap w-250px min-w-250px max-w-250px flex-[0_0_auto] bg-[var(--bg)] border-r-1 border-[var(--m-border)]"
       v-loading="loading"
     >
-      <div v-if="enableAdd" class="wh-full flex justify-center pt-20px">
+      <div v-if="enableAdd" class="w-full flex justify-center pt-20px">
         <el-button type="primary" @click="handleCreate">
           <el-icon class="el-icon--right">
             <Plus />
@@ -69,7 +69,7 @@
     </div>
 
     <CreateForm :current="current" :visible="dialogVisible" @close="dialogVisible = false" />
-    <PlaygroundForm :store="store" :current="current" :visible="saveVisible" @close="saveVisible = false" />
+    <PlaygroundForm :store="store" :data="current" :tree="list" :visible="saveVisible" @close="saveVisible = false" />
   </div>
 </template>
 
@@ -81,7 +81,16 @@
   import { ElMessage } from 'element-plus';
   import FileTree from '@/components/FileTree/index.vue';
   import { to } from '@/utils/to';
-  import { createBranch, createFile, getFileTree, buildBranch, isSuccess, getPlayground } from '@/api/github';
+  import {
+    createBranch,
+    createFile,
+    getFileTree,
+    buildBranch,
+    isSuccess,
+    getPlayground,
+    matchSha,
+    getFolder,
+  } from '@/api/github';
   import { IMPORTMAP_FILE, useStore } from './store';
   import Header from './Header.vue';
   import CreateForm from './CreateForm/index.vue';
@@ -92,7 +101,7 @@
   const list = ref<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [userLoading, setUserLoading] = useState(false);
-  const [enableAdd] = useState(false);
+  const [enableAdd] = useState(true);
 
   const setVH = () => {
     document.documentElement.style.setProperty('--vh', `${window.innerHeight}px`);
@@ -140,6 +149,7 @@
     }),
   );
   const userFiles = ref({});
+  const currentEditorFiles = ref([]);
 
   // enable experimental features
   const sfcOptions = computed(
@@ -182,7 +192,7 @@
     // window.history.replaceState({}, '', newHash);
   });
 
-  const editorLoading = computed(() => store.loading || userLoading);
+  const editorLoading = computed(() => userLoading.value);
 
   /**
    * 示例保存
@@ -193,12 +203,14 @@
   const handleSave = async () => {
     setSaveLoading(true);
 
-    if (current.value?.depth === 2) {
-      setSaveVisible(true);
-    } else if (current.value?.depth === 3) {
-      const content = buildCommit(store);
+    if (current.value?.depth === 3) {
+      const content = buildCommit(store, true);
 
       const branch = buildBranch();
+
+      matchSha(currentEditorFiles.value, content);
+
+      const folder = getFolder(currentEditorFiles.value);
 
       const [error, data] = await to(createBranch({ branchName: branch }));
 
@@ -206,18 +218,24 @@
         const [e] = await to(
           createFile(content, {
             branch,
-            folder: false,
+            folder,
           }),
         );
 
         if (!e) {
+          setSaveLoading(false);
           ElMessage.success('示例修改成功');
         } else {
+          setSaveLoading(false);
           ElMessage.error('示例修改失败');
         }
       } else {
+        setSaveLoading(false);
         ElMessage.error('创建分支失败');
       }
+    } else {
+      setSaveVisible(true);
+      setSaveLoading(false);
     }
   };
 
@@ -243,6 +261,8 @@
     const data = await getFileTree();
 
     list.value = data;
+
+    console.log(list)
     setLoading(false);
   };
 
@@ -263,6 +283,9 @@
       getPlayground(m)
         .then((files: any[]) => {
           const fs = {};
+
+          currentEditorFiles.value = files;
+
           for (let i = 0; i < files.length; i++) {
             const file = files[i];
 
@@ -276,7 +299,7 @@
           userFiles.value = fs;
         })
         .finally(() => {
-          setUserLoading(true);
+          setUserLoading(false);
         });
     }
   };

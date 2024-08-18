@@ -3,10 +3,10 @@ export function to<T, U = Error>(promise: Promise<T>, errorExt?: object): Promis
     .then<[null, T]>((data: T) => [null, data])
     .catch<[U, undefined]>((err: U) => {
       if (errorExt) {
-        const parsedError = Object.assign({}, err, errorExt)
-        return [parsedError, undefined]
+        const parsedError = { ...err, ...errorExt };
+        return [parsedError, undefined];
       }
 
-      return [err, undefined]
-    })
+      return [err, undefined];
+    });
 }
