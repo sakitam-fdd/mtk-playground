@@ -1,0 +1,4 @@
+projects:
+  - name: mtk
+schema:
+  - ./src/api/schema.docs.graphql

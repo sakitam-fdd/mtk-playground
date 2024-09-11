@@ -7,7 +7,7 @@ import { playgroundTypes } from '@/api/common';
 // Octokit.js
 // https://github.com/octokit/core.js#readme
 const octokit = new Octokit({
-  auth: import.meta.env.VITE_GITHUB_TOKEN,
+  auth: import.meta.env.VITE_AUTH_TOKEN,
 });
 
 const owner = import.meta.env.VITE_GITHUB_OWNER;
@@ -18,8 +18,8 @@ const commonHeaders = {
 const baseBranch = 'main';
 
 const commonAuthor = {
-  name: import.meta.env.VITE_GITHUB_AUTHOR,
-  email: import.meta.env.VITE_GITHUB_EMAIL,
+  name: import.meta.env.VITE_COMMON_AUTHOR_NAME,
+  email: import.meta.env.VITE_COMMON_AUTHOR_EMAIL,
 };
 
 export function isSuccess(res: Record<string, any>) {

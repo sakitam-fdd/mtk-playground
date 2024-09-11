@@ -13,7 +13,7 @@
             <el-icon v-if="item.icon" class="vertical-text-top pt-4px" size="14">
               <component :is="item.icon"></component>
             </el-icon>
-            <span :class="['label', item.icon ? 'ml-10px' : 'ml-0']">{{ item.path }}</span>
+            <span :class="['label', item.icon ? 'ml-10px' : 'ml-0']">{{ item.name }}</span>
           </div>
         </span>
         <span

@@ -41,7 +41,7 @@
   import { extend } from 'lodash-es';
   import { ElMessage, FormInstance, FormRules } from 'element-plus';
   import { playgroundTypes } from '@/api/common';
-  import { createFolder, updateFolder } from '@/api/github';
+  import { createFolder, updateFolder } from '@/api/graphql';
 
   interface ICreateReq {
     name: string;

@@ -39,7 +39,7 @@
   import { ref } from 'vue';
   import { extend } from 'lodash-es';
   import { ElMessage, FormInstance, FormRules } from 'element-plus';
-  import { buildBranch, createBranch, createFile, isSuccess, filterFolders } from '@/api/github';
+  import { filterFolders, commitAndPr } from '@/api/graphql';
   import type { ReplStore } from '@vue/repl';
   import { buildCommit } from '@/views/Playground/Download/download';
   import { to } from '@/utils/to';
@@ -99,27 +99,20 @@
     if (!valid) return console.error('表单校验不通过', formData);
     setLoading(true);
 
+    // 获取所有文件
     const content = buildCommit(props.store);
 
-    const branch = buildBranch();
+    const [error] = await to(
+      commitAndPr({
+        content,
+        folder: `${formData.value?.folder}/${formData.value.name}`,
+      }),
+    );
 
-    const [error, data] = await to(createBranch({ branchName: branch }));
-
-    if (!error && isSuccess(data)) {
-      const [e] = await to(
-        createFile(content, {
-          branch,
-          folder: `${formData.value?.folder}/${formData.value.name}`,
-        }),
-      );
-
-      if (!e) {
-        ElMessage.success('操作成功');
-        handleCancel();
-        setLoading(false);
-      } else {
-        setLoading(false);
-      }
+    if (!error) {
+      ElMessage.success('操作成功');
+      handleCancel();
+      setLoading(false);
     } else {
       console.log(error);
       setLoading(false);

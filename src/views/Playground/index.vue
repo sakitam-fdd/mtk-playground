@@ -84,13 +84,13 @@
   import {
     createBranch,
     createFile,
-    getFileTree,
     buildBranch,
     isSuccess,
     getPlayground,
     matchSha,
     getFolder,
   } from '@/api/github';
+  import { getFileTree } from '@/api/graphql';
   import { IMPORTMAP_FILE, useStore } from './store';
   import Header from './Header.vue';
   import CreateForm from './CreateForm/index.vue';
@@ -262,7 +262,6 @@
 
     list.value = data;
 
-    console.log(list)
     setLoading(false);
   };
 

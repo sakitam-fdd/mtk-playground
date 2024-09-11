@@ -7,7 +7,7 @@ import { playgroundTypes } from '@/api/common';
 // Octokit.js
 // https://github.com/octokit/core.js#readme
 const octokit = new Octokit({
-  auth: import.meta.env.VITE_GITHUB_TOKEN,
+  auth: import.meta.env.VITE_AUTH_TOKEN,
 });
 
 const owner = import.meta.env.VITE_GITHUB_OWNER;
@@ -18,8 +18,8 @@ const commonHeaders = {
 const baseBranch = 'main';
 
 const commonAuthor = {
-  name: import.meta.env.VITE_GITHUB_AUTHOR,
-  email: import.meta.env.VITE_GITHUB_EMAIL,
+  name: import.meta.env.VITE_COMMON_AUTHOR_NAME,
+  email: import.meta.env.VITE_COMMON_AUTHOR_EMAIL,
 };
 
 export function isSuccess(res: Record<string, any>) {
@@ -31,30 +31,81 @@ export function buildBranch() {
 }
 
 export async function getBranch() {
-  return await octokit.request('GET /repos/{owner}/{repo}/branches/{branch}', {
-    owner,
-    repo,
-    branch: baseBranch,
-    headers: {
-      ...commonHeaders,
+  return await octokit.graphql(
+    `
+      query ($owner: String!, $repo: String!, $qualifiedName: String!) {
+        repository(owner: $owner, name: $repo) {
+          id
+          ref(qualifiedName: $qualifiedName) {
+            name
+            target {
+              ... on Commit {
+                oid
+                message
+                committedDate
+              }
+            }
+          }
+        }
+      }
+    `,
+    {
+      owner,
+      repo,
+      qualifiedName: `refs/heads/${baseBranch}`,
+      headers: {
+        ...commonHeaders,
+      },
     },
-  });
+  );
 }
 
 export async function createBranch({ branchName }: { branchName: string }) {
   const [error, res] = await to(getBranch());
 
-  if (!error && isSuccess(res)) {
-    return await octokit.request('POST /repos/{owner}/{repo}/git/refs', {
-      owner,
-      repo,
-      ref: `refs/heads/${branchName}`,
-      sha: get(res, 'data.commit.sha', ''),
-      headers: {
-        ...commonHeaders,
-      },
-    });
+  if (!error && res) {
+    const [e, r] = await to(
+      octokit.graphql(
+        `
+        mutation($repositoryId: ID!, $branchName: String!, $oid: GitObjectID!) {
+          createRef(input: {repositoryId: $repositoryId, name: $branchName, oid: $oid}) {
+            ref {
+              name
+              target {
+                ... on Commit {
+                  oid
+                  message
+                  committedDate
+                }
+              }
+            }
+          }
+        }
+      `,
+        {
+          repositoryId: get(res, 'repository.id'),
+          branchName: `refs/heads/${branchName}`,
+          oid: get(res, 'repository.ref.target.oid', ''),
+          headers: {
+            ...commonHeaders,
+          },
+        },
+      ),
+    );
+
+    if (!e && r) {
+      return {
+        repositoryId: get(res, 'repository.id'),
+        branchName: `refs/heads/${branchName}`,
+        oid: get(res, 'repository.ref.target.oid', ''),
+        ref: get(r, 'createRef.ref', {}),
+      };
+    }
+
+    return r;
   }
+
+  return res;
 }
 
 export function matchSha(currentEditorFiles: any[], files) {
@@ -129,6 +180,23 @@ export async function createFile(
   );
 }
 
+export async function commitAndPr({ content, folder }) {
+  // 创建新分支 ref
+  const branch = buildBranch();
+
+  const [error, data] = await to(createBranch({ branchName: branch }));
+
+  console.log(error, data);
+  const [e] = await to(
+    createFile(content, {
+      branch,
+      folder,
+    }),
+  );
+
+  console.log(e);
+}
+
 export function filterFolder(list: any) {
   if (!list.children || list.children.length === 0) {
     return list;
@@ -192,33 +260,31 @@ function generateQuery(owner: string, repo: string, path: string, depth: number)
   return query;
 }
 
+function ccPr() {
+  return octokit.graphql(``, {
+    he,
+  });
+}
+
 /**
  * 获取仓库的文件目录树
  */
 export async function getFileTree(sha = 'main', depth = 0, path = '') {
   if (depth > 2) return [];
 
-  // const query = generateQuery(owner, repo, `${sha}:`, 2);
   const [error, res] = await to(
     octokit.graphql(
       `
-      query menus ( $owner: String!, $repo: String!, $expression: String!) {
-  repository(owner: $owner, name: $repo) {
-    object(expression: $expression) {
-      ... on Tree {
-        entries {
-          mode
-          path
-          name
-          type
-          object {
+      query($owner: String!, $repo: String!, $expression: String!) {
+        repository(owner: $owner, name: $repo) {
+          object(expression: $expression) {
             ... on Tree {
               entries {
                 mode
                 path
                 name
                 type
-
+                sha: oid
                 object {
                   ... on Tree {
                     entries {
@@ -226,6 +292,18 @@ export async function getFileTree(sha = 'main', depth = 0, path = '') {
                       path
                       name
                       type
+                      oid
+                      object {
+                        ... on Tree {
+                          entries {
+                            mode
+                            path
+                            name
+                            type
+                            oid
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -234,14 +312,11 @@ export async function getFileTree(sha = 'main', depth = 0, path = '') {
           }
         }
       }
-    }
-  }
-}
     `,
       {
         owner,
         repo,
-        tree_sha: sha,
+        expression: `${sha}:`,
         headers: {
           ...commonHeaders,
         },
@@ -249,30 +324,34 @@ export async function getFileTree(sha = 'main', depth = 0, path = '') {
     ),
   );
 
-  if (!error && isSuccess(res)) {
-    const data = get(res, 'data.tree', []).filter((item) => item.type === 'tree');
+  if (!error && res.repository) {
+    const data = get(res, 'repository.object.entries', []).filter((item) => item.type === 'tree');
 
-    for (let i = 0; i < data.length; i++) {
-      const item = data[i];
-      item.fullPath = path ? `${path}/${item.path}` : item.path;
-      const p = playgroundTypes.find((pl) => pl.label === item.path);
+    const loop = (array) => {
+      for (let i = 0; i < array.length; i++) {
+        const item = array[i];
 
-      if (p) {
-        assign(item, p);
-      } else {
-        assign(item, {
-          collapse: true,
-        });
+        const p = playgroundTypes.find((pl) => pl.label === item.name);
+
+        if (p) {
+          assign(item, p);
+        } else {
+          assign(item, {
+            collapse: true,
+          });
+        }
+
+        if (item.type === 'tree' && item?.object?.entries?.length > 0) {
+          item.children = loop(item.object.entries).filter((it: any) => !['.gitkeep'].includes(it.name));
+        } else {
+          item.children = null;
+        }
       }
 
-      const [e, r] = await to(getFileTree(item.sha, depth + 1, item.fullPath));
+      return array;
+    };
 
-      if (!e && r) {
-        item.children = r && r?.length ? r : null;
-      }
-    }
-
-    return data;
+    return loop(data);
   }
 
   return [];
@@ -356,6 +435,8 @@ export async function deleteFile(file: { path: string; sha: string }) {
   });
 }
 
+export async function createCommit() {}
+
 /**
  * 在 github 创建 pr
  * todo: 需要判断是否有文件变更
@@ -363,18 +444,53 @@ export async function deleteFile(file: { path: string; sha: string }) {
  * @param title
  * @param body
  */
-export async function createPR({ branch, title, body }: { branch: string; title: string; body: string }) {
-  await octokit.request('POST /repos/{owner}/{repo}/pulls', {
-    owner,
-    repo,
-    title,
-    body,
-    head: branch,
-    base: baseBranch,
-    headers: {
-      ...commonHeaders,
+export async function createPR({
+  repositoryId,
+  branch,
+  title,
+  body,
+}: {
+  repositoryId: string;
+  branch: string;
+  title: string;
+  body: string;
+}) {
+  await octokit.graphql(
+    `
+    mutation CreatePullRequest(
+  $repositoryId: ID!,
+  $baseRefName: String!,
+  $headRefName: String!,
+  $title: String!,
+  $body: String
+) {
+  createPullRequest(input: {
+    repositoryId: $repositoryId,
+    baseRefName: $baseRefName,
+    headRefName: $headRefName,
+    title: $title,
+    body: $body
+  }) {
+    pullRequest {
+      url
+      number
+      title
+      body
+    }
+  }
+}
+    `,
+    {
+      title,
+      body,
+      repositoryId,
+      headRefName: branch,
+      baseRefName: baseBranch,
+      headers: {
+        ...commonHeaders,
+      },
     },
-  });
+  );
 }
 
 export async function createFolder(body: { name: string; playgroundType: string }) {
@@ -382,26 +498,73 @@ export async function createFolder(body: { name: string; playgroundType: string 
 
   const [error, data] = await to(createBranch({ branchName: branch }));
 
-  if (!error && isSuccess(data)) {
-    const [e, res] = await to(
-      octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+  if (!error && data) {
+    // 创建文件🌲
+    const [e, res] = await to<any>(
+      octokit.request(`POST /repos/{owner}/{repo}/git/trees`, {
         owner,
         repo,
-        path: `${body.playgroundType}/${body.name}/.gitkeep`,
-        message: 'docs: add folder',
-        committer: commonAuthor,
-        author: commonAuthor,
-        content: btoa(``),
-        branch,
+        base_tree: data.oid,
+        // repositoryId: data.repositoryId,
+        // baseRefOid: data.oid,
+        tree: [
+          {
+            path: `${body.playgroundType}/${body.name}/.gitkeep`,
+            mode: '100644', // 普通文件权限
+            type: 'blob',
+            content: btoa(``),
+            // content: Buffer.from('').toString('base64'),
+          },
+        ],
         headers: {
           ...commonHeaders,
         },
       }),
     );
 
-    if (!e && isSuccess(res)) {
+    // 依据文件树创建commit
+    const [commitError, commitRes] = await to(
+      octokit.graphql(
+        `
+      mutation CreateCommitOnBranch(
+        $branchName: String!,
+        $baseRefOid: GitObjectID!,
+        $message: CommitMessage!,
+      ) {
+        createCommitOnBranch(input: {
+          branch: {
+            branchName: $branchName
+          },
+          message: $message,
+          expectedHeadOid: $baseRefOid,
+        }) {
+          commit {
+            oid
+            url
+          }
+        }
+      }
+      `,
+        {
+          // repositoryId: data.repositoryId,
+          branchName: branch,
+          baseRefOid: data.oid,
+          message: {
+            headline: 'docs: add folder',
+            body: 'add folder',
+          },
+          headers: {
+            ...commonHeaders,
+          },
+        },
+      ),
+    );
+
+    if (!commitError && commitRes) {
+      // 创建pr
       await to(
         createPR({
+          repositoryId: data.repositoryId,
           branch,
           title: `update: add folder ${body.playgroundType}/${body.name}`,
           body: `add folder ${body.playgroundType}/${body.name}`,
