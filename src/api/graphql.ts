@@ -2,7 +2,8 @@ import { Octokit } from 'octokit';
 import { get, assign } from 'lodash-es';
 import dayjs from 'dayjs';
 import { to } from '@/utils/to';
-import { playgroundTypes } from '@/api/common';
+import { useAppStoreHook } from '@/store/modules';
+import { date } from '../utils/dayjs';
 
 // Octokit.js
 // https://github.com/octokit/core.js#readme
@@ -30,6 +31,10 @@ export function buildBranch() {
   return `feature/docs-demo-${dayjs().format('YYYY-MM-DD-HH-mm')}`;
 }
 
+/**
+ * 获取分支信息
+ * @returns 分支信息
+ */
 export async function getBranch() {
   return await octokit.graphql(
     `
@@ -327,13 +332,16 @@ export async function getFileTree(sha = 'main', depth = 0, path = '') {
   if (!error && res.repository) {
     const data = get(res, 'repository.object.entries', []).filter((item) => item.type === 'tree');
 
+    const appStore = useAppStoreHook();
     const loop = (array) => {
       for (let i = 0; i < array.length; i++) {
         const item = array[i];
 
-        const p = playgroundTypes.find((pl) => pl.label === item.name);
+        const p = appStore.playgroundTypes.find((pl) => pl.label === item.name);
 
         if (p) {
+          // 给枚举数据赋值上sha
+          p.sha = item.sha;
           assign(item, p);
         } else {
           assign(item, {
@@ -493,20 +501,40 @@ export async function createPR({
   );
 }
 
-export async function createFolder(body: { name: string; playgroundType: string }) {
+export async function createFolder(body: { name: string; playgroundType: string; sha?: string }) {
   const branch = buildBranch();
 
   const [error, data] = await to(createBranch({ branchName: branch }));
 
   if (!error && data) {
+    const d = await octokit.request('GET /repos/{owner}/{repo}/git/ref/heads/{branch}', {
+      owner,
+      repo,
+      branch,
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    });
+
+    console.log(d);
+
+    const [getTreeError, getTreeRes] = await to<any>(
+      octokit.request('GET /repos/{owner}/{repo}/git/commits/{commit_sha}', {
+        owner,
+        repo,
+        commit_sha: d.data.object.sha,
+        headers: {
+          ...commonHeaders,
+        },
+      }),
+    );
+
     // 创建文件🌲
-    const [e, res] = await to<any>(
+    const [treeError, treeRes] = await to<any>(
       octokit.request(`POST /repos/{owner}/{repo}/git/trees`, {
         owner,
         repo,
-        base_tree: data.oid,
-        // repositoryId: data.repositoryId,
-        // baseRefOid: data.oid,
+        base_tree: getTreeRes.data.tree.sha,
         tree: [
           {
             path: `${body.playgroundType}/${body.name}/.gitkeep`,
@@ -522,54 +550,56 @@ export async function createFolder(body: { name: string; playgroundType: string 
       }),
     );
 
+    // await octokit.request('GET /repos/{owner}/{repo}/git/trees/{tree_sha}', {
+    //   owner,
+    //   repo,
+    //   tree_sha: res.data.tree[0].sha,
+    //   headers: {
+    //     'X-GitHub-Api-Version': '2022-11-28',
+    //   },
+    // });
+
     // 依据文件树创建commit
-    const [commitError, commitRes] = await to(
-      octokit.graphql(
-        `
-      mutation CreateCommitOnBranch(
-        $branchName: String!,
-        $baseRefOid: GitObjectID!,
-        $message: CommitMessage!,
-      ) {
-        createCommitOnBranch(input: {
-          branch: {
-            branchName: $branchName
-          },
-          message: $message,
-          expectedHeadOid: $baseRefOid,
-        }) {
-          commit {
-            oid
-            url
-          }
-        }
-      }
-      `,
-        {
-          // repositoryId: data.repositoryId,
-          branchName: branch,
-          baseRefOid: data.oid,
-          message: {
-            headline: 'docs: add folder',
-            body: 'add folder',
-          },
+    const [commitError, commitRes] = await to<any>(
+      octokit.request('POST /repos/{owner}/{repo}/git/commits', {
+        owner,
+        repo,
+        message: 'docs: add folder',
+        tree: treeRes.data.sha,
+        parents: [data.oid],
+        committer: commonAuthor,
+        author: commonAuthor,
+        headers: {
+          ...commonHeaders,
+        },
+      }),
+    );
+
+    // 更新到对应的分支
+    if (!commitError && commitRes) {
+      const [updateError, updateRes] = await to(
+        octokit.request('PATCH /repos/{owner}/{repo}/git/refs/{ref}', {
+          owner,
+          repo,
+          ref: `heads/${branch}`,
+          sha: commitRes.data.sha,
           headers: {
             ...commonHeaders,
           },
-        },
-      ),
-    );
-
-    if (!commitError && commitRes) {
-      // 创建pr
-      await to(
-        createPR({
-          repositoryId: data.repositoryId,
-          branch,
-          title: `update: add folder ${body.playgroundType}/${body.name}`,
-          body: `add folder ${body.playgroundType}/${body.name}`,
         }),
       );
+
+      if (!updateError && updateRes) {
+        // 创建pr
+        await to(
+          createPR({
+            repositoryId: data.repositoryId,
+            branch,
+            title: `update: add folder ${body.playgroundType}/${body.name}`,
+            body: `add folder ${body.playgroundType}/${body.name}`,
+          }),
+        );
+      }
     }
   } else {
     console.log(error);

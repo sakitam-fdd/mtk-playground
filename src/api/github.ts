@@ -2,7 +2,7 @@ import { Octokit } from 'octokit';
 import { get, assign } from 'lodash-es';
 import dayjs from 'dayjs';
 import { to } from '@/utils/to';
-import { playgroundTypes } from '@/api/common';
+import { useAppStoreHook } from '@/store/modules';
 
 // Octokit.js
 // https://github.com/octokit/core.js#readme
@@ -170,10 +170,12 @@ export async function getFileTree(sha = 'main', depth = 0, path = '') {
   if (!error && isSuccess(res)) {
     const data = get(res, 'data.tree', []).filter((item) => item.type === 'tree');
 
+    const appStore = useAppStoreHook();
+
     for (let i = 0; i < data.length; i++) {
       const item = data[i];
       item.fullPath = path ? `${path}/${item.path}` : item.path;
-      const p = playgroundTypes.find((pl) => pl.label === item.path);
+      const p = appStore.playgroundTypes.find((pl) => pl.label === item.path);
 
       if (p) {
         assign(item, p);

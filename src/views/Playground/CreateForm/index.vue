@@ -19,7 +19,7 @@
           <el-form-item class="mb-30px" prop="playgroundType" label="示例类型">
             <el-select v-model="formData.playgroundType" clearable placeholder="请选择">
               <el-option
-                v-for="playgroundType in playgroundTypes"
+                v-for="playgroundType in appStore.playgroundTypes"
                 :key="playgroundType.label"
                 :label="playgroundType.label"
                 :value="playgroundType.label"
@@ -37,10 +37,10 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue';
+  import { ref, toRaw } from 'vue';
   import { extend } from 'lodash-es';
   import { ElMessage, FormInstance, FormRules } from 'element-plus';
-  import { playgroundTypes } from '@/api/common';
+  import { useAppStore } from '@/store/modules';
   import { createFolder, updateFolder } from '@/api/graphql';
 
   interface ICreateReq {
@@ -74,6 +74,7 @@
   };
 
   const emits = defineEmits(['update:visible', 'change']);
+  const appStore = useAppStore();
 
   const resetForm = () => {
     formRef.value?.clearValidate();
@@ -96,7 +97,10 @@
       if (!valid) return console.error('表单校验不通过', fields);
       setLoading(true);
       const api = formData.value.id === undefined ? createFolder : updateFolder;
-      api(formData.value as any)
+      api({
+        ...toRaw(formData.value),
+        sha: appStore.playgroundTypes.find((p) => p.label === formData.value.playgroundType)?.sha,
+      })
         .then(() => {
           ElMessage.success('操作成功');
           handleCancel();
