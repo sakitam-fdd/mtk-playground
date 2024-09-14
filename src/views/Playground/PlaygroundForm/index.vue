@@ -18,8 +18,8 @@
         <el-col :span="24">
           <el-form-item class="mb-30px" prop="folder" label="所属目录">
             <el-tree-select
-              node-key="fullPath"
-              :props="{ label: 'path' }"
+              node-key="path"
+              :props="{ label: 'name' }"
               v-model="formData.folder"
               :data="filterFolders(tree)"
               :render-after-expand="false"
@@ -39,7 +39,7 @@
   import { ref } from 'vue';
   import { extend } from 'lodash-es';
   import { ElMessage, FormInstance, FormRules } from 'element-plus';
-  import { filterFolders, commitAndPr } from '@/api/graphql';
+  import { filterFolders, updatePlayground } from '@/api/graphql';
   import type { ReplStore } from '@vue/repl';
   import { buildCommit } from '@/views/Playground/Download/download';
   import { to } from '@/utils/to';
@@ -102,12 +102,7 @@
     // 获取所有文件
     const content = buildCommit(props.store);
 
-    const [error] = await to(
-      commitAndPr({
-        content,
-        folder: `${formData.value?.folder}/${formData.value.name}`,
-      }),
-    );
+    const [error, res] = await to(updatePlayground(`${formData.value?.folder}/${formData.value.name}`, content, false));
 
     if (!error) {
       ElMessage.success('操作成功');

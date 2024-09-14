@@ -206,7 +206,7 @@ export async function getPlaygroundLoop(item: any, files: any[]) {
     octokit.request('GET /repos/{owner}/{repo}/git/trees/{tree_sha}', {
       owner,
       repo,
-      tree_sha: item?.sha,
+      tree_sha: item?.oid || item?.sha,
       headers: {
         ...commonHeaders,
       },
@@ -223,10 +223,10 @@ export async function getPlaygroundLoop(item: any, files: any[]) {
       const fileName = pathArray[pathArray.length - 1];
       // 如果还是文件夹(默认应该是 src)，那么递归
       if (d.type === 'tree') {
-        await getPlaygroundLoop({ sha: d.sha, fullPath: item.fullPath ? `${item.fullPath}/${d.path}` : d.path }, files);
+        await getPlaygroundLoop({ sha: d.sha, path: item.path ? `${item.path}/${d.path}` : d.path }, files);
       } else if (!excludeFileName.includes(fileName)) {
         // 如果是文件获取文件内容
-        const [e, r] = await to(getFileContent(`${item.fullPath}/${d.path}`));
+        const [e, r] = await to(getFileContent(`${item.path}/${d.path}`));
 
         if (!e && isSuccess(r)) {
           files.push(r.data);

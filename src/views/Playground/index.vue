@@ -4,7 +4,6 @@
     :prod="productionMode"
     :ssr="useSSRMode"
     :save-loading="saveLoading"
-    @toggle-theme="toggleTheme"
     @toggle-prod="toggleProdMode"
     @toggle-ssr="toggleSSR"
     @reload-page="reloadPage"
@@ -15,7 +14,7 @@
       class="nav-wrap w-250px min-w-250px max-w-250px flex-[0_0_auto] bg-[var(--bg)] border-r-1 border-[var(--m-border)]"
       v-loading="loading"
     >
-      <div v-if="enableAdd" class="w-full flex justify-center pt-20px">
+      <div v-if="enableAdd" class="w-full flex justify-center pt-20px pb-20px">
         <el-button type="primary" @click="handleCreate">
           <el-icon class="el-icon--right">
             <Plus />
@@ -24,6 +23,7 @@
         </el-button>
       </div>
       <el-scrollbar
+        class="!h-[calc(100%-72px)]"
         :wrap-style="{
           display: 'flex',
           'flex-wrap': 'wrap',
@@ -69,7 +69,7 @@
     </div>
 
     <CreateForm :current="current" :visible="dialogVisible" @close="dialogVisible = false" />
-    <PlaygroundForm :store="store" :data="current" :tree="list" :visible="saveVisible" @close="saveVisible = false" />
+    <PlaygroundForm :store="store" :data="current" :tree="list" :visible="saveVisible" @close="handleClose" />
   </div>
 </template>
 
@@ -81,16 +81,8 @@
   import { ElMessage } from 'element-plus';
   import FileTree from '@/components/FileTree/index.vue';
   import { to } from '@/utils/to';
-  import {
-    createBranch,
-    createFile,
-    buildBranch,
-    isSuccess,
-    getPlayground,
-    matchSha,
-    getFolder,
-  } from '@/api/github';
-  import { getFileTree } from '@/api/graphql';
+  import { useTheme } from '@/hooks/useTheme';
+  import { getPlayground, matchSha, getFileTree, updatePlayground } from '@/api/graphql';
   import { IMPORTMAP_FILE, useStore } from './store';
   import Header from './Header.vue';
   import CreateForm from './CreateForm/index.vue';
@@ -150,6 +142,7 @@
   );
   const userFiles = ref({});
   const currentEditorFiles = ref([]);
+  const { theme } = useTheme();
 
   // enable experimental features
   const sfcOptions = computed(
@@ -189,6 +182,8 @@
     console.log(newHash);
     const f = store.getFiles();
     console.log(f);
+
+    console.log(theme);
     // window.history.replaceState({}, '', newHash);
   });
 
@@ -202,38 +197,27 @@
    */
   const handleSave = async () => {
     setSaveLoading(true);
+    // 添加全局loading，禁止用户操作
+    setUserLoading(true);
 
+    // 修改
     if (current.value?.depth === 3) {
       const content = buildCommit(store, true);
 
-      const branch = buildBranch();
-
       matchSha(currentEditorFiles.value, content);
 
-      const folder = getFolder(currentEditorFiles.value);
+      const folder = current.value?.path;
+      const [error, res] = await to(updatePlayground(folder, content, true));
 
-      const [error, data] = await to(createBranch({ branchName: branch }));
-
-      if (!error && isSuccess(data)) {
-        const [e] = await to(
-          createFile(content, {
-            branch,
-            folder,
-          }),
-        );
-
-        if (!e) {
-          setSaveLoading(false);
-          ElMessage.success('示例修改成功');
-        } else {
-          setSaveLoading(false);
-          ElMessage.error('示例修改失败');
-        }
+      setSaveLoading(false);
+      setUserLoading(false);
+      if (!error) {
+        ElMessage.success(`示例修改成功, 已创建 pr: ${res?.path}`);
       } else {
-        setSaveLoading(false);
-        ElMessage.error('创建分支失败');
+        ElMessage.error('示例修改失败');
       }
     } else {
+      // 新建走弹窗
       setSaveVisible(true);
       setSaveLoading(false);
     }
@@ -249,11 +233,6 @@
 
   const reloadPage = () => {
     replRef.value?.reload();
-  };
-
-  const theme = ref<'dark' | 'light'>('dark');
-  const toggleTheme = (isDark: boolean) => {
-    theme.value = isDark ? 'dark' : 'light';
   };
 
   const getMenuList = async () => {
@@ -290,7 +269,7 @@
 
             if (file.name === IMPORTMAP_FILE) {
               userImportMap.value = mergeImportMap(userImportMap.value, JSON.parse(file.playgroundCode));
-            } else {
+            } else if (file.type === 'blob') {
               fs[file.playgroundPath] = new File(file.playgroundPath, file.playgroundCode);
             }
           }
@@ -303,10 +282,13 @@
     }
   };
 
-  onMounted(() => {
-    const cls = document.documentElement.classList;
-    toggleTheme(cls.contains('dark'));
+  const handleClose = () => {
+    setSaveVisible(false);
+    setSaveLoading(false);
+    setUserLoading(false);
+  };
 
+  onMounted(() => {
     // @ts-expect-error process shim for old versions of @vue/compiler-sfc dependency
     window.process = { env: {} };
   });
