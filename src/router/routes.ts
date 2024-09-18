@@ -10,16 +10,25 @@ export const root = {
   },
   children: [
     {
+      path: '/index',
+      component: () => import('@/views/Index/index.vue'),
+      name: 'index',
+      meta: {
+        title: '编辑首页器',
+        iconSize: 16,
+      },
+    },
+    {
       path: '/playground',
       component: () => import('@/views/Playground/index.vue'),
       name: 'Playground',
       meta: {
-        title: '示范区综合管理',
+        title: '编辑器',
         iconSize: 16,
       },
     },
   ],
-  redirect: '/playground',
+  redirect: '/index',
 };
 
 const routes: Array<RouteRecordRaw> = [

@@ -1,70 +1,18 @@
 <template>
   <header class="w-full" :class="{ fixed: isSticky }">
-    <nav class="bg-white/30 dark:bg-gray-900 w-full top-0 start-0 border-b border-gray-200 dark:border-gray-600">
-      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <nav class="nav">
+      <div class="nav-content">
         <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
-          <img src="/logo.png" class="h-12" alt="Flowbite Logo" />
-          <span class="self-center hidden md:block text-2xl font-semibold whitespace-nowrap dark:text-white">
-            XIAOBIN
-          </span>
+          <img src="@/assets/icon/logo.svg" class="h-12" alt="maptalks Logo" />
+          <span class="name">Maptalks</span>
         </a>
         <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <label class="inline-flex items-center me-5 cursor-pointer">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              class="text-sm font-medium text-gray-900 dark:text-gray-300"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="12" cy="12" r="5" />
-              <path
-                d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"
-              />
-            </svg>
-            <input type="checkbox" :checked="isDark" @change="toggleTheme" class="sr-only peer" />
-            <div
-              class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
-            ></div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              class="text-sm font-medium text-gray-900 dark:text-gray-300"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-          </label>
-
-          <button
-            @click="toggleMenu"
-            type="button"
-            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-            aria-controls="navbar-sticky"
-            :aria-expanded="isMenuOpen"
-          >
-            <span class="sr-only">Open main menu</span>
-            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
-            </svg>
-          </button>
+          <el-tooltip :content="isDark ? '亮色' : '暗色'">
+            <el-button type="text" title="Toggle dark mode" class="toggle-dark" @click="toggleDark">
+              <span v-if="!isDark" class="i-ant-design:sun-outlined icon-size"></span>
+              <span v-else class="i-ant-design:moon-outlined icon-size"></span>
+            </el-button>
+          </el-tooltip>
         </div>
         <div
           :class="{ hidden: !isMenuOpen, block: isMenuOpen }"
@@ -75,13 +23,48 @@
     </nav>
   </header>
   <div :style="{ height: navHeight + 'px' }" v-if="isSticky"></div>
+  <section
+    id="home"
+    class="relative z-10 overflow-hidden bg-white pb-16 pt-[120px] dark:bg-gray-dark md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
+  >
+    <div class="page-container">
+      <div class="-mx-4 flex flex-wrap">
+        <div class="w-full px-4">
+          <div class="mx-auto max-w-[800px] text-center">
+            <h1
+              class="mb-5 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight"
+            >
+              maptalks
+            </h1>
+            <p
+              class="mb-12 text-base !leading-relaxed text-body-color dark:text-body-color-dark sm:text-lg md:text-xl"
+            >
+              选择MapTalks WebGIS方案，即刻获得: 基于PBR材质的三维地图设计能力 矢量瓦片/倾斜摄影 全新渲染技术
+              项目开发效率提升三倍以上
+            </p>
+            <div class="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+              <a
+                href="https://github.com/maptalks/maptalks.js"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Star on GitHub"
+                class="inline-block rounded-sm bg-black px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-black/90 dark:bg-white/10 dark:text-white dark:hover:bg-white/5"
+              >
+                Star on GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script setup>
   import { ref, onMounted, onUnmounted } from 'vue';
   import { useTheme } from '@/hooks/useTheme';
 
-  const { isDark } = useTheme();
+  const { isDark, toggleDark } = useTheme();
   const isMenuOpen = ref(false);
 
   const toggleMenu = () => {
@@ -143,7 +126,7 @@
   });
 </script>
 
-<style scoped>
+<style lang="less" scoped>
   .fixed {
     position: fixed;
     top: 0;
@@ -153,9 +136,22 @@
     backdrop-filter: blur(16px);
   }
 
-  nav {
+  .nav {
+    @apply bg-white/30 dark:bg-gray-900 w-full top-0 start-0 border-b border-gray-200 dark:border-gray-600;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+
+    &-content {
+      @apply max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4;
+
+      .name {
+        @apply self-center hidden md:block text-2xl font-semibold whitespace-nowrap dark:text-white;
+      }
+    }
+
+    .icon-size {
+      font-size: 26px;
+    }
   }
 
   @supports not (backdrop-filter: blur(8px)) {
