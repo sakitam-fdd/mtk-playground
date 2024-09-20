@@ -1,8 +1,28 @@
-@forward 'element-plus/theme-chalk/src/dark/var.scss' with (
-  $colors: (
-    'primary': (
-      'base': #6689FF
-    )
+$color-primary: rgba(232, 84, 43, 1);
+$color-success: #52c41a;
+$color-warning: #faad14;
+$color-danger: #EA0000;
+$color-info: #909399;
+$-colors: (
+  "primary": (
+    "base": $color-primary,
+  ),
+  "success": (
+    "base":  $color-success,
+  ),
+  "warning": (
+    "base":  $color-warning,
+  ),
+  "danger": (
+    "base":  $color-danger,
+  ),
+  "info": (
+    "base":  $color-info,
   )
 );
+
+@forward 'element-plus/theme-chalk/src/dark/var.scss' with (
+  $colors: $-colors,
+);
+
 @use 'element-plus/theme-chalk/src/dark/css-vars.scss';

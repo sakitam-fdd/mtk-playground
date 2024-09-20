@@ -14,7 +14,7 @@ export default defineConfig({
     presetUno(), // 默认预设
     presetIcons({
       collections: {
-        custom: FileSystemIconLoader('./src/assets/svg'),
+        icon: FileSystemIconLoader('./src/assets/icon'),
       },
       extraProperties: {
         display: 'inline-block',
@@ -25,7 +25,25 @@ export default defineConfig({
   ],
   theme: {
     colors: {
-      primary: 'rgb(var(--primary-color))',
+      primary: 'rgb(var(--el-color-primary))',
+      transparent: 'transparent',
+      white: '#FFFFFF',
+      black: '#121723',
+      dark: '#1D2430',
+      yellow: '#FBB040',
+      'bg-color-dark': '#171C28',
+      'body-color': {
+        DEFAULT: '#788293',
+        dark: '#959CB1',
+      },
+      stroke: {
+        stroke: '#E3E8EF',
+        dark: '#353943',
+      },
+      gray: {
+        dark: '#1E232E',
+        light: '#F0F2F9',
+      },
     },
   },
   transformers: [transformerDirectives()],

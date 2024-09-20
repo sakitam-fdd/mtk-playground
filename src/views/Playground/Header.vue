@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav class="playground-nav">
     <h1>
       <img alt="logo" src="@/assets/icon/logo.svg" />
       <span>Maptalks Playground</span>
@@ -123,7 +123,7 @@
 </script>
 
 <style>
-  nav {
+  .playground-nav {
     --bg: #fff;
     --bg-light: #fff;
     --border: #ddd;

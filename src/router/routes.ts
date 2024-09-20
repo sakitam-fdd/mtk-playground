@@ -14,7 +14,16 @@ export const root = {
       component: () => import('@/views/Index/index.vue'),
       name: 'index',
       meta: {
-        title: '编辑首页器',
+        title: '首页',
+        iconSize: 16,
+      },
+    },
+    {
+      path: '/playgrounds',
+      component: () => import('@/views/List'),
+      name: 'List',
+      meta: {
+        title: '示例列表',
         iconSize: 16,
       },
     },

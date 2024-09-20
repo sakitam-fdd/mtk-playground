@@ -305,6 +305,7 @@
     "watchTriggerable": true,
     "watchWithFilter": true,
     "whenever": true,
-    "useTheme": true
+    "useTheme": true,
+    "useRequest": true
   }
 }

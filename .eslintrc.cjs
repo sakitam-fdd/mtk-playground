@@ -29,6 +29,8 @@ module.exports = {
     ],
     'vue/script-setup-uses-vars': 'error',
     'vue/require-default-prop': 'off',
+    'react/jsx-filename-extension': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
     '@typescript-eslint/consistent-type-imports': 'off',
   },
 };

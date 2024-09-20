@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="762" preserveAspectRatio="xMidYMid" viewBox="0 0 1440 762">
+<defs><style type="text/css">path {fill:none;stroke:none}</style></defs>
+<path id="path0" d="M 1328 514 c 0 20 -4 5 -10 5 S 1306 534 1306 514 s 4 -5 10 -5 S 1328 494 1328 514 z"/>
+<circle cx="0" cy="0" r="6" fill="#abbd81">
+<animateMotion begin="-5s" dur="10s" repeatCount="indefinite">
+<mpath href="#path0"/>
+</animateMotion>
+</circle><path id="path1" d="M 1126 334 c 0 30 -7 8 -16 8 S 1093 365 1093 334 s 7 -8 16 -8 S 1126 304 1126 334 z"/>
+<circle cx="0" cy="0" r="7" fill="#f8b26a">
+<animateMotion begin="-0s" dur="10s" repeatCount="indefinite">
+<mpath href="#path1"/>
+</animateMotion>
+</circle><path id="path2" d="M 1161 640 c 0 31 -7 9 -16 9 S 1128 672 1128 640 s 7 -9 16 -9 S 1161 608 1161 640 z"/>
+<circle cx="0" cy="0" r="4" fill="#abbd81">
+<animateMotion begin="-0s" dur="10s" repeatCount="indefinite">
+<mpath href="#path2"/>
+</animateMotion>
+</circle><path id="path3" d="M 741 120 c 0 22 -5 6 -11 6 S 718 142 718 120 s 5 -6 11 -6 S 741 98 741 120 z"/>
+<circle cx="0" cy="0" r="7" fill="#e15b64">
+<animateMotion begin="-7s" dur="10s" repeatCount="indefinite">
+<mpath href="#path3"/>
+</animateMotion>
+</circle><path id="path4" d="M 831 388 c 0 37 -9 10 -19 10 S 792 425 792 388 s 9 -10 19 -10 S 831 351 831 388 z"/>
+<circle cx="0" cy="0" r="6" fill="#e15b64">
+<animateMotion begin="-2s" dur="10s" repeatCount="indefinite">
+<mpath href="#path4"/>
+</animateMotion>
+</circle><path id="path5" d="M 212 420 c 0 36 -8 10 -19 10 S 174 457 174 420 s 8 -10 19 -10 S 212 383 212 420 z"/>
+<circle cx="0" cy="0" r="7" fill="#f47e60">
+<animateMotion begin="-6s" dur="10s" repeatCount="indefinite">
+<mpath href="#path5"/>
+</animateMotion>
+</circle><path id="path6" d="M 1324 238 c 0 30 -7 8 -16 8 S 1292 269 1292 238 s 7 -8 16 -8 S 1324 207 1324 238 z"/>
+<circle cx="0" cy="0" r="4" fill="#abbd81">
+<animateMotion begin="-2s" dur="10s" repeatCount="indefinite">
+<mpath href="#path6"/>
+</animateMotion>
+</circle><path id="path7" d="M 684 510 c 0 25 -6 7 -13 7 S 658 536 658 510 s 6 -7 13 -7 S 684 485 684 510 z"/>
+<circle cx="0" cy="0" r="7" fill="#f47e60">
+<animateMotion begin="-7s" dur="10s" repeatCount="indefinite">
+<mpath href="#path7"/>
+</animateMotion>
+</circle><path id="path8" d="M 242 78 c 0 23 -5 6 -12 6 S 218 101 218 78 s 5 -6 12 -6 S 242 54 242 78 z"/>
+<circle cx="0" cy="0" r="4" fill="#f47e60">
+<animateMotion begin="-4s" dur="10s" repeatCount="indefinite">
+<mpath href="#path8"/>
+</animateMotion>
+</circle><path id="path9" d="M 348 541 c 0 22 -5 6 -11 6 S 324 563 324 541 s 5 -6 11 -6 S 348 519 348 541 z"/>
+<circle cx="0" cy="0" r="7" fill="#e15b64">
+<animateMotion begin="-8s" dur="10s" repeatCount="indefinite">
+<mpath href="#path9"/>
+</animateMotion>
+</circle><path id="p10" d="M 121 134 c 0 20 -4 5 -10 5 S 99 154 99 134 s 4 -5 10 -5 S 121 114 121 134 z"/>
+<circle cx="0" cy="0" r="6" fill="#849b87">
+<animateMotion begin="-2s" dur="10s" repeatCount="indefinite">
+<mpath href="#p10"/>
+</animateMotion>
+</circle><path id="p11" d="M 756 650 c 0 34 -8 9 -18 9 S 720 685 720 650 s 8 -9 18 -9 S 756 616 756 650 z"/>
+<circle cx="0" cy="0" r="7" fill="#f47e60">
+<animateMotion begin="-7s" dur="10s" repeatCount="indefinite">
+<mpath href="#p11"/>
+</animateMotion>
+</circle><path id="p12" d="M 365 277 c 0 23 -5 6 -12 6 S 340 301 340 277 s 5 -6 12 -6 S 365 253 365 277 z"/>
+<circle cx="0" cy="0" r="6" fill="#abbd81">
+<animateMotion begin="-2s" dur="10s" repeatCount="indefinite">
+<mpath href="#p12"/>
+</animateMotion>
+</circle><path id="p13" d="M 972 121 c 0 26 -6 7 -14 7 S 944 148 944 121 s 6 -7 14 -7 S 972 95 972 121 z"/>
+<circle cx="0" cy="0" r="4" fill="#e15b64">
+<animateMotion begin="-2s" dur="10s" repeatCount="indefinite">
+<mpath href="#p13"/>
+</animateMotion>
+</circle><path id="p14" d="M 1430 504 c 0 27 -6 7 -14 7 S 1401 532 1401 504 s 6 -7 14 -7 S 1430 477 1430 504 z"/>
+<circle cx="0" cy="0" r="7" fill="#f8b26a">
+<animateMotion begin="-2s" dur="10s" repeatCount="indefinite">
+<mpath href="#p14"/>
+</animateMotion>
+</circle><path id="p15" d="M 311 748 c 0 36 -8 10 -19 10 S 272 785 272 748 s 8 -10 19 -10 S 311 711 311 748 z"/>
+<circle cx="0" cy="0" r="6" fill="#f8b26a">
+<animateMotion begin="-3s" dur="10s" repeatCount="indefinite">
+<mpath href="#p15"/>
+</animateMotion>
+</circle><path id="p16" d="M 27 398 c 0 36 -8 10 -19 10 S -10 435 -10 398 s 8 -10 19 -10 S 27 362 27 398 z"/>
+<circle cx="0" cy="0" r="6" fill="#f47e60">
+<animateMotion begin="-4s" dur="10s" repeatCount="indefinite">
+<mpath href="#p16"/>
+</animateMotion>
+</circle><path id="p17" d="M 272 667 c 0 27 -6 7 -14 7 S 243 695 243 667 s 6 -7 14 -7 S 272 640 272 667 z"/>
+<circle cx="0" cy="0" r="7" fill="#849b87">
+<animateMotion begin="-7s" dur="10s" repeatCount="indefinite">
+<mpath href="#p17"/>
+</animateMotion>
+</circle><path id="p18" d="M 68 509 c 0 29 -7 8 -15 8 S 36 539 36 509 s 7 -8 15 -8 S 68 479 68 509 z"/>
+<circle cx="0" cy="0" r="4" fill="#abbd81">
+<animateMotion begin="-2s" dur="10s" repeatCount="indefinite">
+<mpath href="#p18"/>
+</animateMotion>
+</circle><path id="p19" d="M 498 698 c 0 30 -7 8 -16 8 S 466 728 466 698 s 7 -8 16 -8 S 498 667 498 698 z"/>
+<circle cx="0" cy="0" r="4" fill="#f47e60">
+<animateMotion begin="-6s" dur="10s" repeatCount="indefinite">
+<mpath href="#p19"/>
+</animateMotion>
+</circle><path id="p20" d="M 237 570 c 0 37 -9 10 -19 10 S 197 608 197 570 s 9 -10 19 -10 S 237 533 237 570 z"/>
+<circle cx="0" cy="0" r="5" fill="#e15b64">
+<animateMotion begin="-2s" dur="10s" repeatCount="indefinite">
+<mpath href="#p20"/>
+</animateMotion>
+</circle><path id="p21" d="M 844 300 c 0 34 -8 9 -18 9 S 808 334 808 300 s 8 -9 18 -9 S 844 265 844 300 z"/>
+<circle cx="0" cy="0" r="7" fill="#abbd81">
+<animateMotion begin="-7s" dur="10s" repeatCount="indefinite">
+<mpath href="#p21"/>
+</animateMotion>
+</circle><path id="p22" d="M 421 277 c 0 28 -6 8 -15 8 S 391 306 391 277 s 6 -8 15 -8 S 421 249 421 277 z"/>
+<circle cx="0" cy="0" r="6" fill="#f47e60">
+<animateMotion begin="-2s" dur="10s" repeatCount="indefinite">
+<mpath href="#p22"/>
+</animateMotion>
+</circle><path id="p23" d="M 964 251 c 0 20 -4 5 -10 5 S 943 271 943 251 s 4 -5 10 -5 S 964 231 964 251 z"/>
+<circle cx="0" cy="0" r="7" fill="#f47e60">
+<animateMotion begin="-1s" dur="10s" repeatCount="indefinite">
+<mpath href="#p23"/>
+</animateMotion>
+</circle><path id="p24" d="M 450 467 c 0 32 -7 9 -17 9 S 415 499 415 467 s 7 -9 17 -9 S 450 434 450 467 z"/>
+<circle cx="0" cy="0" r="4" fill="#abbd81">
+<animateMotion begin="-7s" dur="10s" repeatCount="indefinite">
+<mpath href="#p24"/>
+</animateMotion>
+</circle><path id="p25" d="M 470 631 c 0 28 -6 8 -15 8 S 440 660 440 631 s 6 -8 15 -8 S 470 603 470 631 z"/>
+<circle cx="0" cy="0" r="4" fill="#e15b64">
+<animateMotion begin="-8s" dur="10s" repeatCount="indefinite">
+<mpath href="#p25"/>
+</animateMotion>
+</circle><path id="p26" d="M 652 288 c 0 35 -8 10 -18 10 S 615 324 615 288 s 8 -10 18 -10 S 652 253 652 288 z"/>
+<circle cx="0" cy="0" r="7" fill="#f47e60">
+<animateMotion begin="-3s" dur="10s" repeatCount="indefinite">
+<mpath href="#p26"/>
+</animateMotion>
+</circle><path id="p27" d="M 688 41 c 0 28 -7 8 -15 8 S 657 70 657 41 s 7 -8 15 -8 S 688 12 688 41 z"/>
+<circle cx="0" cy="0" r="7" fill="#e15b64">
+<animateMotion begin="-3s" dur="10s" repeatCount="indefinite">
+<mpath href="#p27"/>
+</animateMotion>
+</circle><path id="p28" d="M 1061 195 c 0 19 -4 5 -10 5 S 1040 214 1040 195 s 4 -5 10 -5 S 1061 176 1061 195 z"/>
+<circle cx="0" cy="0" r="5" fill="#f47e60">
+<animateMotion begin="-7s" dur="10s" repeatCount="indefinite">
+<mpath href="#p28"/>
+</animateMotion>
+</circle><path id="p29" d="M 824 636 c 0 32 -8 9 -17 9 S 789 669 789 636 s 8 -9 17 -9 S 824 603 824 636 z"/>
+<circle cx="0" cy="0" r="4" fill="#f47e60">
+<animateMotion begin="-8s" dur="10s" repeatCount="indefinite">
+<mpath href="#p29"/>
+</animateMotion>
+</circle>
+</svg>

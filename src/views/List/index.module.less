@@ -1,0 +1,122 @@
+.menu-item {
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 4px 8px;
+  user-select: none;
+  background-color: var(--m-btn-bg);
+  color: var(--m-btn-text-color);
+
+  &.active-menu {
+    color: var(--el-color-primary);
+  }
+}
+
+.playground-list {
+  grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+  animation: down 0.35s ease forwards;
+
+  .title {
+    padding-bottom: 12px;
+    border-bottom: 3px solid #e2e8f0;
+
+    &-inner {
+      position: relative;
+      display: inline-block;
+
+      &::after {
+        position: absolute;
+        content: ' ';
+        left: 0;
+        bottom: -14px;
+        width: 100%;
+        border-bottom: 3px solid var(--el-color-primary);
+      }
+    }
+  }
+}
+
+.playground-list-item {
+  border-radius: 8px;
+  box-shadow:
+    6px 6px 20px 5px rgba(0, 0, 0, 0.1),
+    -6px -6px 20px 5px #fff;
+  display: flex;
+  flex-direction: column;
+
+  .mask {
+    border-radius: inherit;
+    bottom: 0;
+    cursor: pointer;
+    opacity: 0;
+    overflow: hidden;
+    transition: 0.25s cubic-bezier(0.5, 0, 0.5, 1);
+    transition-property: opacity;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  .header {
+    background: linear-gradient(133deg, #f4f4f4, #fff);
+    box-shadow: none;
+    border-radius: 4px;
+    height: 100%;
+    width: 100%;
+
+    &:hover {
+      .mask {
+        opacity: 1;
+      }
+    }
+  }
+
+  .content {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+  }
+
+  .footer-title {
+    color: var(--m-btn-text-color);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  &.dark {
+    box-shadow:
+      6px 6px 20px 5px #33393e,
+      -6px -6px 20px 5px #1e2125;
+
+    .mask {
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .header {
+      background: linear-gradient(133deg, #2f3339, #242a30);
+    }
+  }
+}
+
+@keyframes down {
+  0% {
+    opacity: 0.5;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes up {
+  0% {
+    opacity: 0.5;
+    transform: translateY(-100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
