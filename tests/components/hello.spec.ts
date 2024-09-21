@@ -1,14 +1,14 @@
-import { expect, test } from 'vitest'
-import { mount } from '@vue/test-utils'
-import Tooltip from '@/components/Tooltip/index.vue'
+import { expect, test } from 'vitest';
+import { mount } from '@vue/test-utils';
+import ScrollTop from '@/components/ScrollTop/index.vue';
 
 test('displays message', () => {
-  const wrapper = mount(Tooltip, {
+  const wrapper = mount(ScrollTop, {
     props: {
-      content: 'Hello world'
-    }
-  })
+      content: 'Hello world',
+    },
+  });
 
   // Assert the rendered text of the component
-  expect(wrapper.text()).toContain('Hello world')
-})
+  expect(wrapper.text()).toContain('Hello world');
+});

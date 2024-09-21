@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { onMounted, ref } from 'vue';
+  import { onMounted, ref, watchEffect } from 'vue';
   import { ElMessage } from 'element-plus';
 
   const expanded = ref(false);
@@ -20,12 +20,12 @@
 
   async function fetchVersions(): Promise<string[]> {
     const res = await fetch(`https://data.jsdelivr.com/v1/package/npm/${props.pkg}`);
-    const { versions } = (await res.json()) as { versions: string[] };
+    const pkg = (await res.json()) as { versions: string[] };
 
     if (props.pkg === 'vue') {
       // if the latest version is a pre-release, list all current pre-releases
       // otherwise filter out pre-releases
-      let isInPreRelease = versions[0].includes('-');
+      let isInPreRelease = versions.value[0].includes('-');
       const filteredVersions: string[] = [];
       for (const v of versions) {
         if (v.includes('-')) {
@@ -43,19 +43,20 @@
       return filteredVersions;
     }
     if (props.pkg === 'typescript') {
-      return versions.filter((v) => !v.includes('dev') && !v.includes('insiders'));
+      return pkg.versions.filter((v) => !v.includes('dev') && !v.includes('insiders'));
     }
-    return versions;
+    return pkg.versions;
   }
 
   function setVersion(v: string) {
     version.value = v;
     expanded.value = false;
+    console.log(v);
   }
 
   function copyVersion(v: string) {
     window.navigator.clipboard.writeText(v).then(() => {
-      ElMessage.success('Vue version has been copied to clipboard.');
+      ElMessage.success('Maptalks version has been copied to clipboard.');
     });
   }
 
@@ -72,75 +73,41 @@
 </script>
 
 <template>
-  <div class="version" @click.stop>
-    <span class="active-version" @click="toggle">
+  <div class="mr-3 relative" @click.stop>
+    <span class="cursor-pointer relative inline-flex items-center" @click="toggle">
       {{ label }}
-      <span class="number">{{ version }}</span>
+      <span class="text-[var(--el-color-primary)] ml-4px">{{ version }}</span>
     </span>
 
-    <ul class="versions" :class="{ expanded }">
+    <ul class="versions" :class="{ expanded: expanded }">
       <li v-if="!versions"><a>loading versions...</a></li>
       <li
         v-for="(ver, index) of versions"
-        class="versions-item"
+        :key="ver"
+        class="flex justify-between"
         :class="{
           active: ver === version || (version === 'latest' && index === 0),
         }"
       >
         <a @click="setVersion(ver)">v{{ ver }}</a>
-        <button title="Copy Version" class="version-copy" @click="copyVersion(`v${ver}`)">
-          <span class="ant-design:copy-outlined"></span>
+        <button type="button" title="Copy Version" class="group-hover:block" @click="copyVersion(`v${ver}`)">
+          <span class="i-ant-design:copy-outlined"></span>
         </button>
       </li>
-      <li @click="expanded = false">
+      <li @click="expanded = false" @keypress.enter="expanded = false">
         <slot />
       </li>
     </ul>
   </div>
 </template>
 
-<style lang="less">
-  .version {
-    margin-right: 12px;
-    position: relative;
-  }
-
-  .active-version {
-    cursor: pointer;
-    position: relative;
-    display: inline-flex;
-    place-items: center;
-  }
-
-  .active-version .number {
-    color: var(--el-color-primary);
-    margin-left: 4px;
-  }
-
-  .active-version::after {
-    content: '';
-    width: 0;
-    height: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-top: 6px solid #aaa;
-    margin-left: 8px;
-  }
-
+<style>
   .versions .active a {
     color: var(--el-color-primary);
   }
 
-  .versions .versions-item {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .versions .versions-item .version-copy {
-    display: none;
-  }
-
-  .versions .versions-item:hover .version-copy {
-    display: block;
+  .active-version::after {
+    content: ' ';
+    @apply w-0 h-0 border-l-4 border-r-4 border-t-6 border-l-transparent border-r-transparent border-t-gray-400 ml-2;
   }
 </style>

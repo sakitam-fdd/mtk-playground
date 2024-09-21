@@ -1,9 +1,11 @@
-import { defineComponent, onBeforeMount, ExtractPropTypes } from 'vue';
+import { defineComponent, onBeforeMount, watchEffect, ExtractPropTypes } from 'vue';
 import { useTheme } from '@/hooks/useTheme';
+import { useRouter } from 'vue-router';
 import Header from '@/components/Header/index.vue';
 import { ElButton, ElIcon } from 'element-plus';
 import { Plus } from '@element-plus/icons-vue';
 import useState from '@/hooks/useState';
+import ScrollTop from '@/components/ScrollTop/index.vue';
 import { getPlaygroundList, THUMBNAIL_URL } from '@/api/graphql';
 import styles from './index.module.less';
 
@@ -25,16 +27,39 @@ export default defineComponent({
   props,
   setup(props: Props) {
     const { isDark } = useTheme();
-
+    const router = useRouter();
     const [playgroundList, setPlaygroundList] = useState([]);
-    const activeItem = ref({ value: '', label: '' });
+    const [activeItem, setActiveItem] = useState({ value: '', label: '', children: [] });
+    const [activeSubItem, setActiveSubItem] = useState({ value: '', label: '' });
+
+    const scrollThreshold = 80;
+
+    const scrollToSection = (id) => {
+      const section = document.getElementById(id);
+      if (section) {
+        const t = section.offsetTop - scrollThreshold;
+        window.scrollTo({
+          top: t,
+          behavior: 'smooth',
+        });
+      }
+    };
+
     const createTemplate = () => {
-      console.log('createTemplate');
+      router.push({
+        name: 'Playground',
+        query: {},
+      });
     };
 
     const handleClickMenuItem = (item: any) => {
-      console.log('handleClickMenuItem', item);
-      activeItem.value = item;
+      setActiveItem(item);
+      scrollToSection(item.value);
+    };
+
+    const handleClickSubMenuItem = (item: any) => {
+      setActiveSubItem(item);
+      scrollToSection(item.value);
     };
 
     const openFullscreen = () => {
@@ -45,21 +70,57 @@ export default defineComponent({
       // Implement settings logic
     };
 
-    const menuItems = computed(() =>
-      playgroundList.value.map((item) => ({
-        value: item.id,
-        label: item.title.cn,
-      })),
-    );
+    const menuItems = computed(() => {
+      const list = playgroundList.value.map((item) => {
+        const children = item.examples.map((example) => ({
+          value: example.name,
+          label: example.title.cn,
+        }));
+
+        children.unshift({
+          value: '',
+          label: '全部',
+        });
+
+        return {
+          value: item.name,
+          label: item.title.cn,
+          children,
+        };
+      });
+
+      list.unshift({
+        value: '',
+        label: '全部',
+        children: [],
+      });
+
+      return list;
+    });
 
     const fetchPlaygroundList = async () => {
       const res = await getPlaygroundList();
-      console.log('res', res);
-      playgroundList.value = res;
+      setPlaygroundList(res);
+    };
+
+    const handleJump = (example, sub, subList) => {
+      console.log(example, sub, subList);
+      router.push({
+        name: 'Playground',
+        query: {
+          name: '展示',
+          category: '基础功能',
+          subclass: '地图',
+        },
+      });
     };
 
     onBeforeMount(async () => {
       await fetchPlaygroundList();
+    });
+
+    watchEffect(() => {
+      console.log('playgroundList', playgroundList.value, menuItems.value);
     });
 
     return () => (
@@ -67,46 +128,69 @@ export default defineComponent({
         <Header />
         <section class="flex justify-center relative overflow-hidden pb-16 ">
           <div class="w-full max-w-[1500px] px-4 bg-white dark:bg-gray-dark">
-            <div class="flex h-[50px] w-full items-center justify-between mt-15px mb-15px">
-              <div class="flex-warp flex h-full w-full flex-1 items-center space-x-3">
-                {menuItems.value.map((item) => (
+            <div class="min-h-[50px] w-full items-center justify-between mt-15px mb-15px">
+              <div class="flex flex-wrap w-full items-center justify-between">
+                <div class="flex flex-wrap h-full w-full flex-1 items-center space-x-3 gap-10px">
+                  {menuItems.value.map((item) => (
+                    <div
+                      key={item.value}
+                      class={[
+                        styles.menuItem,
+                        'font-size-16px',
+                        'whitespace-nowrap',
+                        { [styles.activeMenu]: item.value === activeItem.value.value },
+                      ]}
+                      onClick={() => {
+                        handleClickMenuItem(item);
+                      }}
+                    >
+                      {item.label}
+                    </div>
+                  ))}
+                </div>
+                <div class="flex items-center">
+                  <ElButton type="primary" onClick={createTemplate}>
+                    <ElIcon>
+                      <Plus />
+                    </ElIcon>
+                    创建空模板
+                  </ElButton>
+                </div>
+              </div>
+              <div class="flex flex-wrap h-full w-full flex-1 items-center space-x-3 gap-10px mt-15px mb-15px">
+                {activeItem.value.children.map((item) => (
                   <div
                     key={item.value}
                     class={[
                       styles.menuItem,
                       'whitespace-nowrap',
-                      { [styles.activeMenu]: item.value === activeItem.value.value },
+                      { [styles.activeMenu]: item.value === activeSubItem.value.value },
                     ]}
                     onClick={() => {
-                      handleClickMenuItem(item);
+                      handleClickSubMenuItem(item);
                     }}
                   >
                     {item.label}
                   </div>
                 ))}
               </div>
-              <div class="flex items-center">
-                <ElButton type="primary" onClick={createTemplate}>
-                  <ElIcon>
-                    <Plus />
-                  </ElIcon>
-                  创建空模板
-                </ElButton>
-              </div>
             </div>
 
             <div class="min-h-[calc(100vh-420px)] w-full max-w-[1500px]">
               <div class={['h-full w-full gap-8 p-4']}>
                 {playgroundList.value.map((subList) => (
-                  <div>
+                  <div id={subList.name}>
                     {subList.examples.map((sub) => (
-                      <div class={['grid h-full w-full gap-8 p-4', styles.playgroundList]}>
+                      <div id={sub.name} class={['grid h-full w-full gap-8 p-4', styles.playgroundList]}>
                         <h2 class={['col-span-full text-xl font-bold mb-4 text-black dark:text-white', styles.title]}>
                           <div class={styles.titleInner}>{sub.title.cn}</div>
                         </h2>
                         {sub.examples.map((example) => (
-                          <div class={[styles.playgroundListItem, isDark.value ? styles.dark : '']}>
-                            <div class={['relative flex-1 overflow-hidden rounded-md p-[12px]', styles.header]}>
+                          <div id={example.name} class={[styles.playgroundListItem, isDark.value ? styles.dark : '']}>
+                            <div
+                              class={['relative flex-1 overflow-hidden rounded-md p-[12px]', styles.header]}
+                              onClick={() => handleJump(example, sub, subList)}
+                            >
                               <div class={styles.content}>
                                 <div class="h-full w-full">
                                   <img
@@ -147,6 +231,7 @@ export default defineComponent({
             </div>
           </div>
         </section>
+        <ScrollTop />
       </>
     );
   },

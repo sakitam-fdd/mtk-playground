@@ -2,13 +2,13 @@
   <header class="w-full" :class="{ fixed: isSticky }">
     <nav class="header-nav">
       <div class="header-nav-content">
-        <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <router-link to="/" class="flex items-center space-x-3 rtl:space-x-reverse">
           <img src="@/assets/icon/logo.svg" class="h-12" alt="maptalks Logo" />
           <span class="name">Maptalks</span>
-        </a>
+        </router-link>
         <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           <el-tooltip :content="isDark ? '亮色' : '暗色'">
-            <el-button type="text" title="Toggle dark mode" class="toggle-dark" @click="toggleDark">
+            <el-button link title="Toggle dark mode" class="toggle-dark" @click="toggleDark">
               <span v-if="!isDark" class="i-ant-design:sun-outlined icon-size"></span>
               <span v-else class="i-ant-design:moon-outlined icon-size"></span>
             </el-button>
@@ -71,7 +71,7 @@
     -webkit-backdrop-filter: blur(8px);
 
     &-content {
-      @apply max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4;
+      @apply max-w-1500px flex flex-wrap items-center justify-between mx-auto p-4;
 
       .name {
         @apply self-center hidden md:block text-2xl font-semibold whitespace-nowrap dark:text-white;
@@ -87,6 +87,10 @@
     nav {
       background-color: rgba(255, 255, 255, 0.9) !important;
     }
+  }
+
+  .toggle-dark {
+    --el-button-hover-link-text-color: var(--el-color-primary);
   }
 
   .activate {

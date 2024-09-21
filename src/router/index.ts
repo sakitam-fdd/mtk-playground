@@ -1,10 +1,11 @@
 import type { App } from 'vue';
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import { createRouterGuard } from '@/router/guard';
 import routes from './routes';
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  // history: import.meta.env.PROD ? createWebHistory() : createWebHashHistory(),
+  history: createWebHistory(),
   routes,
   strict: true,
   scrollBehavior(to, from, savedPosition) {

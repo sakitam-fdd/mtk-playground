@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { to } from '@/utils/to';
 import { useAppStoreHook } from '@/store/modules';
 import { ElNotification } from 'element-plus';
-
+import { ascending } from '@/utils/utils';
 // Octokit.js
 // https://github.com/octokit/core.js#readme
 const octokit = new Octokit({
@@ -119,6 +119,7 @@ export async function createBranch({ branchName }: { branchName: string }) {
 }
 
 export function matchSha(currentEditorFiles: any[], files) {
+  let needUpdate = false;
   for (let i = 0; i < currentEditorFiles.length; i++) {
     const f = currentEditorFiles[i];
 
@@ -127,10 +128,20 @@ export function matchSha(currentEditorFiles: any[], files) {
 
       if (f.path === file.path) {
         file.sha = f.sha;
+        // 对应提交的文件只要有一个文本有变更那么就需要更新
+        if (f.playgroundCode !== file.content) {
+          needUpdate = true;
+          file.needUpdate = true;
+        }
         break;
       }
     }
   }
+
+  return {
+    needUpdate,
+    data: files.filter((file) => file.needUpdate),
+  };
 }
 
 export function getFolder(currentEditorFiles: any[]) {
@@ -284,14 +295,12 @@ export async function updatePlayground(folder: string, content: any[], isUpdate 
 
           if (!updateError && updateRes) {
             // 6: 创建pr
-            return await to(
-              createPR({
-                repositoryId: data.repositoryId,
-                branch,
-                title: isUpdate ? `update: edit ${folder} playground` : `feature: add ${folder} playground`,
-                body: isUpdate ? `edit ${folder} playground` : `add ${folder} playground`,
-              }),
-            );
+            return await createPR({
+              repositoryId: data.repositoryId,
+              branch,
+              title: isUpdate ? `update: edit ${folder} playground` : `feature: add ${folder} playground`,
+              body: isUpdate ? `edit ${folder} playground` : `add ${folder} playground`,
+            });
           }
           ElNotification({
             title: '错误',
@@ -390,7 +399,7 @@ export async function getFileTree(sha = 'main', depth = 0, path = '') {
     const data = get(res, 'repository.object.entries', []).filter((item) => item.type === 'tree');
 
     const appStore = useAppStoreHook();
-    const loop = (array) => {
+    const loop = (array, parent?: any) => {
       for (let i = 0; i < array.length; i++) {
         const item = array[i];
 
@@ -399,24 +408,45 @@ export async function getFileTree(sha = 'main', depth = 0, path = '') {
         if (p) {
           // 给枚举数据赋值上sha
           p.sha = item.sha;
+          // 给枚举数据赋值上祖先节点(第一级节点无父级)
+          p.ancestors = [];
           assign(item, p);
         } else {
           assign(item, {
             collapse: true,
+            ancestors: parent?.ancestors
+              ? [...parent.ancestors, { name: parent.name, oid: parent.oid || parent.sha }]
+              : [
+                  {
+                    name: parent?.name,
+                    oid: parent?.oid || parent?.sha,
+                  },
+                ],
           });
         }
 
         if (item.type === 'tree' && item?.object?.entries?.length > 0) {
-          item.children = loop(item.object.entries).filter((it: any) => !['.gitkeep'].includes(it.name));
+          item.children = loop(item.object.entries, item).filter((it: any) => !['.gitkeep'].includes(it.name));
         } else {
           item.children = null;
+          item.ancestors = parent?.ancestors
+            ? [...parent.ancestors, { name: parent.name, oid: parent.oid || parent.sha }]
+            : [
+                {
+                  name: parent?.name,
+                  oid: parent?.oid || parent?.sha,
+                },
+              ];
         }
       }
 
       return array;
     };
 
-    return loop(data);
+    const newData = loop(data);
+    console.log(newData);
+
+    return ascending(newData);
   }
 
   return [];
@@ -589,7 +619,7 @@ export async function createPR({
     },
   );
 
-  console.log(res);
+  return res?.createPullRequest?.pullRequest;
 }
 
 export async function createFolder(body: { name: string; playgroundType: string; sha?: string }) {

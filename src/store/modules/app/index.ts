@@ -1,6 +1,6 @@
-import { isEmpty, update } from 'lodash-es';
+import { isEmpty } from 'lodash-es';
 import { store } from '@/store';
-import { getSomething, playgroundTypes } from '@/api/common';
+import { getSomething } from '@/api/common';
 import GisIcon from '~icons/oui/app-gis';
 import LayerIcon from '~icons/gis/layer-height';
 import GLTFIcon from '~icons/file-icons/gltf';
@@ -19,26 +19,30 @@ export const useAppStore = defineStore('app', {
         label: '基础功能',
         icon: GisIcon,
         collapse: true,
+        rank: 1,
       },
       {
         label: '矢量瓦片及点线面图层',
         icon: LayerIcon,
         collapse: true,
+        rank: 2,
       },
       {
         label: 'GLTF模型',
         icon: GLTFIcon,
         collapse: true,
+        rank: 3,
       },
       {
         label: '三维功能',
         icon: SphereIcon,
         collapse: true,
+        rank: 4,
       },
     ],
   }),
   getters: {
-    templates: (state) => state.templates,
+    getTemplates: (state) => state.templates,
   },
   actions: {
     async getTemplates(force?: boolean) {

@@ -1,15 +1,15 @@
 {
   "name": "maptalks-starter",
-  "version": "0.0.0",
   "type": "module",
+  "version": "0.0.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.4.0",
-    "maptalks": "1.0.0-rc.33"
+    "maptalks": "1.0.0-rc.33",
+    "vue": "^3.4.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.2",

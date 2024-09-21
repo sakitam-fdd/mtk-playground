@@ -49,11 +49,11 @@ export default defineComponent({
               {props.direction === 'left' ? (
                 <div class="w-full px-4 lg:w-1/2">
                   <a href={props.link} target="_blank" rel="noopener noreferrer">
-                    <div class="relative mx-auto aspect-[360/266] max-w-[500px] lg:mr-0 hover:opacity-80">
+                    <div class="relative mx-auto aspect-[360/266] max-w-[500px] lg:ml-0 hover:opacity-80">
                       <img
                         src={props.image}
                         alt={props.alt}
-                        class="mx-auto max-w-full drop-shadow-three dark:drop-shadow-none lg:mr-0"
+                        class="mx-auto max-w-full drop-shadow-three dark:drop-shadow-none"
                       />
                     </div>
                   </a>

@@ -11,6 +11,8 @@ async function bootStrap() {
     defaultSelectedAppId: 'repl',
   };
 
+  globalThis.__VUE_OPTIONS_API__ = true;
+
   // 设置样式加载
   setupAssets();
   // 创建vue

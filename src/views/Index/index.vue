@@ -23,15 +23,12 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Star on GitHub"
-                class="inline-block rounded-sm bg-black px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-black/90 dark:bg-white/10 dark:text-white dark:hover:bg-white/5"
+                class="effect-btn bg-[var(--el-color-primary)] dark:bg-transparent"
               >
-                Star on GitHub
+                Star
               </a>
 
-              <RouterLink
-                to="/playgrounds"
-                class="inline-block rounded-sm bg-black px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-black/90 dark:bg-white/10 dark:text-white dark:hover:bg-white/5"
-              >
+              <RouterLink to="/playgrounds" class="effect-btn bg-[var(--el-color-primary)] dark:bg-transparent">
                 Playgrounds
               </RouterLink>
             </div>
@@ -107,20 +104,66 @@
   import Footer from '@/components/Footer';
   import Header from '@/components/Header/index.vue';
   import SelectionItem from './SelectionItem';
-
-  // 吸顶
-  const scrollThreshold = 80;
-
-  const scrollToSection = (id) => {
-    const section = document.getElementById(id);
-    if (section) {
-      const myTop = section.offsetTop - scrollThreshold;
-      window.scrollTo({
-        top: myTop,
-        behavior: 'smooth',
-      });
-    }
-  };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  .effect-btn {
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 7px;
+    border: 1px solid var(--el-color-primary);
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #fff;
+    overflow: hidden;
+    box-shadow: 0 0 0 0 transparent;
+    transition: all 0.2s ease-in;
+
+    &:hover {
+      background: var(--el-color-primary);
+      box-shadow: 0 0 30px 5px var(--color-primary-light);
+      transition: all 0.2s ease-out;
+
+      &::before {
+        animation: ani 0.5s 0s linear;
+      }
+    }
+
+    &::before {
+      content: '';
+      display: block;
+      width: 0px;
+      height: 86%;
+      position: absolute;
+      top: 7%;
+      left: 0%;
+      opacity: 0;
+      background: #fff;
+      box-shadow: 0 0 50px 30px #fff;
+      transform: skewX(-20deg);
+    }
+
+    &:active {
+      box-shadow: 0 0 0 0 transparent;
+      transition: box-shadow 0.2s ease-in;
+    }
+  }
+
+  @keyframes ani {
+    from {
+      opacity: 0;
+      left: 0%;
+    }
+
+    50% {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 0;
+      left: 100%;
+    }
+  }
+</style>

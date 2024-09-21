@@ -3,7 +3,7 @@
     <div
       v-if="isVisible"
       aria-label="scroll to top"
-      class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-md bg-primary text-white shadow-md transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+      class="scroll-top"
       @click="scrollToTop"
       @keydown.enter="scrollToTop"
     >
@@ -36,3 +36,10 @@
     window.removeEventListener('scroll', toggleVisibility);
   });
 </script>
+
+<style lang="less" scoped>
+  .scroll-top {
+    @apply flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-white shadow-md transition duration-300 ease-in-out hover:opacity-80;
+    background: var(--el-color-primary);
+  }
+</style>

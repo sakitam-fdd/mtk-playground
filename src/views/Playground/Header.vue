@@ -1,19 +1,13 @@
 <template>
   <nav class="playground-nav">
-    <h1>
+    <h1 @click="handleJump" class="cursor-pointer" @keypress.enter="handleJump">
       <img alt="logo" src="@/assets/icon/logo.svg" />
       <span>Maptalks Playground</span>
     </h1>
     <div class="flex items-center">
-      <VersionSelect
-        :model-value="mtkVersion"
-        @update:model-value="setVueVersion"
-        pkg="maptalks"
-        label="Maptalks Version"
-      >
-        <li :class="{ active: mtkVersion === `@${currentCommit}` }"></li>
+      <VersionSelect :model-value="mtkVersion" @update:model-value="setVersion" pkg="maptalks" label="Maptalks Version">
         <li>
-          <a href="https://app.netlify.com/sites/vue-sfc-playground/deploys" target="_blank">Commits History</a>
+          <a href="https://github.com/maptalks/maptalks.js/releases" target="_blank">Releases History</a>
         </li>
       </VersionSelect>
       <el-button
@@ -35,30 +29,30 @@
         <span>{{ ssr ? 'SSR ON' : 'SSR OFF' }}</span>
       </el-button>
       <el-tooltip :content="isDark ? '亮色' : '暗色'">
-        <el-button type="text" title="Toggle dark mode" class="toggle-dark" @click="toggleDark">
+        <el-button link title="Toggle dark mode" class="toggle-dark" @click="toggleDark">
           <span v-if="!isDark" class="i-ant-design:sun-outlined w-1.5em h-1.5em"></span>
           <span v-else class="i-ant-design:moon-outlined w-1.5em h-1.5em"></span>
         </el-button>
       </el-tooltip>
       <el-tooltip content="保存">
-        <el-button type="text" :loading="saveLoading" title="保存页面" class="save" @click="$emit('save')">
+        <el-button link :loading="saveLoading" title="保存页面" class="save" @click="$emit('save')">
           <span class="i-ant-design:save-outlined w-1.5em h-1.5em"></span>
         </el-button>
       </el-tooltip>
       <el-tooltip content="刷新页面">
-        <el-button type="text" title=" 刷新页面" class="reload" @click="$emit('reload-page')">
+        <el-button link title=" 刷新页面" class="reload" @click="$emit('reload-page')">
           <span class="i-ant-design:reload-outlined w-1.5em h-1.5em"></span>
         </el-button>
       </el-tooltip>
       <el-tooltip content="复制分享链接">
-        <el-button type="text" title="复制分享链接" class="share" @click="copyLink">
+        <el-button link title="复制分享链接" class="share" @click="copyLink">
           <span class="i-ant-design:share-alt-outlined w-1.5em h-1.5em"></span>
         </el-button>
       </el-tooltip>
       <el-tooltip content="打包下载项目">
         <el-popconfirm title="确认打包下载项目文件?" @confirm="downloadProject(store)">
           <template #reference>
-            <el-button type="text" title="打包下载项目" class="download">
+            <el-button link title="打包下载项目" class="download">
               <span class="i-ant-design:download-outlined w-1.5em h-1.5em"></span>
             </el-button>
           </template>
@@ -81,12 +75,13 @@
   import { computed } from 'vue';
   import type { ReplStore } from '@vue/repl';
   import { ElMessage } from 'element-plus';
+  import { useRouter } from 'vue-router';
   import { useTheme } from '@/hooks/useTheme';
   import { downloadProject } from './Download/download';
   import VersionSelect from './VersionSelect.vue';
 
   const props = defineProps<{
-    store: ReplStore;
+    store: ReplStore & { setMtkVersion: (v: string) => void; mtkVersion: string };
     prod: boolean;
     ssr: boolean;
     saveLoading: boolean;
@@ -95,20 +90,21 @@
   const emit = defineEmits(['toggle-ssr', 'toggle-prod', 'reload-page', 'save']);
 
   const { store } = props;
-
+  const router = useRouter();
   const { toggleDark, isDark } = useTheme();
 
-  const currentCommit = '3.4.27';
+  const currentCommit = '1.0.0-rc.37';
 
   const mtkVersion = computed(() => {
     if (store.loading) {
       return 'loading...';
     }
-    return '1.0.0-rc.35';
+    return store.mtkVersion || currentCommit;
   });
 
-  async function setVueVersion(v: string) {
-    store.vueVersion = v;
+  async function setVersion(v: string) {
+    // store.vueVersion = v;
+    store.setMtkVersion(v);
   }
 
   async function copyLink(e: MouseEvent) {
@@ -120,6 +116,10 @@
     await navigator.clipboard.writeText(window.location.href);
     ElMessage.success('分享链接已经复制到剪切板.');
   }
+
+  const handleJump = () => {
+    router.push('/');
+  };
 </script>
 
 <style>

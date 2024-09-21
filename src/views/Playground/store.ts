@@ -5,8 +5,6 @@ import * as defaultCompiler from 'vue/compiler-sfc';
 import type { ReplStore, StoreState, Store, ImportMap } from '@vue/repl';
 import { ref, computed } from 'vue';
 
-const style = ref('https://cdn.jsdelivr.net/npm/maptalks@latest/dist/maptalks.css');
-
 const appFileCode = `
 <template>
   <div class="playground-content" ref="mapRef"></div>
@@ -97,45 +95,6 @@ function fixURL(url: string) {
   return url.replace('https://sfc.vuejs', 'https://play.vuejs');
 }
 
-// export class Store extends ReplStore {
-//   constructor(storeOptions?: any, hash?: string) {
-//     super(storeOptions);
-//     if (hash) {
-//       const saved = JSON.parse(atou(hash));
-//       // eslint-disable-next-line no-restricted-syntax
-//       for (const filename in saved) {
-//         const newName = filename.startsWith('src/') ? filename : `src/${filename}`;
-//         if (!filterFiles.includes(newName)) {
-//           this.addFile(new File(newName, saved[filename]));
-//         }
-//       }
-//     } else {
-//       const main = new File(APP_FILE, appFileCode, false);
-//       this.addFile(main);
-//     }
-//
-//     // this.state.mainFile = ’main.js‘;
-//     this.setActive(APP_FILE);
-//   }
-//
-//   serialize() {
-//     const files = this.getFiles();
-//     delete files[IMPORTMAP_FILE];
-//     delete files[TSCONFIG_FILE];
-//     return `#${utoa(JSON.stringify(files))}`;
-//   }
-//
-//   setMtkVersion(v: string) {
-//     style.value = `https://cdn.jsdelivr.net/npm/maptalks@${v}/dist/maptalks.css`;
-//     // compileFile(this, install).then((errs) => this.state.errors.push(...errs));
-//     this.setImportMap({
-//       imports: {
-//         maptalks: `https://cdn.jsdelivr.net/npm/maptalks@${v}/dist/maptalks.es.js`,
-//       },
-//     });
-//   }
-// }
-
 export function useStore(
   {
     files = ref(Object.create(null)),
@@ -153,6 +112,7 @@ export function useStore(
     sfcOptions = ref({}),
     compiler = shallowRef(defaultCompiler),
     vueVersion = ref(null),
+    mtkVersion = ref(null),
 
     locale = ref(),
     typescriptVersion = ref('latest'),
@@ -185,6 +145,7 @@ export function useStore(
         locale.value,
         dependencyVersion.value,
         vueVersion.value,
+        mtkVersion.value,
       ],
       () => reloadLanguageTools.value?.(),
       { deep: true },
@@ -441,12 +402,15 @@ export function useStore(
   applyBuiltinImportMap();
 
   const setMtkVersion = (v: string) => {
-    style.value = `https://cdn.jsdelivr.net/npm/maptalks@${v}/dist/maptalks.css`;
+    const m = getImportMap();
+    mtkVersion.value = v;
     // compileFile(this, install).then((errs) => this.state.errors.push(...errs));
-    this.setImportMap({
+    setImportMap({
       imports: {
-        maptalks: `https://cdn.jsdelivr.net/npm/maptalks@${v}/dist/maptalks.es.js`,
+        ...m.imports,
+        maptalks: `https://esm.sh/maptalks@${v}`,
       },
+      scopes: m.scopes,
     });
   };
 
@@ -465,7 +429,7 @@ export function useStore(
     compiler,
     loading,
     vueVersion,
-
+    mtkVersion,
     locale,
     typescriptVersion,
     dependencyVersion,

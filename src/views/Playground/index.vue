@@ -76,9 +76,10 @@
 <script setup lang="ts">
   import { Repl, SFCOptions, useVueImportMap, mergeImportMap, File } from '@vue/repl';
   import Monaco from '@vue/repl/monaco-editor';
-  import { ref, watchEffect, onMounted, computed } from 'vue';
+  import { ref, watchEffect, onMounted, computed, watch } from 'vue';
   import { Plus } from '@element-plus/icons-vue';
   import { ElMessage } from 'element-plus';
+  import { useRouter, useRoute } from 'vue-router';
   import FileTree from '@/components/FileTree/index.vue';
   import { to } from '@/utils/to';
   import { useTheme } from '@/hooks/useTheme';
@@ -93,8 +94,10 @@
   const list = ref<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [userLoading, setUserLoading] = useState(false);
-  const [enableAdd] = useState(true);
-
+  // 暂时不启用用户自主创建目录
+  const [enableAdd] = useState(false);
+  const router = useRouter();
+  const route = useRoute();
   const setVH = () => {
     document.documentElement.style.setProperty('--vh', `${window.innerHeight}px`);
   };
@@ -119,19 +122,29 @@
       : `${window.location.origin}/src/views/Playground/vue-server-renderer-dev-proxy`,
   });
 
-  let hash = window.location.hash.slice(1);
-  if (hash.startsWith('__DEV__')) {
-    hash = hash.slice(7);
-    productionMode.value = false;
-  }
-  if (hash.startsWith('__PROD__')) {
-    hash = hash.slice(8);
-    productionMode.value = true;
-  }
-  if (hash.startsWith('__SSR__')) {
-    hash = hash.slice(7);
-    useSSRMode.value = true;
-  }
+  const { name, category, subclass, productionMode: prodMode, ssrMode } = route.query;
+
+  console.log(name, category, subclass, productionMode, ssrMode);
+
+  watch(
+    () => route.query,
+    () => {
+      if (prodMode === 'DEV') {
+        productionMode.value = false;
+      } else if (prodMode === 'PROD') {
+        productionMode.value = true;
+      }
+
+      if (ssrMode === 'SSR') {
+        useSSRMode.value = true;
+      } else {
+        useSSRMode.value = false;
+      }
+    },
+    {
+      immediate: true,
+    },
+  );
 
   const userImportMap = ref(
     mergeImportMap(importMap.value, {
@@ -173,18 +186,35 @@
 
   globalThis.store = store;
 
+  const updateQuery = (newQuery: Record<string, string>) => {
+    const currentQuery = { ...route.query };
+    let hasChanges = false;
+
+    // 检查是否有实际的变化
+    for (const [key, value] of Object.entries(newQuery)) {
+      if (currentQuery[key] !== value) {
+        currentQuery[key] = value;
+        hasChanges = true;
+      }
+    }
+
+    // 只有在有实际变化时才更新 URL
+    if (hasChanges) {
+      const newURL = router.resolve({
+        path: route.path,
+        query: currentQuery,
+      }).href;
+
+      window.history.replaceState(null, '', newURL);
+    }
+  };
+
   // persist state
   watchEffect(() => {
-    const newHash = store
-      .serialize()
-      .replace(/^#/, useSSRMode.value ? `#__SSR__` : `#`)
-      .replace(/^#/, productionMode.value ? `#__PROD__` : `#`);
-    console.log(newHash);
-    const f = store.getFiles();
-    console.log(f);
-
-    console.log(theme);
-    // window.history.replaceState({}, '', newHash);
+    updateQuery({
+      productionMode: productionMode.value ? 'PROD' : 'DEV',
+      ssrMode: useSSRMode.value ? 'SSR' : '',
+    });
   });
 
   const editorLoading = computed(() => userLoading.value);
@@ -204,18 +234,21 @@
     if (current.value?.depth === 3) {
       const content = buildCommit(store, true);
 
-      matchSha(currentEditorFiles.value, content);
+      const { needUpdate, data } = matchSha(currentEditorFiles.value, content);
 
-      const folder = current.value?.path;
-      const [error, res] = await to(updatePlayground(folder, content, true));
-
+      if (needUpdate) {
+        const folder = current.value?.path;
+        const [error, res] = await to<any>(updatePlayground(folder, data, true));
+        if (!error) {
+          ElMessage.success(`示例修改成功, 已创建 pr: ${res?.url}`);
+        } else {
+          ElMessage.error('示例修改失败');
+        }
+      } else {
+        ElMessage.warning('示例无修改');
+      }
       setSaveLoading(false);
       setUserLoading(false);
-      if (!error) {
-        ElMessage.success(`示例修改成功, 已创建 pr: ${res?.path}`);
-      } else {
-        ElMessage.error('示例修改失败');
-      }
     } else {
       // 新建走弹窗
       setSaveVisible(true);
@@ -235,11 +268,45 @@
     replRef.value?.reload();
   };
 
+  const updateSideMenu = () => {
+    for (let i = 0; i < list.value.length; i++) {
+      const item = list.value[i];
+      if (item.name === category) {
+        item.collapse = false;
+        if (item.children && item.children.length > 0) {
+          for (let j = 0; j < item.children.length; j++) {
+            const subItem = item.children[j];
+
+            if (subItem.name === subclass) {
+              subItem.collapse = false;
+
+              if (subItem.children && subItem.children.length > 0) {
+                for (let k = 0; k < subItem.children.length; k++) {
+                  const playgroundItem = subItem.children[j];
+
+                  if (playgroundItem.name === name) {
+                    playgroundItem.collapse = false;
+                    handleMenuSelect(playgroundItem, 3);
+                    break;
+                  }
+                }
+              }
+              break;
+            }
+          }
+        }
+        break;
+      }
+    }
+  };
+
   const getMenuList = async () => {
     setLoading(true);
     const data = await getFileTree();
 
     list.value = data;
+
+    updateSideMenu();
 
     setLoading(false);
   };
@@ -250,7 +317,7 @@
     setDialogVisible(true);
   };
 
-  const handleMenuSelect = (m, d) => {
+  function handleMenuSelect(m, d) {
     setCurrent({
       ...m,
       depth: d,
@@ -258,6 +325,14 @@
 
     if (d === 3) {
       setUserLoading(true);
+      if (m.ancestors) {
+        updateQuery({
+          name: m.name,
+          category: m.ancestors[0]?.name,
+          subclass: m.ancestors[1]?.name,
+        });
+      }
+
       getPlayground(m)
         .then((files: any[]) => {
           const fs = {};
@@ -280,13 +355,23 @@
           setUserLoading(false);
         });
     }
-  };
+  }
 
   const handleClose = () => {
     setSaveVisible(false);
     setSaveLoading(false);
     setUserLoading(false);
   };
+
+  watch(
+    () => [category, subclass, name],
+    () => {
+      updateSideMenu();
+    },
+    {
+      immediate: true,
+    },
+  );
 
   onMounted(() => {
     // @ts-expect-error process shim for old versions of @vue/compiler-sfc dependency
@@ -310,7 +395,8 @@
 
   .vue-repl {
     height: calc(var(--vh) - var(--nav-height)) !important;
-    --color-branding: var(--el-color-primary);
+    --color-branding: var(--el-color-primary) !important;
+    --color-branding-dark: var(--el-color-primary-dark-2) !important;
   }
 
   button {

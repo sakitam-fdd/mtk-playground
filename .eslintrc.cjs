@@ -31,6 +31,7 @@ module.exports = {
     'vue/require-default-prop': 'off',
     'react/jsx-filename-extension': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/no-static-element-interactions': 'off',
     '@typescript-eslint/consistent-type-imports': 'off',
   },
 };
