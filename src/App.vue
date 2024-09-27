@@ -4,24 +4,23 @@
   </ElConfigProvider>
 </template>
 
-<script lang="ts">
-  import { onMounted } from 'vue';
+<script lang="ts" setup>
+  import { computed } from 'vue';
   import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
+  import enUS from 'element-plus/dist/locale/en.mjs';
+  import { useAppStore } from '@/store/modules';
+  import { LocaleEnum } from '@/plugins/locales';
 
-  export default defineComponent({
-    name: 'App',
-    setup() {
-      const locale = computed(() => zhCn);
-
-      onMounted(() => {
-        // setLocale(currentLocale.value);
-        // appStore.toggleTheme(appStore.theme === 'dark');
-      });
-
-      return {
-        locale,
-      };
-    },
+  const appStore = useAppStore();
+  const locale = computed(() => {
+    switch (appStore.getLocale) {
+      case LocaleEnum.ZH_CN:
+        return zhCn;
+      case LocaleEnum.EN_US:
+        return enUS;
+      default:
+        return zhCn;
+    }
   });
 </script>
 

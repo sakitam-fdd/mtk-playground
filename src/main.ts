@@ -2,7 +2,7 @@ import 'virtual:uno.css';
 import { setupRouter } from '@/router';
 import { setupStore } from '@/store';
 import { setupDirectives } from '@/directives';
-import { setupCustomComponents, setupGlobalMethods, setupAssets, setupMixins } from '@/plugins';
+import { setupCustomComponents, setupGlobalMethods, setupAssets, setupMixins, setupI18n } from '@/plugins';
 
 import App from '@/App.vue';
 
@@ -29,6 +29,9 @@ async function bootStrap() {
 
   // 注册 mixins
   setupMixins(app);
+
+  // 注册 i18n
+  setupI18n(app);
 
   // 挂载状态管理
   await setupStore(app);
