@@ -38,11 +38,16 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       alias: [
         {
           find: /\/#\//,
-          replacement: pathResolve('types') + '/',
+          replacement: `${pathResolve('types')}/`,
         },
         {
           find: '@',
-          replacement: pathResolve('src') + '/',
+          replacement: `${pathResolve('src')}/`,
+        },
+
+        {
+          find: '~',
+          replacement: `${pathResolve('.')}/`,
         },
         {
           find: 'vue-i18n',
@@ -114,7 +119,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         },
         {
           find: '@',
-          replacement: pathResolve('src') + '/',
+          replacement: `${pathResolve('src')}/`,
         },
       ],
     },

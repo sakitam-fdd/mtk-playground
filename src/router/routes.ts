@@ -1,5 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router';
 import BasicLayout from '@/layout/BlankLayout/index.vue';
+import { playgroundRoutes } from './pls';
+
+console.log(playgroundRoutes);
 
 export const root = {
   path: '/',
@@ -35,6 +38,15 @@ export const root = {
         title: '编辑器',
         iconSize: 16,
       },
+    },
+    {
+      path: '/pls',
+      name: 'pls',
+      meta: {
+        title: '示例动态路由',
+        iconSize: 16,
+      },
+      children: playgroundRoutes,
     },
   ],
   redirect: '/index',
