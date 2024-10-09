@@ -1,6 +1,7 @@
 import { defineComponent, onBeforeMount, watchEffect, ExtractPropTypes } from 'vue';
 import { useTheme } from '@/hooks/useTheme';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import Header from '@/components/Header/index.vue';
 import { ElButton, ElIcon } from 'element-plus';
 import { Plus } from '@element-plus/icons-vue';
@@ -28,18 +29,19 @@ export default defineComponent({
   setup(props: Props) {
     const { isDark } = useTheme();
     const router = useRouter();
+    const { t } = useI18n();
     const [playgroundList, setPlaygroundList] = useState([]);
-    const [activeItem, setActiveItem] = useState({ value: '', label: '', children: [] });
-    const [activeSubItem, setActiveSubItem] = useState({ value: '', label: '' });
+    const [activeItem, setActiveItem] = useState({ name: '', children: [] });
+    const [activeSubItem, setActiveSubItem] = useState({ name: '' });
 
     const scrollThreshold = 80;
 
     const scrollToSection = (id) => {
       const section = document.getElementById(id);
       if (section) {
-        const t = section.offsetTop - scrollThreshold;
+        const top = section.offsetTop - scrollThreshold;
         window.scrollTo({
-          top: t,
+          top,
           behavior: 'smooth',
         });
       }
@@ -72,26 +74,22 @@ export default defineComponent({
 
     const menuItems = computed(() => {
       const list = playgroundList.value.map((item) => {
-        const children = item.examples.map((example) => ({
-          value: example.name,
-          label: example.title.cn,
+        const children = item.children.map((example) => ({
+          name: example.name,
         }));
 
         children.unshift({
-          value: '',
-          label: '全部',
+          name: '__all',
         });
 
         return {
-          value: item.name,
-          label: item.title.cn,
+          name: item.name,
           children,
         };
       });
 
       list.unshift({
-        value: '',
-        label: '全部',
+        name: '__all',
         children: [],
       });
 
@@ -100,6 +98,7 @@ export default defineComponent({
 
     const fetchPlaygroundList = async () => {
       const res = await getPlaygroundList();
+      console.log(res);
       setPlaygroundList(res);
     };
 
@@ -133,18 +132,18 @@ export default defineComponent({
                 <div class="flex flex-wrap h-full w-full flex-1 items-center space-x-3 gap-10px">
                   {menuItems.value.map((item) => (
                     <div
-                      key={item.value}
+                      key={item.name}
                       class={[
                         styles.menuItem,
                         'font-size-16px',
                         'whitespace-nowrap',
-                        { [styles.activeMenu]: item.value === activeItem.value.value },
+                        { [styles.activeMenu]: item.name === activeItem.value.name },
                       ]}
                       onClick={() => {
                         handleClickMenuItem(item);
                       }}
                     >
-                      {item.label}
+                      {t(`${item.name}.`)}
                     </div>
                   ))}
                 </div>
@@ -170,7 +169,7 @@ export default defineComponent({
                       handleClickSubMenuItem(item);
                     }}
                   >
-                    {item.label}
+                    {t(item.value)}
                   </div>
                 ))}
               </div>
@@ -180,12 +179,12 @@ export default defineComponent({
               <div class={['h-full w-full gap-8 p-4']}>
                 {playgroundList.value.map((subList) => (
                   <div id={subList.name}>
-                    {subList.examples.map((sub) => (
+                    {subList.children.map((sub) => (
                       <div id={sub.name} class={['grid h-full w-full gap-8 p-4', styles.playgroundList]}>
                         <h2 class={['col-span-full text-xl font-bold mb-4 text-black dark:text-white', styles.title]}>
-                          <div class={styles.titleInner}>{sub.title.cn}</div>
+                          <div class={styles.titleInner}>{t(sub.name)}</div>
                         </h2>
-                        {sub.examples.map((example) => (
+                        {sub.children.map((example) => (
                           <div id={example.name} class={[styles.playgroundListItem, isDark.value ? styles.dark : '']}>
                             <div
                               class={['relative flex-1 overflow-hidden rounded-md p-[12px]', styles.header]}
@@ -206,12 +205,12 @@ export default defineComponent({
                                   onClick={openFullscreen}
                                 />
                                 <div class="flex h-full w-full items-center justify-center text-black dark:text-white">
-                                  <span>{example.title.cn}</span>
+                                  <span>{t(example.name)}</span>
                                 </div>
                               </div>
                             </div>
                             <div class="flex h-[40px] items-center justify-between px-[12px]">
-                              <span class={styles.footerTitle}>{example.title.cn}</span>
+                              <span class={styles.footerTitle}>{t(example.name)}</span>
                               <div class="icon__settings !h-[26px] !w-[26px]" onClick={openSettings}>
                                 <div class="flex items-center justify-center rounded-md transition-all">
                                   <span

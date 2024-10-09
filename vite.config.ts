@@ -99,7 +99,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         output: {
           manualChunks: {
             vue: ['vue', 'vue-router', 'pinia'],
-            common: ['lodash-es', 'lodash', 'crypto-js'],
+            common: ['lodash-es', 'lodash'],
             element: ['element-plus', '@element-plus/icons-vue'],
           },
         },

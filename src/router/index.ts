@@ -4,7 +4,6 @@ import { createRouterGuard } from '@/router/guard';
 import routes from './routes';
 
 const router = createRouter({
-  // history: import.meta.env.PROD ? createWebHistory() : createWebHashHistory(),
   history: createWebHistory(),
   routes,
   strict: true,

@@ -306,3 +306,5 @@ export const playgroundRoutes: RouteRecordRaw[] = [
     ],
   },
 ];
+
+export const playgroundPages = [];

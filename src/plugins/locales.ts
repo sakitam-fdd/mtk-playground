@@ -30,6 +30,8 @@ const mappingI18n = (function () {
     en: getContent(import.meta.glob(`../locales/en/*.y(a)?ml`, { eager: true, import: 'default' })),
   };
 
+  console.log(cache);
+
   return (prefix = 'zh-CN') => cache[prefix];
 })();
 

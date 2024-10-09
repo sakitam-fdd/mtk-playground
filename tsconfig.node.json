@@ -9,5 +9,5 @@
     "types": ["vitest/globals", "node", "@intlify/unplugin-vue-i18n/messages"]
   },
   "exclude": ["node_modules"],
-  "include": ["vite.config.ts", "rsbuild.config.ts", "build/**/*.ts", "types", "mock"]
+  "include": ["vite.config.ts", "rsbuild.config.ts", "build/**/*.ts", "scripts/**/*.ts", "types", "mock"]
 }

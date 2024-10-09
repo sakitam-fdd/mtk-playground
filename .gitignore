@@ -56,3 +56,6 @@ mock.bundle.js.timestamp-*
 
 # playground
 .playgrounds
+
+# thumbnails
+public/thumbnails
