@@ -38,7 +38,7 @@ export default defineComponent({
 
     const scrollThreshold = 80;
 
-    const scrollToSection = (id) => {
+    const scrollToSection = (id: string) => {
       const section = document.getElementById(id);
       if (section) {
         const top = section.offsetTop - scrollThreshold;

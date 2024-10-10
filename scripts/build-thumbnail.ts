@@ -90,6 +90,22 @@ async function renderPage(page: Page, entry: Entries, options: Record<string, an
         }
       }),
   );
+
+  // Test for webgl support
+  // e.g. https://developer.mozilla.org/en-US/docs/Learn/WebGL/By_example/Detect_WebGL
+  // const webgl = await page.evaluate(() => {
+  //   const canvas = document.createElement('canvas');
+  //   const gl = canvas.getContext('webgl');
+  //   const expGl = canvas.getContext('experimental-webgl');
+  //
+  //   return {
+  //     gl: gl && gl instanceof WebGLRenderingContext,
+  //     expGl: expGl && expGl instanceof WebGLRenderingContext,
+  //   };
+  // });
+
+  // await page.waitForSelector(".content");
+
   // const config = await renderCalled;
   const actualPath = getActualScreenshotPath(entry);
 
@@ -151,6 +167,24 @@ async function render(entries: Entries[], options: Record<string, any>) {
     });
 
     page.setDefaultNavigationTimeout(options.timeout);
+
+    // ua && (await page.setUserAgent(ua));
+
+    // 拦截请求
+    // await page.setRequestInterception(true);
+    //
+    // page.on('request', async (request) => {
+    //   if (
+    //     request.resourceType() === 'image' ||
+    //     request.resourceType() === 'font' ||
+    //     request.resourceType() === 'stylesheet'
+    //   ) {
+    //     await request.abort();
+    //   } else {
+    //     await request.continue();
+    //   }
+    // });
+
     await exposeRender(page);
     await page.setViewport({ width: 900, height: 530 });
     await renderEach(page, entries, options);
@@ -181,6 +215,8 @@ async function main(entries: Entries[], options: Record<string, any>) {
   await sleep(2 * 1000);
   try {
     await render(entries, options);
+  } catch (e) {
+    console.error('main', e);
   } finally {
     done?.();
   }
