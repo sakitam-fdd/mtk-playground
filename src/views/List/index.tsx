@@ -23,6 +23,8 @@ const props = {
 
 type Props = ExtractPropTypes<typeof props>;
 
+const ALL_FLAG = '__all';
+
 export default defineComponent({
   name: 'PlaygroundList',
   props,
@@ -56,20 +58,22 @@ export default defineComponent({
 
     const handleClickMenuItem = (item: any) => {
       setActiveItem(item);
-      scrollToSection(item.value);
+      scrollToSection(item.name);
     };
 
     const handleClickSubMenuItem = (item: any) => {
       setActiveSubItem(item);
-      scrollToSection(item.value);
+      scrollToSection(item.name);
     };
 
     const openFullscreen = () => {
       // Implement fullscreen logic
     };
 
-    const openSettings = () => {
-      // Implement settings logic
+    const openSettings = (example, sub, subList) => {
+      router.push({
+        name: example.name,
+      });
     };
 
     const menuItems = computed(() => {
@@ -79,7 +83,7 @@ export default defineComponent({
         }));
 
         children.unshift({
-          name: '__all',
+          name: ALL_FLAG,
         });
 
         return {
@@ -89,7 +93,7 @@ export default defineComponent({
       });
 
       list.unshift({
-        name: '__all',
+        name: ALL_FLAG,
         children: [],
       });
 
@@ -98,7 +102,6 @@ export default defineComponent({
 
     const fetchPlaygroundList = async () => {
       const res = await getPlaygroundList();
-      console.log(res);
       setPlaygroundList(res);
     };
 
@@ -143,7 +146,7 @@ export default defineComponent({
                         handleClickMenuItem(item);
                       }}
                     >
-                      {t(`${item.name}.`)}
+                      {t(`playgrounds.${item.name}.title`)}
                     </div>
                   ))}
                 </div>
@@ -152,7 +155,7 @@ export default defineComponent({
                     <ElIcon>
                       <Plus />
                     </ElIcon>
-                    创建空模板
+                    {t('app.actions.create_template')}
                   </ElButton>
                 </div>
               </div>
@@ -163,13 +166,15 @@ export default defineComponent({
                     class={[
                       styles.menuItem,
                       'whitespace-nowrap',
-                      { [styles.activeMenu]: item.value === activeSubItem.value.value },
+                      { [styles.activeMenu]: item.name === activeSubItem.value.name },
                     ]}
                     onClick={() => {
                       handleClickSubMenuItem(item);
                     }}
                   >
-                    {t(item.value)}
+                    {item.name === ALL_FLAG
+                      ? t('playgrounds.__all.title')
+                      : t(`playgrounds.${item.name.split('_').join('.')}.title`)}
                   </div>
                 ))}
               </div>
@@ -182,7 +187,7 @@ export default defineComponent({
                     {subList.children.map((sub) => (
                       <div id={sub.name} class={['grid h-full w-full gap-8 p-4', styles.playgroundList]}>
                         <h2 class={['col-span-full text-xl font-bold mb-4 text-black dark:text-white', styles.title]}>
-                          <div class={styles.titleInner}>{t(sub.name)}</div>
+                          <div class={styles.titleInner}>{t(`playgrounds.${sub.name.split('_').join('.')}.title`)}</div>
                         </h2>
                         {sub.children.map((example) => (
                           <div id={example.name} class={[styles.playgroundListItem, isDark.value ? styles.dark : '']}>
@@ -193,7 +198,7 @@ export default defineComponent({
                               <div class={styles.content}>
                                 <div class="h-full w-full">
                                   <img
-                                    v-lazy={`${THUMBNAIL_URL}${subList.name}_${sub.name}_${example.name}.webp`}
+                                    v-lazy={`${THUMBNAIL_URL}${example.name}.png`}
                                     class="rounded-md pre-image h-full w-full"
                                     alt="Loaded Image"
                                   />
@@ -205,13 +210,16 @@ export default defineComponent({
                                   onClick={openFullscreen}
                                 />
                                 <div class="flex h-full w-full items-center justify-center text-black dark:text-white">
-                                  <span>{t(example.name)}</span>
+                                  <span>{t(`playgrounds.${example.name.split('_').join('.')}`)}</span>
                                 </div>
                               </div>
                             </div>
                             <div class="flex h-[40px] items-center justify-between px-[12px]">
-                              <span class={styles.footerTitle}>{t(example.name)}</span>
-                              <div class="icon__settings !h-[26px] !w-[26px]" onClick={openSettings}>
+                              <span class={styles.footerTitle}>{t(`playgrounds.${example.name.split('_').join('.')}`)}</span>
+                              <div
+                                class="icon__settings !h-[26px] !w-[26px]"
+                                onClick={() => openSettings(example, sub, subList)}
+                              >
                                 <div class="flex items-center justify-center rounded-md transition-all">
                                   <span
                                     class="iconify i-material-symbols:more-horiz m-1 text-black dark:text-white"

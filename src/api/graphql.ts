@@ -755,6 +755,6 @@ export async function getPlaygroundList() {
   return playgroundRoutes;
 }
 
-const baseDir = import.meta.env.BASE_DIR;
+const baseDir = import.meta.env.VITE_BASE_DIR;
 // 注意这里缩略图，不同平台获取的路径并不相同
 export const THUMBNAIL_URL = `${window.location.protocol}//${window.location.host}${baseDir ? baseDir : '/'}thumbnails/`;

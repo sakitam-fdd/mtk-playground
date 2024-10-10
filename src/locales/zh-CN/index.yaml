@@ -2,9 +2,15 @@ app:
   name: mtk-playground
   title: maptalks-playground
 
+  actions:
+    create_template: 创建空模板
+
 playgrounds:
+  __all:
+    title: 全部
+
   basic:
-    title: basic
+    title: 基础功能
     map:
       title: 地图
       load: 显示

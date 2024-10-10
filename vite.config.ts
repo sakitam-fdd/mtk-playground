@@ -22,7 +22,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   const viteEnv = wrapperEnv(env);
 
   return {
-    base: viteEnv.BASE_DIR || './',
+    base: viteEnv.VITE_BASE_DIR || './',
     server: {
       host: true, // 可以以IP访问
       port: viteEnv.VITE_PORT || 8080, // 端口

@@ -1,8 +1,12 @@
 app:
   name: mtk-playground
   title: maptalks-playground
+  actions:
+    create_template: Create template
 
 playgrounds:
+  __all:
+    title: All
   basic:
     title: basic
     map:

@@ -38,8 +38,8 @@ async function serve(options: Record<string, any>) {
   return previewServer.close;
 }
 
-function getActualScreenshotPath(entry: string) {
-  return path.join(baseDir, '../public/thumbnails/actual.png');
+function getActualScreenshotPath(entry: Entries) {
+  return path.join(baseDir, `../public/thumbnails/${entry.name}.png`);
 }
 
 function parsePNG(filepath: string) {
@@ -69,14 +69,14 @@ async function exposeRender(page: Page) {
   });
 }
 
-async function renderPage(page: Page, entry: string, options: Record<string, any>) {
+async function renderPage(page: Page, entry: Entries, options: Record<string, any>) {
   const renderCalled = new Promise((resolve) => {
     handleRender = (config: any) => {
       handleRender = null;
       resolve(config || {});
     };
   });
-  await page.goto(`http://${options.host}:${options.port}${entry}`, {
+  await page.goto(`http://${options.host}:${options.port}${entry.path}`, {
     waitUntil: 'networkidle0',
   });
 
@@ -92,7 +92,6 @@ async function renderPage(page: Page, entry: string, options: Record<string, any
   );
   // const config = await renderCalled;
   const actualPath = getActualScreenshotPath(entry);
-  // console.log('Attempting to take screenshot', entry, actualPath);
 
   try {
     await fse.ensureDir(path.dirname(actualPath));
@@ -100,9 +99,8 @@ async function renderPage(page: Page, entry: string, options: Record<string, any
     const screenshot = await page.screenshot({ path: actualPath });
 
     if (screenshot) {
-      console.log('Screenshot taken successfully');
       const stats = await fse.stat(actualPath);
-      console.log(`Screenshot file size: ${stats.size} bytes`);
+      console.log(`Screenshot ${entry.name} successfully, file size: ${stats.size} bytes`);
     } else {
       console.error('Screenshot function returned null or undefined');
     }
@@ -124,14 +122,14 @@ async function touch(filepath: string) {
   await fse.close(fd);
 }
 
-async function renderEach(page: Page, entries: any[], options: Record<string, any>) {
+async function renderEach(page: Page, entries: Entries[], options: Record<string, any>) {
   for (let i = 0; i < entries.length; i++) {
     const entry = entries[i];
     await renderPage(page, entry, options);
   }
 }
 
-async function render(entries: any[], options: Record<string, any>) {
+async function render(entries: Entries[], options: Record<string, any>) {
   const browser = await puppeteer.launch({
     args: options.puppeteerArgs,
     headless: Boolean(options.headless),
@@ -154,7 +152,7 @@ async function render(entries: any[], options: Record<string, any>) {
 
     page.setDefaultNavigationTimeout(options.timeout);
     await exposeRender(page);
-    await page.setViewport({ width: 1920, height: 1080 });
+    await page.setViewport({ width: 900, height: 530 });
     await renderEach(page, entries, options);
   } finally {
     if (options.interactive) {
@@ -165,10 +163,15 @@ async function render(entries: any[], options: Record<string, any>) {
   }
 }
 
-async function main(entries: any[], options: Record<string, any>) {
+interface Entries {
+  path: string;
+  name: string;
+}
+
+async function main(entries: Entries[], options: Record<string, any>) {
   if (options.match) {
     const exp = new RegExp(options.match);
-    entries = entries.filter((entry) => exp.test(entry));
+    entries = entries.filter((entry) => exp.test(entry.path));
   }
   if (!options.interactive && entries.length === 0) {
     return;
@@ -199,9 +202,32 @@ const options = {
   puppeteerArgs: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
 } as const;
 
-console.log(playgroundRoutes);
-const entries = ['/index'];
+const BASE_URL = '/pls';
+function buildEntries() {
+  const entries = [];
+  for (let i = 0; i < playgroundRoutes.length; i++) {
+    const category = playgroundRoutes[i];
 
-main(entries, options).catch((err) => {
+    if (category.children) {
+      for (let j = 0; j < category.children.length; j++) {
+        const sub = category.children[j];
+
+        if (sub.children) {
+          for (let k = 0; k < sub.children.length; k++) {
+            const item = sub.children[k];
+            entries.push({
+              path: `${BASE_URL}/${category.path}/${sub.path}/${item.path}`,
+              name: item.name as string,
+            });
+          }
+        }
+      }
+    }
+  }
+
+  return entries;
+}
+
+main(buildEntries(), options).catch((err) => {
   process.exit(1);
 });
