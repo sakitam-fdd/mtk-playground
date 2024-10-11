@@ -39,7 +39,7 @@ async function serve(options: Record<string, any>) {
 }
 
 function getActualScreenshotPath(entry: Entries) {
-  return path.join(baseDir, `../public/thumbnails/${entry.name}.png`);
+  return path.join(baseDir, `../public/thumbnails/${entry.name}.webp`);
 }
 
 function parsePNG(filepath: string) {
@@ -112,7 +112,7 @@ async function renderPage(page: Page, entry: Entries, options: Record<string, an
   try {
     await fse.ensureDir(path.dirname(actualPath));
 
-    const screenshot = await page.screenshot({ path: actualPath });
+    const screenshot = await page.screenshot({ path: actualPath, type: 'webp' });
 
     if (screenshot) {
       const stats = await fse.stat(actualPath);

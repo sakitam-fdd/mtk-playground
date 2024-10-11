@@ -7,3 +7,12 @@ export function ascending(arr: any[]) {
 
   return arr.sort((a: { rank: number }, b: { rank: number }) => a.rank - b.rank);
 }
+
+/**
+ * 获取文件名后缀格式
+ * @param filename
+ */
+export function getFileSuffix(filename: string) {
+  const idx = filename.lastIndexOf('.');
+  return filename.slice(idx + 1);
+}

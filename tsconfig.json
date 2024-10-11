@@ -31,7 +31,7 @@
     "lib": ["esnext", "dom", "dom.iterable", "webworker"],
     "skipLibCheck": true,
     "suppressImplicitAnyIndexErrors": false,
-    "types": ["vite/client", "vitest/globals", "node", "element-plus/global"],
+    "types": ["vite/client", "vitest/globals", "element-plus/global", "vue-i18n"],
     "paths": {
       "@/*": ["src/*"],
       "~/*": ["./*"]

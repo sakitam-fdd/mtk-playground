@@ -306,6 +306,7 @@
     "watchWithFilter": true,
     "whenever": true,
     "useTheme": true,
-    "useRequest": true
+    "useRequest": true,
+    "ElMessage": true
   }
 }

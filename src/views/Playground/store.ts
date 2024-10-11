@@ -4,6 +4,7 @@ import { File, compileFile, mergeImportMap, useVueImportMap } from '@vue/repl';
 import * as defaultCompiler from 'vue/compiler-sfc';
 import type { ReplStore, StoreState, Store, ImportMap } from '@vue/repl';
 import { ref, computed } from 'vue';
+import type { Ref } from 'vue';
 
 const appFileCode = `
 <template>
@@ -112,13 +113,13 @@ export function useStore(
     sfcOptions = ref({}),
     compiler = shallowRef(defaultCompiler),
     vueVersion = ref(null),
-    mtkVersion = ref(null),
+    mtkVersion = ref<WithNull<string>>(null),
 
     locale = ref(),
     typescriptVersion = ref('latest'),
     dependencyVersion = ref(Object.create(null)),
     reloadLanguageTools = ref(),
-  }: Partial<StoreState> = {},
+  }: Partial<StoreState> & { mtkVersion?: Ref<WithNull<string>> } = {},
   serializedState?: string,
 ): ReplStore {
   if (!builtinImportMap) {

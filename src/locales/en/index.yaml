@@ -1,501 +1,532 @@
 app:
-  name: mtk-playground
-  title: maptalks-playground
   actions:
-    create_template: Create template
+    back: Back
     cancel: Cancel
     confirm: Confirm
-
+    copyLink: Copy share link
+    create_template: Create template
+    dark: Dark
+    download: Download project
+    light: Light
+    new: New example/directory
+    refresh: Refresh
+    reset: Reset
+    save: Save
+    savePage: Save page
+    upload: Upload
+    language: 中文 / English
+    languageReverse: English / 中文
+  name: mtk-playground
+  pages:
+    '401': Sorry, you don't have permission to access this resource
+    '404': Sorry, the page cannot be found
+    '500': Sorry, there was a server error
+    downloadConfirm: Confirm to download the project file?
   pls:
     create:
-      title: Create
-      name: Name
       folder: Folder
+      name: Name
       placeholder: Please enter
-
+      selectPlaceholder: Please select
+      short: Add
+      title: Create
+      type: Playground type
+    edit:
+      title: Edit
+  tips:
+    result:
+      copy: The share link has been copied to the clipboard.
+      copyVersion: The maptalks version has been copied to the clipboard.
+      success: Operation successful
+    validate:
+      fail: Form validation failed
+      playgroundFolder: Please select the parent directory
+      playgroundName: Please enter the example name
+      playgroundType: Please select the example type
+  title: maptalks-playground
 playgrounds:
-  __all:
-    title: All
-  basic:
-    title: Basic
-    map:
-      title: Map
-      load: Display a map
-      pitch-rotate: Pitch and rotate
-      drag-pitch-rotate: Drag to pitch and rotate
-      panning: Map panning
-      common-control: Add common controls
-      status: Get map's status
-      fit-extent: Fit to extent
-      limit-extent: Limit map's extent
-      limit-zoom: Limit map's zoom
-      fractional-zoom: Fractional zoom
-      canvas: Load on Canvas
-      map-events: Listen map events
-      sync-map: Sync map by events
-      coordinate-conversion: Convert to screen points
-      export-image: Export map as images
-      map-magnifier: Map's magnifier
-      custom-resolutions: Customize map's resolutions
-      map-scale-container: scale container for high resolution
-    tilelayer-projection:
-      title: TileLayer and Geo-Projections
-      canvas-renderer: TileLayer with Canvas renderer
-      multi-tilelayer: Add multiple TileLayers
-      grouptilelayer: Add GroupTileLayer
-      wms: Add a WMS TileLayer
-      wms-reload: TileLayer projection wms reload
-      vector-tile: Add a mapbox vector-tile Layer
-      arcgis-tile: Add an ArcGIS TileLayer
-      wmts-tile: Add a WMTS TileLayer
-      custom-tile: LOD and custom TileLayer
-      base64: Load tiles with base64 encoding
-      tile-opacity: Set TileLayer's opacity
-      tile-mask: Set a boundary mask to TileLayer
-      epsg4326: TileLayer of EPSG:4326 projection
-      identity: TileLayer of IDENTITY projection
-      baidu: TileLayer of Baidu Projection
-      proj4js: TileLayer of custom projection by proj4js
-      d3-proj: D3 geo projection
-      different-projection: Load tilelayer with different projection
-      filter: TileLayer's CSS filter
-      tile-image-custom: Custom processing of tile images
-      max-zoom: Larger maxZoom of spatialReference
-    geometry:
-      title: Geometry
-      marker: Marker
-      linestring: LineString
-      polygon: Polygon
-      collection: GeometryCollection
-      multipoint: MultiPoint
-      multilinestring: MultiLineString
-      multipolygon: MultiPolygon
-      rectangle-circle-ellipse-sector: Rectangle, Circle, Ellipse and Sector
-      curve: Arc and Bezier Curves
-      label: Label
-      textbox: TextBox
-      connector-line: Connector Lines
-      copy: Copy a geometry
-      events: Listen geometry events
-      flash-geometry: Flash a geometry
-      collection-filter: Filter GeometryCollection by condition
-    3d:
-      title: 3D
-      marker-altitude: Marker with altitude
-      marker-draw-altitude: Draw marker's altitude
-      line-altitude: LineString with altitude
-      line-draw-altitude: Draw line's altitude wall
-      polygon-altitude: Polygon with altitude
-      set-altitude: Set geom altitude
-    style:
-      title: Geometry Styles
-      image-marker: Image marker
-      multi-image-marker: Multiple-image marker
-      vector-marker: Vector marker
-      vector-pattern: Vector marker with pattern fill
-      vector-gradient: Vector marker with gradient fill
-      svg-path-marker: SVG vector marker
-      marker-alignment: Marker's horizontal and vertical alignment
-      rotate-marker: Rotate a marker
-      text-marker: Text marker
-      rotate-text: Rotate a text marker
-      image-text-marker: Image marker with texts
-      line-symbol: Line symbol
-      line-pattern: Line pattern fill
-      line-pattern-animation: Animation of line pattern fill
-      line-gradient: Line gradient fill
-      line-arrow: Line with arrows
-      line-text: Line with texts
-      line-marker: Line of vertex marker with auto rotation
-      line-smoothness: Smooth line with curve
-      polygon-symbol: Polygon symbol
-      polygon-pattern: Polygon pattern fill
-      polygon-gradient: Polygon gradient fill
-      polygon-vertex-marker: Polygon with vetex markers
-      composite-symbol: Composite symbol
-      update-symbol: Update part of symbol
-      symbol-by-zoom: Symbol by map zoom
-      symbol-by-prop: Symbol by geometry properties
-      color-interpolate: Color interpolate
-      html-marker: Marker with HTML content
-      d3-marker: Marker with D3 chart
-      echarts-marker: Marker with echarts
-      highcharts-marker: Marker with highcharts
-    layer:
-      title: Layer
-      add-remove: Add and remove layers
-      show-hide: Show and hide layers
-      opacity: Set layer's opacity
-      bring-front-back: Bring layers to front or back
-      sort: Sort layers
-      mask: Set layer mask as mouse event
-      globalcompositeoperation: Layer's globalCompositeOperation
-      vectorlayer-batch-add: 'VectorLayer: Batch add geometries'
-      vectorlayer-get-by-id: 'VectorLayer: Get geometry by ID'
-      vectorlayer-filter: 'VectorLayer: Filter geometries by property condition'
-      vectorlayer-style: 'VectorLayer: Batch style geometries'
-      vectorlayer-sort: 'VectorLayer: Set geomtries'' z-index'
-      collision: layer collision
-      canvaslayer: 'CanvasLayer: an example'
-      particlelayer: 'ParticleLayer: an example'
-      canvastilelayer: 'CanvasTileLayer: an example'
-      swipe: Layer swipe effect
-      imagelayer: 'ImageLayer: an example'
-    utils:
-      title: Utils/global
-      options-proxy: Update options by Proxy
-    interaction:
-      title: User Interactions
-      map-off: Disable map's interaction
-      map-on-off: Turn on/off map interaction capabilities
-      distance-tool: Distance tool to measure distance
-      area-tool: Area tool to measure area
-      draw-tool: Draw tool to draw geometries
-      drag-geometries: Drag geometries
-      edit-marker: Edit marker
-      edit-line: Edit LineString
-      edit-polygon: Edit Polygon
-      edit-rectangle-circle-ellipse: Edit Rectangle/Circle/Elliipse
-      edit-textbox: Edit TextBox's shape
-      edit-label: Edit Label and TextBox's content
-      mouse-identify: Identify geometries by mouse click
-      mouse-highlight: Highlight a geometry by mouseover
-      mouse-contains: Spatial relation between mouse and geometries
-    animation:
-      title: Animation
-      map-flyto: Fly map's camera to a location
-      marker-anim: Marker's shape animation
-      move-along: Marker animation along a line
-      geometry-anim: Geometry.animate method
-      line-animateshow: LineString's animateShow
-      polygon-animateshow: Polygon's animateShow
-      custom-anim: Custom animation
-      map-view-follow: map-view-follow animation
-    ui-control:
-      title: Control and UIComponents
-      ui-map-menu: Map's context menu
-      ui-geo-menu: Geometry's context menu
-      ui-custom-menu: Custom context menu
-      ui-map-infownd: Map's InfoWindow
-      ui-geo-infownd: Geometry's InfoWindow
-      ui-custom-infownd: Custom InfoWindow
-      infowindow-scroll: InfoWindow content support wheelscroll
-      uimarker-align: UIMarker align
-      ui-collision: UI collision
-      ui-geo-infownd-bind-mvvm-component: InfoWindow bind MVVM component
-      uimarker-mvvm-dynamic: UIMarker bind MVVM component
-      control-toolbar: Toolbar Control
-      control-panel: Panel Control
-      control-overview: Overview Control
-      control-zoom: Zoom Control
-      control-compass: Compass Control
-      control-scale: Scale Control
-      control-attribution: Attribution Control
-      control-show-hide: Show and hide controls
-      control-layer-switcher: Layer Switcher
-    json:
-      title: JSON Serialization
-      geojson-to-geometry: GeoJSON to geometries
-      geometry-to-geojson: Geometries to GeoJSON
-      map-to-json: Map to JSON
-      json-to-map: Map from JSON
-      copy-map: Copy map by JSON
-      layer-json: Copy layer by JSON
-      geometry-json: Copy geometry by JSON
-    plugin:
-      title: Common Plugins
-      mapboxgl: Mapbox gl Layer
-      heatmaplayer: Heatmap Layer
-      clusterlayer: Marker Cluster Layer
-      three: THREE.js Layer
-      echarts: Echarts Layer
-    plugin-develop:
-      title: Plugin development
-      control: New control
-      ui: New UI Component
-      maptool: New MapTool
-    hellolayer:
-      title: Layer development
-      layer: HelloLayer
-      drawoninteracting: HelloLayer with drawOnInteracting
-      animation: HelloLayer with animation
-  vector:
-    title: Vector
-    operation:
-      title: Layer operation
-      add-remove: Add and remove layer
-      show-hide: Show and hide layer
-      zoom-interval: Set layer zoom interval
-      features: Get feature data
-      available-zoom: Set the max access zoom
-      layer-json: Layer to JSON
-      json-layer: JSON to layer
-    vtlayer:
-      title: VectorTileLayer
-      load-mapbox: Load mapbox vector tile data
-      load-maptiler: Load maptiler vector tile data
-      load-maptiler-4326: Load maptiler 4326 vector tile data
-    vt-visual:
-      title: Vector tile layer visualization
-      road: Road
-      process: Post process
-    geo:
-      title: GeoJSONVectorTileLayer
-      load-local: Load GeoJSON object data
-      load-remote: Load remote GeoJSON data
-      transform-function: Data transform function
-      load-event: Data load event
-    style:
-      title: Style operation
-      filter-data: Filter data
-      plugin: Change render plugin
-      set-style: Set style
-      update-symbol: Update symbol
-      update-data-config: Update data config
-      update-scene-config: Update scene config
-      remove-style: Remove layer style
-      hide-feature: Hide feature
-      set-feature-style: Set feature style
-      update-feature-style: Update feature style
-    interactive:
-      title: layer interactive
-      highlight: highlight feature
-      highlight-filter: highlight feature filter
-      hide-feature: hide/show feature
-      identify: get feature data
-      mousemove: highlight by mouseevent
-      tooltip: Simulate Tooltip
-      multilayer: multi layer
-      event-proxy: fire layer event
-      merge-data: merge geojson
-      geometry: get geojson geometry
-      altitude: query altitude
-      altitude-water: query water altitude
-    pointstyle:
-      title: Point style
-      multiple-icon: Composite multiple icons
-      icon-text: Composite icon and text
-      scale: Scale with map
-      pitch: Pitch with map
-      rotate: Rotate with map
-      specified-levels: Show only on specified levels
-      different-icons: Different icons by props
-      read-icon: Read icon from props
-      read-text: Read text from props
-      across-collision: Collision detection across layers
-    linestyle:
-      title: Line style
-      stroke-style: Set stroke style
-      draw-text: Draw text along the line
-      width-zoom: Width varies with zoom
-      color-zoom: Color varies with zoom
-      property: Set layer by property
-      texture: Texture animation
-      bloom: Enable bloom
-    polygonstyle:
-      title: Polygon style
-      border-style: Set the border style of the polygon
-      texture: Set texture
-    pointlayer:
-      title: PointLayer
-      add-remove: Add and remove layer
-      show-hide: Show and hide layer
-      max-min-zoom: Min and max zoom
-      add-marker: Add Marker
-      add-multi-point: Add MultiPoint
-      batch-add: Batch add
-      get-by-id: Get geometry by id
-      filter-by-property: Filter data by property
-      get-extent: Get Extent
-      disable-events: Disable geometry events
-      hit-detect: Disable hit detect
-      set-style: Set layer style
-      style-scale: Style scale
-      image-marker: Image marker
-      multi-image-marker: Multi image marker
-      vector-marker: Vector marker
-      vector-gradient: Vector Gradient marker
-      svg-marker: SVG vector marker
-      middle-alignment: Marker middle alignment
-      rotation-pitch-alignment: Rotation and pitch alignment
-      rotate-marker: Rotate marker
-      rotate-text: Rotate text
-      image-text-marker: Image marker with texts
-      text-fit: Marker text fit
-      composite-symbol: Composite symbol
-      update-symbol: Update symbol
-      symbol-by-zoom: Symbol by map zoom
-      symbol-by-prop: Symbol by geometry properties
-      mass-data: Mass markers
-      mouse-identify: Identify markers by mouse click
-      mouse-highlight: Highlight a marker by mouseover
-      marker-events: Listen marker events
-      collision: Collision
-      highlight: Highlight data
-      geometry-json: Geometries to JSON
-      layer-json: Layer to JSON
-      geometry-geojson: Marker to GeoJSON
-      geojson-marker: GeoJSON to Marker
-    linelayer:
-      title: LineLayer
-      add-line: Add a line
-      add-multi-line: Add multiple lines
-      line-style: Line basic style
-      dash-style: Dash line style
-      outline-style: Outline style
-      pattern-file: Line pattern fill
-      pattern-gap: Line pattern gap
-      pattern-animation: Animation of line pattern fill
-      update-symbol: Update symbol
-      set-style: Set layer style
-      bind-event: Bind event
-      highlight: Highlight data
-      data-json: Data to JSON
-      layer-json: Layer to JSON
-      line-geojson: LineString to GeoJSON
-      geojson-line: GeoJSON to LineString
-    polygonlayer:
-      title: PolygonLayer
-      add-polygon: Add a polygon
-      add-multi-polygon: Add MultiPolygon
-      basic-style: Polygon basic style
-      pattern-file: Polygon pattern file
-      vertex-marker: Polygon vertex style
-      alignment: Polygon alignment style
-      update-symbol: Update symbol
-      set-style: Set layer style
-      highlight: Highlight data
-      geometry-json: Geometry to JSON
-      layer-json: Layer to JSON
-      geometry-geojson: Polygon to GeoJSON
-      geojson-geometry: GeoJSON to Polygon
-  gltf:
-    title: GLTF
-    gltf-marker:
-      title: GLTFMarker
-      add-marker: Add a GLTF Marker
-      copy-marker: Copy a GLTF Marker
-      animation-model: Animation model
-      show-hide: Show and hide model
-      trs: Translation, rotate and scale
-      material: Set material
-      shader: Change shader
-      update-symbol: Update symbol
-      info-window: Info window
-      mouse-event: Mouse event
-      outline: Outline
-      bloom: Bloom
-      shadow: Shadow
-      skinning: Skeletal animation model
-      context-menu: Context menu
-      anchor: Anchor Z
-      fix-size: Fix Size
-      model-matrix: Update ModelMatrix
-      time-frame: Set animation time frame
-      property: Set and get property
-      draco: Add draco
-      set-altitude: Set altitude
-      gltf-modelHeight: Set height
-    gltf-layer:
-      title: GLTFLayer
-      add-to-map: Add layer to map
-      search-by-id: Search marker by id
-      remove-marker: Remove GLTFMarker
-      clear: Clear layer
-      show-hide: Show and hide layer
-      create-by-json: Create layer by json
-      set-style: Set layer style
-      identify: Identify marker
-      custom-shader: Custom shader
-      blended-drawing: Fusion rendering of multiple layers
-      filter-by-property: Filter data by property
-      load-event: Data load event
-    multi-gltf-marker:
-      title: MultiGLTFMarker
-      add: Add MultiGLTFMarker
-      add-data: Add data
-      remove-data: Remove data
-      update-data: Update data
-      mouse-event: Listening for mouse events
-    gltf-linestring:
-      title: GLTFLineString
-      add: Add GLTFLineString
-      draw: Draw Model Scene
-    transform-control:
-      title: TransformControl
-      trs: Control the translation, rotation, and scaling of the model
   3d:
-    title: 3D
-    line-3d-style:
-      title: Line data 3d Style
-      texture: Set textures
-      altitude: geojson has altitude
-    polygon-3d-style:
-      title: Polygon data 3d Style
-      set-height: Set height
-      diffrent-textures: Set different textures on the top and side
-      top-side-color: Vertical color gradient
-      side-uv-mode: Set side vertical uv mode
-      entry: Entry animation
-    waterstyle:
-      title: Water style
-      reflection: Water style, reflection and text
-    terrain:
-      title: Terrain
-      load: Load terrain
-      stylized: Stylized terrain
-      vector: Vector terrain
-    traffic:
-      title: Traffic
-      simulated-traffic: Simulated traffic
     3dtiles:
-      title: 3D Tiles
-      load: Load data
-      view: Jump view
-      rotate: Rotating map
-      manually-icon: Manually adding icon
-      point-icon: Point add icon
-      model-entity: Model entity
-      room-entity: Model room entity
-      floor-entity: Model floor entity
       custom-monomer: Custom monomer
       drawer-entity: Entity drawer effect
-      view-monomer: view monomer
+      floor-entity: Model floor entity
+      load: Load data
+      manually-icon: Manually adding icon
+      model-entity: Model entity
       model-flatten: model flatten
+      point-icon: Point add icon
+      room-entity: Model room entity
+      rotate: Rotating map
+      title: 3D Tiles
+      view: Jump view
+      view-monomer: view monomer
+    line-3d-style:
+      altitude: geojson has altitude
+      texture: Set textures
+      title: Line data 3d Style
     pipeline:
+      connections: Generate three-way and four-way connections
+      flow: Pipeline flow effect
       title: Pipeline
       underground: Underground pipelines
-      flow: Pipeline flow effect
-      connections: Generate three-way and four-way connections
+    polygon-3d-style:
+      diffrent-textures: Set different textures on the top and side
+      entry: Entry animation
+      set-height: Set height
+      side-uv-mode: Set side vertical uv mode
+      title: Polygon data 3d Style
+      top-side-color: Vertical color gradient
     spatial-analysis:
-      title: Spatial analysis
-      measure: Spatial measure
-      skyline: Skyline Analysis
-      insight: InSight Analysis
-      viewshed: ViewShed Analysis
-      flood: Flood Analysis
+      box-clip: box clip
+      crosscut: Crosscut analysis
       cut: Cut Analysis
       excavate: Excavate analysis
-      crosscut: Crosscut analysis
+      flood: Flood Analysis
       height-limit: Height limit analysis
-      box-clip: box clip
+      insight: InSight Analysis
+      measure: Spatial measure
       raycaster: Raycaster
+      skyline: Skyline Analysis
+      title: Spatial analysis
+      viewshed: ViewShed Analysis
+    terrain:
+      load: Load terrain
+      stylized: Stylized terrain
+      title: Terrain
+      vector: Vector terrain
+    title: 3D
     track:
-      title: Trajectory route
-      flying-driving: Flying along trajectories and driving on the ground
-      ground-route: Flying along ground trajectory
-      unmanned: Drone flight trajectory
       around-point: Orbiting around a point
       auto-roaming: Auto roaming
-      free-roaming: Free roaming
-      personnel-position: Real time personnel positioning
       device-position: Real time device positioning
+      flying-driving: Flying along trajectories and driving on the ground
+      free-roaming: Free roaming
+      ground-route: Flying along ground trajectory
+      personnel-position: Real time personnel positioning
+      title: Trajectory route
+      unmanned: Drone flight trajectory
+    traffic:
+      simulated-traffic: Simulated traffic
+      title: Traffic
     video:
-      title: Video layer
       add: Add video
+      title: Video layer
+    waterstyle:
+      reflection: Water style, reflection and text
+      title: Water style
     weather:
-      title: Weather
       fog: Fog
       rain: Rain
       snow: Snow
       sunny: Sunny
+      title: Weather
+  __all:
+    title: All
+  basic:
+    3d:
+      line-altitude: LineString with altitude
+      line-draw-altitude: Draw line's altitude wall
+      marker-altitude: Marker with altitude
+      marker-draw-altitude: Draw marker's altitude
+      polygon-altitude: Polygon with altitude
+      set-altitude: Set geom altitude
+      title: 3D
+    animation:
+      custom-anim: Custom animation
+      geometry-anim: Geometry.animate method
+      line-animateshow: LineString's animateShow
+      map-flyto: Fly map's camera to a location
+      map-view-follow: map-view-follow animation
+      marker-anim: Marker's shape animation
+      move-along: Marker animation along a line
+      polygon-animateshow: Polygon's animateShow
+      title: Animation
+    geometry:
+      collection: GeometryCollection
+      collection-filter: Filter GeometryCollection by condition
+      connector-line: Connector Lines
+      copy: Copy a geometry
+      curve: Arc and Bezier Curves
+      events: Listen geometry events
+      flash-geometry: Flash a geometry
+      label: Label
+      linestring: LineString
+      marker: Marker
+      multilinestring: MultiLineString
+      multipoint: MultiPoint
+      multipolygon: MultiPolygon
+      polygon: Polygon
+      rectangle-circle-ellipse-sector: Rectangle, Circle, Ellipse and Sector
+      textbox: TextBox
+      title: Geometry
+    hellolayer:
+      animation: HelloLayer with animation
+      drawoninteracting: HelloLayer with drawOnInteracting
+      layer: HelloLayer
+      title: Layer development
+    interaction:
+      area-tool: Area tool to measure area
+      distance-tool: Distance tool to measure distance
+      drag-geometries: Drag geometries
+      draw-tool: Draw tool to draw geometries
+      edit-label: Edit Label and TextBox's content
+      edit-line: Edit LineString
+      edit-marker: Edit marker
+      edit-polygon: Edit Polygon
+      edit-rectangle-circle-ellipse: Edit Rectangle/Circle/Elliipse
+      edit-textbox: Edit TextBox's shape
+      map-off: Disable map's interaction
+      map-on-off: Turn on/off map interaction capabilities
+      mouse-contains: Spatial relation between mouse and geometries
+      mouse-highlight: Highlight a geometry by mouseover
+      mouse-identify: Identify geometries by mouse click
+      title: User Interactions
+    json:
+      copy-map: Copy map by JSON
+      geojson-to-geometry: GeoJSON to geometries
+      geometry-json: Copy geometry by JSON
+      geometry-to-geojson: Geometries to GeoJSON
+      json-to-map: Map from JSON
+      layer-json: Copy layer by JSON
+      map-to-json: Map to JSON
+      title: JSON Serialization
+    layer:
+      add-remove: Add and remove layers
+      bring-front-back: Bring layers to front or back
+      canvaslayer: 'CanvasLayer: an example'
+      canvastilelayer: 'CanvasTileLayer: an example'
+      collision: layer collision
+      globalcompositeoperation: Layer's globalCompositeOperation
+      imagelayer: 'ImageLayer: an example'
+      mask: Set layer mask as mouse event
+      opacity: Set layer's opacity
+      particlelayer: 'ParticleLayer: an example'
+      show-hide: Show and hide layers
+      sort: Sort layers
+      swipe: Layer swipe effect
+      title: Layer
+      vectorlayer-batch-add: 'VectorLayer: Batch add geometries'
+      vectorlayer-filter: 'VectorLayer: Filter geometries by property condition'
+      vectorlayer-get-by-id: 'VectorLayer: Get geometry by ID'
+      vectorlayer-sort: 'VectorLayer: Set geomtries'' z-index'
+      vectorlayer-style: 'VectorLayer: Batch style geometries'
+    map:
+      canvas: Load on Canvas
+      common-control: Add common controls
+      coordinate-conversion: Convert to screen points
+      custom-resolutions: Customize map's resolutions
+      drag-pitch-rotate: Drag to pitch and rotate
+      export-image: Export map as images
+      fit-extent: Fit to extent
+      fractional-zoom: Fractional zoom
+      limit-extent: Limit map's extent
+      limit-zoom: Limit map's zoom
+      load: Display a map
+      map-events: Listen map events
+      map-magnifier: Map's magnifier
+      map-scale-container: scale container for high resolution
+      panning: Map panning
+      pitch-rotate: Pitch and rotate
+      status: Get map's status
+      sync-map: Sync map by events
+      title: Map
+    plugin:
+      clusterlayer: Marker Cluster Layer
+      echarts: Echarts Layer
+      heatmaplayer: Heatmap Layer
+      mapboxgl: Mapbox gl Layer
+      three: THREE.js Layer
+      title: Common Plugins
+    plugin-develop:
+      control: New control
+      maptool: New MapTool
+      title: Plugin development
+      ui: New UI Component
+    style:
+      color-interpolate: Color interpolate
+      composite-symbol: Composite symbol
+      d3-marker: Marker with D3 chart
+      echarts-marker: Marker with echarts
+      highcharts-marker: Marker with highcharts
+      html-marker: Marker with HTML content
+      image-marker: Image marker
+      image-text-marker: Image marker with texts
+      line-arrow: Line with arrows
+      line-gradient: Line gradient fill
+      line-marker: Line of vertex marker with auto rotation
+      line-pattern: Line pattern fill
+      line-pattern-animation: Animation of line pattern fill
+      line-smoothness: Smooth line with curve
+      line-symbol: Line symbol
+      line-text: Line with texts
+      marker-alignment: Marker's horizontal and vertical alignment
+      multi-image-marker: Multiple-image marker
+      polygon-gradient: Polygon gradient fill
+      polygon-pattern: Polygon pattern fill
+      polygon-symbol: Polygon symbol
+      polygon-vertex-marker: Polygon with vetex markers
+      rotate-marker: Rotate a marker
+      rotate-text: Rotate a text marker
+      svg-path-marker: SVG vector marker
+      symbol-by-prop: Symbol by geometry properties
+      symbol-by-zoom: Symbol by map zoom
+      text-marker: Text marker
+      title: Geometry Styles
+      update-symbol: Update part of symbol
+      vector-gradient: Vector marker with gradient fill
+      vector-marker: Vector marker
+      vector-pattern: Vector marker with pattern fill
+    tilelayer-projection:
+      arcgis-tile: Add an ArcGIS TileLayer
+      baidu: TileLayer of Baidu Projection
+      base64: Load tiles with base64 encoding
+      canvas-renderer: TileLayer with Canvas renderer
+      custom-tile: LOD and custom TileLayer
+      d3-proj: D3 geo projection
+      different-projection: Load tilelayer with different projection
+      epsg4326: TileLayer of EPSG:4326 projection
+      filter: TileLayer's CSS filter
+      grouptilelayer: Add GroupTileLayer
+      identity: TileLayer of IDENTITY projection
+      max-zoom: Larger maxZoom of spatialReference
+      multi-tilelayer: Add multiple TileLayers
+      proj4js: TileLayer of custom projection by proj4js
+      tile-image-custom: Custom processing of tile images
+      tile-mask: Set a boundary mask to TileLayer
+      tile-opacity: Set TileLayer's opacity
+      title: TileLayer and Geo-Projections
+      vector-tile: Add a mapbox vector-tile Layer
+      wms: Add a WMS TileLayer
+      wms-reload: TileLayer projection wms reload
+      wmts-tile: Add a WMTS TileLayer
+    title: Basic
+    ui-control:
+      control-attribution: Attribution Control
+      control-compass: Compass Control
+      control-layer-switcher: Layer Switcher
+      control-overview: Overview Control
+      control-panel: Panel Control
+      control-scale: Scale Control
+      control-show-hide: Show and hide controls
+      control-toolbar: Toolbar Control
+      control-zoom: Zoom Control
+      infowindow-scroll: InfoWindow content support wheelscroll
+      title: Control and UIComponents
+      ui-collision: UI collision
+      ui-custom-infownd: Custom InfoWindow
+      ui-custom-menu: Custom context menu
+      ui-geo-infownd: Geometry's InfoWindow
+      ui-geo-infownd-bind-mvvm-component: InfoWindow bind MVVM component
+      ui-geo-menu: Geometry's context menu
+      ui-map-infownd: Map's InfoWindow
+      ui-map-menu: Map's context menu
+      uimarker-align: UIMarker align
+      uimarker-mvvm-dynamic: UIMarker bind MVVM component
+    utils:
+      options-proxy: Update options by Proxy
+      title: Utils/global
+  gltf:
+    gltf-layer:
+      add-to-map: Add layer to map
+      blended-drawing: Fusion rendering of multiple layers
+      clear: Clear layer
+      create-by-json: Create layer by json
+      custom-shader: Custom shader
+      filter-by-property: Filter data by property
+      identify: Identify marker
+      load-event: Data load event
+      remove-marker: Remove GLTFMarker
+      search-by-id: Search marker by id
+      set-style: Set layer style
+      show-hide: Show and hide layer
+      title: GLTFLayer
+    gltf-linestring:
+      add: Add GLTFLineString
+      draw: Draw Model Scene
+      title: GLTFLineString
+    gltf-marker:
+      add-marker: Add a GLTF Marker
+      anchor: Anchor Z
+      animation-model: Animation model
+      bloom: Bloom
+      context-menu: Context menu
+      copy-marker: Copy a GLTF Marker
+      draco: Add draco
+      fix-size: Fix Size
+      gltf-modelHeight: Set height
+      info-window: Info window
+      material: Set material
+      model-matrix: Update ModelMatrix
+      mouse-event: Mouse event
+      outline: Outline
+      property: Set and get property
+      set-altitude: Set altitude
+      shader: Change shader
+      shadow: Shadow
+      show-hide: Show and hide model
+      skinning: Skeletal animation model
+      time-frame: Set animation time frame
+      title: GLTFMarker
+      trs: Translation, rotate and scale
+      update-symbol: Update symbol
+    multi-gltf-marker:
+      add: Add MultiGLTFMarker
+      add-data: Add data
+      mouse-event: Listening for mouse events
+      remove-data: Remove data
+      title: MultiGLTFMarker
+      update-data: Update data
+    title: GLTF
+    transform-control:
+      title: TransformControl
+      trs: Control the translation, rotation, and scaling of the model
+  vector:
+    geo:
+      load-event: Data load event
+      load-local: Load GeoJSON object data
+      load-remote: Load remote GeoJSON data
+      title: GeoJSONVectorTileLayer
+      transform-function: Data transform function
+    interactive:
+      altitude: query altitude
+      altitude-water: query water altitude
+      event-proxy: fire layer event
+      geometry: get geojson geometry
+      hide-feature: hide/show feature
+      highlight: highlight feature
+      highlight-filter: highlight feature filter
+      identify: get feature data
+      merge-data: merge geojson
+      mousemove: highlight by mouseevent
+      multilayer: multi layer
+      title: layer interactive
+      tooltip: Simulate Tooltip
+    linelayer:
+      add-line: Add a line
+      add-multi-line: Add multiple lines
+      bind-event: Bind event
+      dash-style: Dash line style
+      data-json: Data to JSON
+      geojson-line: GeoJSON to LineString
+      highlight: Highlight data
+      layer-json: Layer to JSON
+      line-geojson: LineString to GeoJSON
+      line-style: Line basic style
+      outline-style: Outline style
+      pattern-animation: Animation of line pattern fill
+      pattern-file: Line pattern fill
+      pattern-gap: Line pattern gap
+      set-style: Set layer style
+      title: LineLayer
+      update-symbol: Update symbol
+    linestyle:
+      bloom: Enable bloom
+      color-zoom: Color varies with zoom
+      draw-text: Draw text along the line
+      property: Set layer by property
+      stroke-style: Set stroke style
+      texture: Texture animation
+      title: Line style
+      width-zoom: Width varies with zoom
+    operation:
+      add-remove: Add and remove layer
+      available-zoom: Set the max access zoom
+      features: Get feature data
+      json-layer: JSON to layer
+      layer-json: Layer to JSON
+      show-hide: Show and hide layer
+      title: Layer operation
+      zoom-interval: Set layer zoom interval
+    pointlayer:
+      add-marker: Add Marker
+      add-multi-point: Add MultiPoint
+      add-remove: Add and remove layer
+      batch-add: Batch add
+      collision: Collision
+      composite-symbol: Composite symbol
+      disable-events: Disable geometry events
+      filter-by-property: Filter data by property
+      geojson-marker: GeoJSON to Marker
+      geometry-geojson: Marker to GeoJSON
+      geometry-json: Geometries to JSON
+      get-by-id: Get geometry by id
+      get-extent: Get Extent
+      highlight: Highlight data
+      hit-detect: Disable hit detect
+      image-marker: Image marker
+      image-text-marker: Image marker with texts
+      layer-json: Layer to JSON
+      marker-events: Listen marker events
+      mass-data: Mass markers
+      max-min-zoom: Min and max zoom
+      middle-alignment: Marker middle alignment
+      mouse-highlight: Highlight a marker by mouseover
+      mouse-identify: Identify markers by mouse click
+      multi-image-marker: Multi image marker
+      rotate-marker: Rotate marker
+      rotate-text: Rotate text
+      rotation-pitch-alignment: Rotation and pitch alignment
+      set-style: Set layer style
+      show-hide: Show and hide layer
+      style-scale: Style scale
+      svg-marker: SVG vector marker
+      symbol-by-prop: Symbol by geometry properties
+      symbol-by-zoom: Symbol by map zoom
+      text-fit: Marker text fit
+      title: PointLayer
+      update-symbol: Update symbol
+      vector-gradient: Vector Gradient marker
+      vector-marker: Vector marker
+    pointstyle:
+      across-collision: Collision detection across layers
+      different-icons: Different icons by props
+      icon-text: Composite icon and text
+      multiple-icon: Composite multiple icons
+      pitch: Pitch with map
+      read-icon: Read icon from props
+      read-text: Read text from props
+      rotate: Rotate with map
+      scale: Scale with map
+      specified-levels: Show only on specified levels
+      title: Point style
+    polygonlayer:
+      add-multi-polygon: Add MultiPolygon
+      add-polygon: Add a polygon
+      alignment: Polygon alignment style
+      basic-style: Polygon basic style
+      geojson-geometry: GeoJSON to Polygon
+      geometry-geojson: Polygon to GeoJSON
+      geometry-json: Geometry to JSON
+      highlight: Highlight data
+      layer-json: Layer to JSON
+      pattern-file: Polygon pattern file
+      set-style: Set layer style
+      title: PolygonLayer
+      update-symbol: Update symbol
+      vertex-marker: Polygon vertex style
+    polygonstyle:
+      border-style: Set the border style of the polygon
+      texture: Set texture
+      title: Polygon style
+    style:
+      filter-data: Filter data
+      hide-feature: Hide feature
+      plugin: Change render plugin
+      remove-style: Remove layer style
+      set-feature-style: Set feature style
+      set-style: Set style
+      title: Style operation
+      update-data-config: Update data config
+      update-feature-style: Update feature style
+      update-scene-config: Update scene config
+      update-symbol: Update symbol
+    title: Vector
+    vt-visual:
+      process: Post process
+      road: Road
+      title: Vector tile layer visualization
+    vtlayer:
+      load-mapbox: Load mapbox vector tile data
+      load-maptiler: Load maptiler vector tile data
+      load-maptiler-4326: Load maptiler 4326 vector tile data
+      title: VectorTileLayer

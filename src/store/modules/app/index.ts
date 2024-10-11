@@ -1,6 +1,4 @@
-import { isEmpty } from 'lodash-es';
 import { store } from '@/store';
-import { getSomething } from '@/api/common';
 import { getDefaultLang, LocaleEnum, i18n } from '@/plugins/locales';
 import GisIcon from '~icons/oui/app-gis';
 import LayerIcon from '~icons/gis/layer-height';

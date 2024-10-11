@@ -197,7 +197,7 @@ export default defineComponent({
                               <div class={styles.content}>
                                 <div class="h-full w-full">
                                   <img
-                                    v-lazy={`${THUMBNAIL_URL}${example.name}.png`}
+                                    v-lazy={`${THUMBNAIL_URL}${example.name}.webp`}
                                     class="rounded-md pre-image h-full w-full"
                                     alt="Loaded Image"
                                   />

@@ -19,7 +19,7 @@
           <el-icon class="el-icon--right">
             <Plus />
           </el-icon>
-          <span class="ml-8px">新建示例/目录</span>
+          <span class="ml-8px">{{ $t('app.actions.new') }}</span>
         </el-button>
       </div>
       <el-scrollbar
@@ -123,8 +123,6 @@
   });
 
   const { name, category, subclass, productionMode: prodMode, ssrMode } = route.query;
-
-  console.log(name, category, subclass, productionMode, ssrMode);
 
   watch(
     () => route.query,

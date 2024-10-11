@@ -83,8 +83,8 @@
   const formRef = ref<FormInstance | null>(null);
   const formData = ref<ICreateReq>(JSON.parse(JSON.stringify(DEFAULT_FORM_DATA)));
   const formRules: FormRules<Pick<ICreateReq, 'name' | 'folder'>> = {
-    name: [{ required: true, trigger: 'blur', message: '请输入示例名称' }],
-    folder: [{ required: true, trigger: 'change', message: '请选择所属目录' }],
+    name: [{ required: true, trigger: 'blur', message: t('app.tips.validate.playgroundName') }],
+    folder: [{ required: true, trigger: 'change', message: t('app.tips.validate.playgroundFolder') }],
   };
 
   const emits = defineEmits(['update:visible', 'change']);
@@ -108,7 +108,7 @@
   const handleCreateOrUpdate = async () => {
     const valid = await formRef.value?.validate();
 
-    if (!valid) return console.error('表单校验不通过', formData);
+    if (!valid) return console.error(t('app.tips.validate.fail'), formData);
     setLoading(true);
 
     // 获取所有文件
@@ -117,7 +117,7 @@
     const [error, res] = await to(updatePlayground(`${formData.value?.folder}/${formData.value.name}`, content, false));
 
     if (!error) {
-      ElMessage.success('操作成功');
+      ElMessage.success(t('app.tips.result.success'));
       handleCancel();
       setLoading(false);
     } else {

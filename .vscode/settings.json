@@ -69,5 +69,9 @@
   "iconify.excludes": [
     "el"
   ],
-  "i18n-ally.editor.preferEditor": true
+  "i18n-ally.editor.preferEditor": true,
+  "i18n-ally.dirStructure": "dir",
+  "i18n-ally.annotationInPlace": false,
+  "i18n-ally.disablePathParsing": false,
+  "i18n-ally.pathMatcher": "{locale}/index.yaml"
 }

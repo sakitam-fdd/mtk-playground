@@ -1,7 +1,7 @@
 <template>
   <el-dialog
     v-model="dialogVisible"
-    :title="formData.id === undefined ? '新建' : '编辑'"
+    :title="formData.id === undefined ? t('app.pls.create.short') : t('app.pls.edit.title')"
     destroy-on-close
     center
     width="380px"
@@ -11,13 +11,13 @@
     <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" label-position="top">
       <el-row :gutter="20">
         <el-col :span="24">
-          <el-form-item class="mb-30px" prop="name" label="示例名称">
-            <el-input v-model="formData.name" clearable placeholder="请输入" />
+          <el-form-item class="mb-30px" prop="name" :label="t('app.pls.create.name')">
+            <el-input v-model="formData.name" clearable :placeholder="t('app.pls.create.placeholder')" />
           </el-form-item>
         </el-col>
         <el-col :span="24">
-          <el-form-item class="mb-30px" prop="playgroundType" label="示例类型">
-            <el-select v-model="formData.playgroundType" clearable placeholder="请选择">
+          <el-form-item class="mb-30px" prop="playgroundType" :label="t('app.pls.create.type')">
+            <el-select v-model="formData.playgroundType" clearable :placeholder="t('app.pls.create.selectPlaceholder')">
               <el-option
                 v-for="playgroundType in appStore.playgroundTypes"
                 :key="playgroundType.id"
@@ -30,8 +30,12 @@
       </el-row>
     </el-form>
     <template #footer>
-      <el-button @click="handleCancel">取消</el-button>
-      <el-button type="primary" @click="handleCreateOrUpdate" :loading="loading">确认</el-button>
+      <el-button @click="handleCancel">
+        {{ t('app.actions.cancel') }}
+      </el-button>
+      <el-button type="primary" @click="handleCreateOrUpdate" :loading="loading">
+        {{ t('app.actions.confirm') }}
+      </el-button>
     </template>
   </el-dialog>
 </template>
@@ -39,6 +43,7 @@
 <script setup lang="ts">
   import { ref, toRaw } from 'vue';
   import { extend } from 'lodash-es';
+  import { useI18n } from 'vue-i18n';
   import { ElMessage, FormInstance, FormRules } from 'element-plus';
   import { useAppStore } from '@/store/modules';
   import { createFolder, updateFolder } from '@/api/graphql';
@@ -60,6 +65,8 @@
     },
   );
 
+  const { t } = useI18n();
+
   const DEFAULT_FORM_DATA = {
     name: '',
     playgroundType: '',
@@ -69,8 +76,8 @@
   const formRef = ref<FormInstance | null>(null);
   const formData = ref<ICreateReq>(JSON.parse(JSON.stringify(DEFAULT_FORM_DATA)));
   const formRules: FormRules<Pick<ICreateReq, 'name' | 'playgroundType'>> = {
-    name: [{ required: true, trigger: 'blur', message: '请输入示例名称' }],
-    playgroundType: [{ required: true, trigger: 'change', message: '请选择示例类型' }],
+    name: [{ required: true, trigger: 'blur', message: t('app.tips.validate.playgroundName') }],
+    playgroundType: [{ required: true, trigger: 'change', message: t('app.tips.validate.playgroundType') }],
   };
 
   const emits = defineEmits(['update:visible', 'change']);
@@ -94,7 +101,7 @@
 
   const handleCreateOrUpdate = () => {
     formRef.value?.validate((valid: boolean, fields) => {
-      if (!valid) return console.error('表单校验不通过', fields);
+      if (!valid) return console.error(t('app.tips.validate.fail'), fields);
       setLoading(true);
       const api = formData.value.id === undefined ? createFolder : updateFolder;
       api({
@@ -102,7 +109,7 @@
         sha: appStore.playgroundTypes.find((p) => p.label === formData.value.playgroundType)?.sha,
       })
         .then(() => {
-          ElMessage.success('操作成功');
+          ElMessage.success(t('app.tips.result.success'));
           handleCancel();
         })
         .finally(() => {

@@ -28,38 +28,38 @@
       >
         <span>{{ ssr ? 'SSR ON' : 'SSR OFF' }}</span>
       </el-button>
-      <el-tooltip :content="isDark ? '亮色' : '暗色'">
+      <el-tooltip :content="isDark ? t('app.actions.light') : t('app.actions.dark')">
         <el-button link title="Toggle dark mode" class="toggle-dark" @click="toggleDark">
           <span v-if="!isDark" class="i-ant-design:sun-outlined w-1.5em h-1.5em"></span>
           <span v-else class="i-ant-design:moon-outlined w-1.5em h-1.5em"></span>
         </el-button>
       </el-tooltip>
-      <el-tooltip content="保存">
-        <el-button link :loading="saveLoading" title="保存页面" class="save" @click="$emit('save')">
+      <el-tooltip :content="t('app.actions.save')">
+        <el-button link :loading="saveLoading" :title="t('app.actions.savePage')" class="save" @click="$emit('save')">
           <span class="i-ant-design:save-outlined w-1.5em h-1.5em"></span>
         </el-button>
       </el-tooltip>
-      <el-tooltip content="刷新页面">
-        <el-button link title=" 刷新页面" class="reload" @click="$emit('reload-page')">
+      <el-tooltip :content="t('app.actions.refresh')">
+        <el-button link :title="t('app.actions.refresh')" class="reload" @click="$emit('reload-page')">
           <span class="i-ant-design:reload-outlined w-1.5em h-1.5em"></span>
         </el-button>
       </el-tooltip>
-      <el-tooltip content="复制分享链接">
-        <el-button link title="复制分享链接" class="share" @click="copyLink">
+      <el-tooltip :content="t('app.actions.copyLink')">
+        <el-button link :title="t('app.actions.copyLink')" class="share" @click="copyLink">
           <span class="i-ant-design:share-alt-outlined w-1.5em h-1.5em"></span>
         </el-button>
       </el-tooltip>
-      <el-tooltip content="打包下载项目">
-        <el-popconfirm title="确认打包下载项目文件?" @confirm="downloadProject(store)">
+      <el-tooltip :content="t('app.actions.download')">
+        <el-popconfirm :title="t('app.pages.downloadConfirm')" @confirm="downloadProject(store)">
           <template #reference>
-            <el-button link title="打包下载项目" class="download">
+            <el-button link :title="t('app.actions.download')" class="download">
               <span class="i-ant-design:download-outlined w-1.5em h-1.5em"></span>
             </el-button>
           </template>
         </el-popconfirm>
       </el-tooltip>
       <el-link
-        href="https://github.com/vuejs/core/tree/main/packages-private/sfc-playground"
+        href="https://github.com/aurorafe/mtk-playground/tree/main"
         target="_blank"
         rel="noopener noreferrer"
         title="View on GitHub"
@@ -76,6 +76,7 @@
   import type { ReplStore } from '@vue/repl';
   import { ElMessage } from 'element-plus';
   import { useRouter } from 'vue-router';
+  import { useI18n } from 'vue-i18n';
   import { useTheme } from '@/hooks/useTheme';
   import { downloadProject } from './Download/download';
   import VersionSelect from './VersionSelect.vue';
@@ -86,6 +87,8 @@
     ssr: boolean;
     saveLoading: boolean;
   }>();
+
+  const { t } = useI18n();
 
   const emit = defineEmits(['toggle-ssr', 'toggle-prod', 'reload-page', 'save']);
 
@@ -114,7 +117,7 @@
       return;
     }
     await navigator.clipboard.writeText(window.location.href);
-    ElMessage.success('分享链接已经复制到剪切板.');
+    ElMessage.success(t('app.tips.result.copy'));
   }
 
   const handleJump = () => {

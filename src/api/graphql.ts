@@ -747,6 +747,113 @@ export async function updateFolder(body) {
 }
 
 /**
+ * 上传多张图片到 GitHub 仓库
+ * @param userConfigInfo
+ * @param imgs
+ */
+export async function uploadImagesToGitHub(
+  userConfigInfo: UserConfigInfoModel,
+  imgs: UploadImageModel[],
+): Promise<boolean> {
+  const { branch, repo, selectedDir, owner } = userConfigInfo;
+
+  const blobs = [];
+  // eslint-disable-next-line no-restricted-syntax
+  for (const img of imgs) {
+    img.uploadStatus.uploading = true;
+    const tempBase64 = (img.base64.compressBase64 || img.base64.watermarkBase64 || img.base64.originalBase64).split(
+      ',',
+    )[1];
+    // 上传图片文件，为仓库创建 blobs
+    const blobRes = await getFileBlob(tempBase64, owner, repo);
+    if (blobRes) {
+      blobs.push({ img, ...blobRes });
+    } else {
+      img.uploadStatus.uploading = false;
+      ElMessage.error(i18n.global.t('upload_page.tip_11', { name: img.filename.final }));
+    }
+  }
+
+  // 获取 head，用于获取当前分支信息（根目录的 tree sha 以及 head commit sha）
+  const branchRes: any = await getBranchInfo(owner, repo, branch);
+  if (!branchRes) {
+    return Promise.resolve(false);
+  }
+
+  const finalPath = selectedDir === '/' ? '' : `${selectedDir}/`;
+
+  // 创建 tree
+  const treeRes = await createTree(
+    owner,
+    repo,
+    blobs.map((x: any) => ({
+      sha: x.sha,
+      path: `${finalPath}${x.img.filename.final}`,
+    })),
+    branchRes,
+  );
+  if (!treeRes) {
+    return Promise.resolve(false);
+  }
+
+  // 创建 commit 节点
+  const commitRes: any = await createCommit(owner, repo, treeRes, branchRes);
+  if (!commitRes) {
+    return Promise.resolve(false);
+  }
+
+  // 将当前分支 ref 指向新创建的 commit
+  const refRes = await createRef(owner, repo, branch, commitRes.sha);
+  if (!refRes) {
+    return Promise.resolve(false);
+  }
+
+  blobs.forEach((blob: any) => {
+    const name = blob.img.filename.final;
+    uploadedHandle({ name, sha: blob.sha, path: `${finalPath}${name}`, size: 0 }, blob.img, userConfigInfo);
+  });
+  return Promise.resolve(true);
+}
+
+/**
+ * 上传一张图片到 GitHub 仓库
+ * @param userConfigInfo
+ * @param img
+ */
+export function uploadImageToGitHub(userConfigInfo: UserConfigInfoModel, img: UploadImageModel): Promise<Boolean> {
+  const { branch, email, owner } = userConfigInfo;
+
+  const data: any = {
+    message: PICX_UPLOAD_IMG_DESC,
+    branch,
+    content: (img.base64.compressBase64 || img.base64.watermarkBase64 || img.base64.originalBase64).split(',')[1],
+  };
+
+  if (email) {
+    data.committer = {
+      name: owner,
+      email,
+    };
+  }
+
+  img.uploadStatus.uploading = true;
+
+  // eslint-disable-next-line no-async-promise-executor
+  return new Promise(async (resolve) => {
+    const uploadRes = await uploadSingleImage(uploadUrlHandle(userConfigInfo, img), data);
+    console.log('uploadSingleImage >> ', uploadRes);
+    img.uploadStatus.uploading = false;
+    if (uploadRes) {
+      const { name, sha, path, size } = uploadRes.content;
+      uploadedHandle({ name, sha, path, size }, img, userConfigInfo);
+      resolve(true);
+    } else {
+      resolve(false);
+    }
+  });
+}
+
+/**
  * 获取所有 playground 列表
  * http://examples.maptalks.com/thumbnails/basic_ui-control_infowindow-scroll.webp
  * @returns

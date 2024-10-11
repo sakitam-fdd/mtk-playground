@@ -7,10 +7,23 @@
           <span class="name">Maptalks</span>
         </router-link>
         <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <el-tooltip :content="isDark ? '亮色' : '暗色'">
+          <el-tooltip :content="isDark ? t('app.actions.light') : t('app.actions.dark')">
             <el-button link title="Toggle dark mode" class="toggle-dark" @click="toggleDark">
               <span v-if="!isDark" class="i-ant-design:sun-outlined icon-size"></span>
               <span v-else class="i-ant-design:moon-outlined icon-size"></span>
+            </el-button>
+          </el-tooltip>
+
+          <el-tooltip
+            :content="
+              appStore.getLocale === LocaleEnum.ZH_CN ? t('app.actions.language') : t('app.actions.languageReverse')
+            "
+          >
+            <el-button link title="Toggle dark mode" class="toggle-dark !ml-10px" @click="toggleLanguage">
+              <div :class="['language-icon', appStore.getLocale === LocaleEnum.ZH_CN ? 'is-zh' : 'is-en']">
+                <span class="language-icon-item language-icon-cn">中</span>
+                <span class="language-icon-item language-icon-en">En</span>
+              </div>
             </el-button>
           </el-tooltip>
         </div>
@@ -27,7 +40,12 @@
 
 <script setup lang="ts">
   import { ref } from 'vue';
+  import { useI18n } from 'vue-i18n';
+  import { LocaleEnum } from '@/plugins/locales';
+  import { useAppStore } from '@/store/modules/app';
 
+  const { t } = useI18n();
+  const appStore = useAppStore();
   // 吸顶
   const isSticky = ref(false);
   const scrollThreshold = 80;
@@ -36,6 +54,10 @@
   const navHeight = ref(0);
   const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value;
+  };
+
+  const toggleLanguage = () => {
+    appStore.setLocale(appStore.getLocale === LocaleEnum.ZH_CN ? LocaleEnum.EN_US : LocaleEnum.ZH_CN);
   };
 
   const handleScroll = () => {
@@ -80,6 +102,59 @@
 
     .icon-size {
       font-size: 26px;
+    }
+
+    .language-icon {
+      position: relative;
+      width: 18px;
+      height: 18px;
+
+      &-item {
+        position: absolute;
+        font-size: 18px;
+        line-height: 1;
+        border: 1px solid var(--el-color-primary);
+        color: var(--el-color-primary);
+      }
+
+      &-cn {
+        inset-inline-start: -5%;
+        bottom: 0;
+        z-index: 0;
+        transform: scale(0.5);
+        transform-origin: 100% 100%;
+        color: var(--el-color-primary);
+      }
+
+      &-en {
+        background-color: var(--el-color-primary);
+        inset-inline-end: -5%;
+        top: 0;
+        z-index: 1;
+        transform: scale(0.7);
+        transform-origin: 0 0;
+        color: #ffffff;
+      }
+
+      &.is-zh {
+        .language-icon-cn {
+          background-color: var(--el-color-primary);
+          top: 0;
+          z-index: 1;
+          transform: scale(0.7);
+          transform-origin: 0 0;
+          color: #ffffff;
+        }
+
+        .language-icon-en {
+          bottom: 0;
+          z-index: 0;
+          transform: scale(0.5);
+          transform-origin: 100% 100%;
+          background-color: transparent;
+          color: var(--el-color-primary);
+        }
+      }
     }
   }
 

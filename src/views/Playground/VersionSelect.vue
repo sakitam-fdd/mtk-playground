@@ -1,9 +1,11 @@
 <script setup lang="ts">
-  import { onMounted, ref, watchEffect } from 'vue';
+  import { onMounted, ref } from 'vue';
   import { ElMessage } from 'element-plus';
+  import { useI18n } from 'vue-i18n';
 
   const expanded = ref(false);
   const versions = ref<string[]>();
+  const { t } = useI18n();
 
   const version = defineModel();
   const props = defineProps<{
@@ -51,12 +53,11 @@
   function setVersion(v: string) {
     version.value = v;
     expanded.value = false;
-    console.log(v);
   }
 
   function copyVersion(v: string) {
     window.navigator.clipboard.writeText(v).then(() => {
-      ElMessage.success('Maptalks version has been copied to clipboard.');
+      ElMessage.success(t('app.tips.result.copyVersion'));
     });
   }
 

@@ -1,504 +1,532 @@
 app:
-  name: mtk-playground
-  title: maptalks-playground
-
   actions:
-    create_template: 创建空模板
+    back: 返回上一页
     cancel: 取消
     confirm: 确定
-
+    copyLink: 复制分享链接
+    create_template: 创建空模板
+    dark: 暗色
+    download: 打包下载项目
+    light: 亮色
+    new: 新建示例/目录
+    refresh: 刷新页面
+    reset: 重置
+    save: 保存
+    savePage: 保存页面
+    upload: 上传
+    language: 中文 / English
+    languageReverse: English / 中文
+  name: mtk-playground
+  pages:
+    '401': 对不起，您没有访问该资源的权限～
+    '404': 抱歉，页面不见了～
+    '500': 抱歉，服务器出了点问题～
+    downloadConfirm: 确认打包下载项目文件?
   pls:
     create:
-      title: 新增示例
-      name: 示例名称
       folder: 所属目录
+      name: 示例名称
       placeholder: 请输入
-
-
+      selectPlaceholder: 请选择
+      short: 新增
+      title: 新增示例
+      type: 示例类型
+    edit:
+      title: 编辑
+  tips:
+    result:
+      copy: 分享链接已经复制到剪切板.
+      copyVersion: maptalks 版本已经复制到剪切板.
+      success: 操作成功
+    validate:
+      fail: 表单校验不通过
+      playgroundFolder: 请选择所属目录
+      playgroundName: 请输入示例名称
+      playgroundType: 请选择示例类型
+  title: maptalks-playground
 playgrounds:
-  __all:
-    title: 全部
-
-  basic:
-    title: 基础功能
-    map:
-      title: 地图
-      load: 显示
-      pitch-rotate: 倾斜与旋转
-      drag-pitch-rotate: 拖动倾斜与旋转
-      panning: 移动地图
-      common-control: 添加常用控件
-      status: 获取地图状态
-      fit-extent: 自动适配区域
-      limit-extent: 限制地图区域
-      limit-zoom: 限制缩放级别
-      fractional-zoom: 细微缩放(Fractional Zoom)
-      canvas: 在Canvas容器中加载
-      map-events: 监听地图事件
-      sync-map: 同步地图
-      coordinate-conversion: 屏幕坐标转换
-      export-image: 导出为图片
-      map-magnifier: 地图放大镜
-      custom-resolutions: 自定义地图LOD
-      map-scale-container: 缩放地图容器解决高分辨率地图卡顿
-    tilelayer-projection:
-      title: 瓦片图层与地理投影
-      canvas-renderer: Canvas渲染方式的瓦片图层
-      multi-tilelayer: 添加多个瓦片图层
-      grouptilelayer: 添加瓦片图层组
-      wms: WMS瓦片图层
-      wms-reload: TileLayer强制重载
-      vector-tile: Vector-Tile图层
-      arcgis-tile: ArcGIS瓦片图层
-      wmts-tile: WMTS瓦片图层
-      custom-tile: LOD和自定义瓦片图层
-      base64: 用base64编码载入瓦片
-      tile-opacity: 设置瓦片图层透明度
-      tile-mask: 只显示指定范围内的瓦片
-      epsg4326: 4326投影底图
-      identity: IDENTITY投影底图
-      baidu: 百度投影底图
-      proj4js: Proj4js自定义投影底图
-      d3-proj: D3投影
-      different-projection: 载入不同投影的TileLayer
-      filter: 底图风格滤镜
-      tile-image-custom: 自定义处理瓦片图片
-      max-zoom: 增大空间参考的maxZoom
-    geometry:
-      title: 图形
-      marker: Marker
-      linestring: LineString
-      polygon: Polygon
-      collection: GeometryCollection
-      multipoint: MultiPoint
-      multilinestring: MultiLineString
-      multipolygon: MultiPolygon
-      rectangle-circle-ellipse-sector: 矩形, 圆形, 椭圆和扇形
-      curve: 圆弧和贝塞尔曲线
-      label: 文字标签(Label)
-      textbox: 文本框(TextBox)
-      connector-line: 连接线
-      copy: 克隆
-      events: 监听图形事件
-      flash-geometry: 闪烁
-      collection-filter: GeometryCollection的条件查询
-    3d:
-      title: 三维
-      marker-altitude: 有高度的Marker
-      marker-draw-altitude: 绘制Marker的高度线
-      line-altitude: 有高度的线
-      line-draw-altitude: 绘制Line的高度面
-      polygon-altitude: 有高度的多边形
-      set-altitude: 设置图形高度
-    style:
-      title: 图形样式
-      image-marker: 图片标注
-      multi-image-marker: 多图片标注
-      vector-marker: 矢量标注
-      vector-pattern: 矢量标注模式填充
-      vector-gradient: 矢量标注渐变填充
-      svg-path-marker: SVG矢量标注
-      marker-alignment: 标注水平和垂直对齐
-      rotate-marker: 旋转标注
-      text-marker: 文字标注
-      rotate-text: 旋转文字标注
-      image-text-marker: 带文字的图片标注
-      line-symbol: 线样式
-      line-pattern: 线的模式填充
-      line-pattern-animation: 线的模式填充动画
-      line-gradient: 线的渐变填充
-      line-arrow: 带箭头的线
-      line-text: 带文字的线
-      line-marker: 端点沿线自动旋转Marker
-      line-smoothness: 线的曲线平滑
-      polygon-symbol: 面样式
-      polygon-pattern: 面的模式填充
-      polygon-gradient: 面的渐变填充
-      polygon-vertex-marker: 面的端点样式
-      composite-symbol: 组合样式
-      update-symbol: 样式的部分更新
-      symbol-by-zoom: 根据zoom设置样式
-      symbol-by-prop: 根据属性数据设置样式
-      color-interpolate: 颜色插值
-      html-marker: HTML自定义标注
-      d3-marker: D3图表样式
-      echarts-marker: Echarts图表样式
-      highcharts-marker: Highcharts图表样式
-    layer:
-      title: 图层
-      add-remove: 添加图层和移除图层
-      show-hide: 隐藏显示图层
-      opacity: 设置图层透明度
-      bring-front-back: 图层置顶或置底
-      sort: 改变图层叠加顺序
-      mask: 用鼠标设置图层遮罩
-      globalcompositeoperation: globalCompositeOperation
-      vectorlayer-batch-add: 'VectorLayer: 批量添加图形'
-      vectorlayer-get-by-id: VectorLayer:根据 ID 获取图形
-      vectorlayer-filter: 'VectorLayer: 根据属性条件筛选图形'
-      vectorlayer-style: 'VectorLayer: 批量设置图形样式'
-      vectorlayer-sort: 'VectorLayer: 设置图形的z-index'
-      collision: 碰撞
-      canvaslayer: 'CanvasLayer: 画板图层示例'
-      particlelayer: 'ParticleLayer: 粒子图层示例'
-      canvastilelayer: 'CanvasTileLayer: 画板瓦片图层示例'
-      swipe: 图层卷帘效果
-      imagelayer: 'ImageLayer: 图片图层示例'
-    utils:
-      title: 工具/全局功能
-      options-proxy: 通过Proxy更新options
-    interaction:
-      title: 交互
-      map-off: 禁用所有交互
-      map-on-off: 地图功能开关
-      distance-tool: 测距工具
-      area-tool: 测面工具
-      draw-tool: 绘制工具
-      drag-geometries: 拖拽图形
-      edit-marker: 编辑标注
-      edit-line: 编辑线
-      edit-polygon: 编辑多边形
-      edit-rectangle-circle-ellipse: 编辑矩形/圆形/椭圆
-      edit-textbox: 编辑文本框
-      edit-label: 编辑文本内容
-      mouse-identify: 鼠标点选图形
-      mouse-highlight: 鼠标悬停高亮图形
-      mouse-contains: 鼠标与图形的空间关系
-    animation:
-      title: 动画
-      map-flyto: 地图飞行到指定位置
-      marker-anim: Marker的变形动画
-      move-along: 点的沿线动画
-      geometry-anim: Geometry.animate方法
-      line-animateshow: 线的动画展现
-      polygon-animateshow: 面的动画展现
-      custom-anim: 自定义动画
-      map-view-follow: 地图跟随动画
-    ui-control:
-      title: 空间与UI组件
-      ui-map-menu: 地图右键菜单
-      ui-geo-menu: 图形右键菜单
-      ui-custom-menu: 自定义右键菜单
-      ui-map-infownd: 地图信息框
-      ui-geo-infownd: 图形信息框
-      ui-custom-infownd: 自定义信息框
-      infowindow-scroll: 信息框内容支持滚动
-      uimarker-align: UIMarker 对齐
-      ui-collision: UI碰撞
-      ui-geo-infownd-bind-mvvm-component: 信息框绑定MVVM组件
-      uimarker-mvvm-dynamic: UIMarker绑定MVVM组件
-      control-toolbar: Toolbar控件
-      control-panel: Panel控件
-      control-overview: 鹰眼控件
-      control-zoom: Zoom控件
-      control-compass: 指北针控件
-      control-scale: Scale控件
-      control-attribution: Attribution控件
-      control-show-hide: 控件显示与隐藏
-      control-layer-switcher: 图层选择控件
-    json:
-      title: JSON序列化
-      geojson-to-geometry: GeoJSON转化为Geometry
-      geometry-to-geojson: Geometry转化为GeoJSON
-      map-to-json: 地图转化为JSON
-      json-to-map: 用JSON载入地图
-      copy-map: 用JSON复制地图
-      layer-json: 用JSON复制Layer
-      geometry-json: 用JSON复制Geometry
-    plugin:
-      title: 常用插件
-      mapboxgl: Mapbox gl 图层
-      heatmaplayer: 'HeatLayer: 热力图层示例'
-      clusterlayer: 'ClusterLayer: 点聚合图层示例'
-      three: Three.js 图层
-      echarts: Echarts 图层
-    plugin-develop:
-      title: 插件开发示例
-      control: 创建新的控件
-      ui: 创建新的UI组件
-      maptool: 创建地图工具
-    hellolayer:
-      title: 图层开发示例
-      layer: HelloLayer
-      drawoninteracting: HelloLayer交互绘制
-      animation: HelloLayer动画图层
-  vector:
-    title: 矢量瓦片及点线面图层
-    operation:
-      title: 图层操作
-      add-remove: 添加和移除图层
-      show-hide: 显示和隐藏图层
-      zoom-interval: 设置图层缩放区间
-      features: 获取瓦片feature数据
-      available-zoom: 设置图层最大可访问级别
-      layer-json: 图层转化为JSON
-      json-layer: 用JSON载入图层
-    vtlayer:
-      title: 矢量瓦片图层
-      load-mapbox: 载入mapbox矢量瓦片数据
-      load-maptiler: 载入maptiler矢量瓦片数据
-      load-maptiler-4326: 载入maptiler4326瓦片数据
-    vt-visual:
-      title: 矢量瓦片图层可视化
-      road: 道路
-      process: 地图后处理
-    geo:
-      title: GeoJSONVectorTileLayer
-      load-local: 载入GeoJSON对象数据
-      load-remote: 载入远程GeoJSON数据
-      transform-function: 数据转换函数
-      load-event: 数据加载完成
-    style:
-      title: 样式操作
-      filter-data: 筛选符合条件的数据
-      plugin: 选择渲染插件样式
-      set-style: 样式整体更新
-      update-symbol: 样式部分更新
-      update-data-config: 更新dataConfig
-      update-scene-config: 更新sceneConfig
-      remove-style: 移除图层样式
-      hide-feature: 单独隐藏Feature
-      set-feature-style: 单独设置Feature的样式
-      update-feature-style: 更新Feature的样式
-    interactive:
-      title: 图层交互
-      highlight: 高亮元素
-      highlight-filter: 高亮元素-filter
-      hide-feature: 元素显示与隐藏
-      identify: 获取元素信息
-      mousemove: 鼠标动态交互
-      tooltip: 模拟 Tooltip
-      multilayer: 多个图层
-      event-proxy: 给图层派发事件
-      merge-data: 合并geojson
-      geometry: 获取geojson geometry
-      altitude: 查询高程
-      altitude-water: 查询高程-水
-    pointstyle:
-      title: 点类型数据样式
-      multiple-icon: 组合多个图标
-      icon-text: 组合图标和文字
-      scale: 图标和文字随地图缩放
-      pitch: 图标和文字随地图倾斜
-      rotate: 图标和文字随地图旋转
-      specified-levels: 只在指定的级别上显示
-      different-icons: 不同属性显示不同的图标
-      read-icon: 从属性数据中读取图标
-      read-text: 从属性数据中读取文字
-      across-collision: 跨图层的碰撞检测
-    linestyle:
-      title: 线类型数据样式
-      stroke-style: 设置描边样式
-      draw-text: 沿线绘制文字
-      width-zoom: 宽度随地图级别变化
-      color-zoom: 颜色随地图级别变化
-      property: 根据属性数据设置样式
-      texture: 纹理动画
-      bloom: 开启泛光
-    polygonstyle:
-      title: 面类型数据样式
-      border-style: 设置面的边框样式
-      texture: 设置纹理
-    pointlayer:
-      title: 点图层
-      add-remove: 添加和移除图层
-      show-hide: 隐藏显示图层
-      max-min-zoom: 图层最小和最大级别
-      add-marker: 添加Marker
-      add-multi-point: 添加MultiPoint
-      batch-add: 批量添加图形
-      get-by-id: 通过ID获取图形
-      filter-by-property: 根据属性条件筛选图形
-      get-extent: 获取所有图形的Extent
-      disable-events: 禁用图形事件
-      hit-detect: 禁用鼠标样式检测
-      set-style: 设置图层style
-      style-scale: 图层数据整体放大
-      image-marker: 图片标注
-      multi-image-marker: 多图片标注
-      vector-marker: 矢量标注
-      vector-gradient: 矢量标注渐变填充
-      svg-marker: SVG矢量标注
-      middle-alignment: 标注水平和垂直对齐
-      rotation-pitch-alignment: 旋转对齐与倾斜对齐
-      rotate-marker: 旋转标注
-      rotate-text: 旋转文字标注
-      image-text-marker: 带文字的图片标注
-      text-fit: 图标尺寸自动适应文字
-      composite-symbol: 组合样式
-      update-symbol: 样式的部分更新
-      symbol-by-zoom: 根据zoom设置样式
-      symbol-by-prop: 根据属性数据设置样式
-      mass-data: 海量点标注性能
-      mouse-identify: 鼠标点选数据
-      mouse-highlight: 鼠标悬停高亮数据
-      marker-events: 监听Marker事件
-      collision: 碰撞检测
-      highlight: 数据高亮
-      geometry-json: 数据JSON序列化
-      layer-json: 图层JSON序列化
-      geometry-geojson: Marker转成GeoJSON
-      geojson-marker: GeoJSON转成Marker
-    linelayer:
-      title: 线图层
-      add-line: 添加线
-      add-multi-line: 添加MultiLineString
-      line-style: 线的基础样式
-      dash-style: 线的虚线样式
-      outline-style: 有描边的线
-      pattern-file: 线的填充模式
-      pattern-gap: 有间隔的模式填充
-      pattern-animation: 线的模式填充动画
-      update-symbol: 线样式部分更新
-      set-style: 设置图层style
-      bind-event: 监听LineString事件
-      highlight: 数据高亮
-      data-json: 数据JSON序列化
-      layer-json: 图层JSON序列化
-      line-geojson: LineString转成GeoJSON
-      geojson-line: GeoJSON转成LineString
-    polygonlayer:
-      title: 面图层
-      add-polygon: 添加面
-      add-multi-polygon: 添加MultiPolygon
-      basic-style: 面的基本样式
-      pattern-file: 面的填充模式
-      vertex-marker: 面的端点样式
-      alignment: 面的内部样式
-      update-symbol: 面样式部分更新
-      set-style: 设置图层style
-      highlight: 数据高亮
-      geometry-json: 数据JSON序列化
-      layer-json: 图层JSON序列化
-      geometry-geojson: Polygon转成GeoJSON
-      geojson-geometry: GeoJSON转成Polygon
-  gltf:
-    title: GLTF模型
-    gltf-marker:
-      title: GLTFMarker
-      add-marker: 添加GLTFMarker
-      copy-marker: 复制GLTFMarker
-      animation-model: 动画模型
-      show-hide: 模型的显示与隐藏
-      trs: 模型的平移，旋转与缩放
-      material: 模型材质调节
-      shader: 着色器切换
-      update-symbol: 模型的symbol设置
-      info-window: 设置信息弹出框
-      mouse-event: 鼠标事件监听
-      outline: 模型设置外轮廓
-      bloom: 模型泛光效果
-      shadow: 阴影设置
-      skinning: 加载有骨骼动画的模型
-      context-menu: 右键菜单
-      anchor: 锚点的设置
-      fix-size: 固定模型的大小不随地图缩放
-      model-matrix: 更新模型的ModelMatrix
-      time-frame: setAnimationTimeFrame
-      property: 设置/获取属性
-      draco: 添加draco压缩模型
-      set-altitude: GLTFMarker设置海拔高度
-      gltf-modelHeight: 设置模型高度
-    gltf-layer:
-      title: GLTFLayer
-      add-to-map: 添加图层到地图上
-      search-by-id: 根据id查找GLTFMarker
-      remove-marker: 移除某个GLTFMarker
-      clear: 清空图层
-      show-hide: 图层的显示与隐藏
-      create-by-json: 通过json数据创建图层
-      set-style: 为图层设置样式条件
-      identify: 识别图层内的GLTFMarker
-      custom-shader: 自定义着色器
-      blended-drawing: 多个GLTFLayer的融合绘制
-      filter-by-property: 根据属性条件筛选
-      load-event: 模型载入完成事件
-    multi-gltf-marker:
-      title: MultiGLTFMarker
-      add: 添加MultiGLTFMarker
-      add-data: 增加一个数据项
-      remove-data: 移除一个数据项
-      update-data: 更新一个数据项
-      mouse-event: 监听鼠标事件
-    gltf-linestring:
-      title: GLTFLineString
-      add: 添加GLTFLineString
-      draw: 绘制模型场景
-    transform-control:
-      title: TransformControl
-      trs: 控制模型的平移、旋转、缩放
   3d:
-    title: 三维功能
-    line-3d-style:
-      title: 线数据三维样式
-      texture: 设置纹理
-      altitude: 数据里包含海拔值
-    polygon-3d-style:
-      title: 三维白模样式
-      set-height: 设置高度
-      diffrent-textures: 顶面和侧面设置不同的纹理
-      top-side-color: 垂直颜色渐变
-      side-uv-mode: 设置侧面纹理模式
-      entry: 进场动画
-    waterstyle:
-      title: 水体渲染
-      reflection: 水体渲染，倒影及水面文字
-    terrain:
-      title: 地形
-      load: 加载地形
-      stylized: 风格化地形
-      vector: 矢量贴地形
-    traffic:
-      title: 交通
-      simulated-traffic: 模拟交通
     3dtiles:
-      title: 3dtiles功能示例
-      load: 加载倾斜摄影数据
-      view: 跳转视角
-      rotate: 旋转地图
-      manually-icon: 手动添加图标
-      point-icon: 定点添加图标
-      model-entity: 模型单体化
-      room-entity: 模型房间单体化
-      floor-entity: 模型楼层单体化
       custom-monomer: 自定义单体化的绘制
       drawer-entity: 单体化抽屉效果
-      view-monomer: 查看单体化
+      floor-entity: 模型楼层单体化
+      load: 加载倾斜摄影数据
+      manually-icon: 手动添加图标
+      model-entity: 模型单体化
       model-flatten: 模型压平
+      point-icon: 定点添加图标
+      room-entity: 模型房间单体化
+      rotate: 旋转地图
+      title: 3dtiles功能示例
+      view: 跳转视角
+      view-monomer: 查看单体化
+    line-3d-style:
+      altitude: 数据里包含海拔值
+      texture: 设置纹理
+      title: 线数据三维样式
     pipeline:
+      connections: 自动生成三通和四通
+      flow: 管线流动效果
       title: 管线
       underground: 地下管线
-      flow: 管线流动效果
-      connections: 自动生成三通和四通
+    polygon-3d-style:
+      diffrent-textures: 顶面和侧面设置不同的纹理
+      entry: 进场动画
+      set-height: 设置高度
+      side-uv-mode: 设置侧面纹理模式
+      title: 三维白模样式
+      top-side-color: 垂直颜色渐变
     spatial-analysis:
-      title: 空间分析
-      measure: 空间测量
-      skyline: 天际线分析
-      insight: 通视分析
-      viewshed: 可视域分析
-      flood: 水淹分析
+      box-clip: 盒子裁剪
+      crosscut: 剖面分析
       cut: 平面裁剪
       excavate: 挖方分析
-      crosscut: 剖面分析
+      flood: 水淹分析
       height-limit: 限高分析
-      box-clip: 盒子裁剪
+      insight: 通视分析
+      measure: 空间测量
       raycaster: 光线投射
+      skyline: 天际线分析
+      title: 空间分析
+      viewshed: 可视域分析
+    terrain:
+      load: 加载地形
+      stylized: 风格化地形
+      title: 地形
+      vector: 矢量贴地形
+    title: 三维功能
     track:
-      title: 轨迹路线
-      flying-driving: 沿轨迹飞行与地面行驶
-      ground-route: 沿地面轨迹飞行
-      unmanned: 无人机飞行轨迹
       around-point: 绕点环绕飞行
       auto-roaming: 自动漫游
-      free-roaming: 自由漫游
-      personnel-position: 人员实时定位
       device-position: 设备实时定位
+      flying-driving: 沿轨迹飞行与地面行驶
+      free-roaming: 自由漫游
+      ground-route: 沿地面轨迹飞行
+      personnel-position: 人员实时定位
+      title: 轨迹路线
+      unmanned: 无人机飞行轨迹
+    traffic:
+      simulated-traffic: 模拟交通
+      title: 交通
     video:
-      title: 视频图层
       add: 添加视频对象
+      title: 视频图层
+    waterstyle:
+      reflection: 水体渲染，倒影及水面文字
+      title: 水体渲染
     weather:
-      title: 天气系统
       fog: 雾
       rain: 雨
       snow: 雪
       sunny: 晴天
+      title: 天气系统
+  __all:
+    title: 全部
+  basic:
+    3d:
+      line-altitude: 有高度的线
+      line-draw-altitude: 绘制Line的高度面
+      marker-altitude: 有高度的Marker
+      marker-draw-altitude: 绘制Marker的高度线
+      polygon-altitude: 有高度的多边形
+      set-altitude: 设置图形高度
+      title: 三维
+    animation:
+      custom-anim: 自定义动画
+      geometry-anim: Geometry.animate方法
+      line-animateshow: 线的动画展现
+      map-flyto: 地图飞行到指定位置
+      map-view-follow: 地图跟随动画
+      marker-anim: Marker的变形动画
+      move-along: 点的沿线动画
+      polygon-animateshow: 面的动画展现
+      title: 动画
+    geometry:
+      collection: GeometryCollection
+      collection-filter: GeometryCollection的条件查询
+      connector-line: 连接线
+      copy: 克隆
+      curve: 圆弧和贝塞尔曲线
+      events: 监听图形事件
+      flash-geometry: 闪烁
+      label: 文字标签(Label)
+      linestring: LineString
+      marker: Marker
+      multilinestring: MultiLineString
+      multipoint: MultiPoint
+      multipolygon: MultiPolygon
+      polygon: Polygon
+      rectangle-circle-ellipse-sector: 矩形, 圆形, 椭圆和扇形
+      textbox: 文本框(TextBox)
+      title: 图形
+    hellolayer:
+      animation: HelloLayer动画图层
+      drawoninteracting: HelloLayer交互绘制
+      layer: HelloLayer
+      title: 图层开发示例
+    interaction:
+      area-tool: 测面工具
+      distance-tool: 测距工具
+      drag-geometries: 拖拽图形
+      draw-tool: 绘制工具
+      edit-label: 编辑文本内容
+      edit-line: 编辑线
+      edit-marker: 编辑标注
+      edit-polygon: 编辑多边形
+      edit-rectangle-circle-ellipse: 编辑矩形/圆形/椭圆
+      edit-textbox: 编辑文本框
+      map-off: 禁用所有交互
+      map-on-off: 地图功能开关
+      mouse-contains: 鼠标与图形的空间关系
+      mouse-highlight: 鼠标悬停高亮图形
+      mouse-identify: 鼠标点选图形
+      title: 交互
+    json:
+      copy-map: 用JSON复制地图
+      geojson-to-geometry: GeoJSON转化为Geometry
+      geometry-json: 用JSON复制Geometry
+      geometry-to-geojson: Geometry转化为GeoJSON
+      json-to-map: 用JSON载入地图
+      layer-json: 用JSON复制Layer
+      map-to-json: 地图转化为JSON
+      title: JSON序列化
+    layer:
+      add-remove: 添加图层和移除图层
+      bring-front-back: 图层置顶或置底
+      canvaslayer: 'CanvasLayer: 画板图层示例'
+      canvastilelayer: 'CanvasTileLayer: 画板瓦片图层示例'
+      collision: 碰撞
+      globalcompositeoperation: globalCompositeOperation
+      imagelayer: 'ImageLayer: 图片图层示例'
+      mask: 用鼠标设置图层遮罩
+      opacity: 设置图层透明度
+      particlelayer: 'ParticleLayer: 粒子图层示例'
+      show-hide: 隐藏显示图层
+      sort: 改变图层叠加顺序
+      swipe: 图层卷帘效果
+      title: 图层
+      vectorlayer-batch-add: 'VectorLayer: 批量添加图形'
+      vectorlayer-filter: 'VectorLayer: 根据属性条件筛选图形'
+      vectorlayer-get-by-id: VectorLayer:根据 ID 获取图形
+      vectorlayer-sort: 'VectorLayer: 设置图形的z-index'
+      vectorlayer-style: 'VectorLayer: 批量设置图形样式'
+    map:
+      canvas: 在Canvas容器中加载
+      common-control: 添加常用控件
+      coordinate-conversion: 屏幕坐标转换
+      custom-resolutions: 自定义地图LOD
+      drag-pitch-rotate: 拖动倾斜与旋转
+      export-image: 导出为图片
+      fit-extent: 自动适配区域
+      fractional-zoom: 细微缩放(Fractional Zoom)
+      limit-extent: 限制地图区域
+      limit-zoom: 限制缩放级别
+      load: 显示
+      map-events: 监听地图事件
+      map-magnifier: 地图放大镜
+      map-scale-container: 缩放地图容器解决高分辨率地图卡顿
+      panning: 移动地图
+      pitch-rotate: 倾斜与旋转
+      status: 获取地图状态
+      sync-map: 同步地图
+      title: 地图
+    plugin:
+      clusterlayer: 'ClusterLayer: 点聚合图层示例'
+      echarts: Echarts 图层
+      heatmaplayer: 'HeatLayer: 热力图层示例'
+      mapboxgl: Mapbox gl 图层
+      three: Three.js 图层
+      title: 常用插件
+    plugin-develop:
+      control: 创建新的控件
+      maptool: 创建地图工具
+      title: 插件开发示例
+      ui: 创建新的UI组件
+    style:
+      color-interpolate: 颜色插值
+      composite-symbol: 组合样式
+      d3-marker: D3图表样式
+      echarts-marker: Echarts图表样式
+      highcharts-marker: Highcharts图表样式
+      html-marker: HTML自定义标注
+      image-marker: 图片标注
+      image-text-marker: 带文字的图片标注
+      line-arrow: 带箭头的线
+      line-gradient: 线的渐变填充
+      line-marker: 端点沿线自动旋转Marker
+      line-pattern: 线的模式填充
+      line-pattern-animation: 线的模式填充动画
+      line-smoothness: 线的曲线平滑
+      line-symbol: 线样式
+      line-text: 带文字的线
+      marker-alignment: 标注水平和垂直对齐
+      multi-image-marker: 多图片标注
+      polygon-gradient: 面的渐变填充
+      polygon-pattern: 面的模式填充
+      polygon-symbol: 面样式
+      polygon-vertex-marker: 面的端点样式
+      rotate-marker: 旋转标注
+      rotate-text: 旋转文字标注
+      svg-path-marker: SVG矢量标注
+      symbol-by-prop: 根据属性数据设置样式
+      symbol-by-zoom: 根据zoom设置样式
+      text-marker: 文字标注
+      title: 图形样式
+      update-symbol: 样式的部分更新
+      vector-gradient: 矢量标注渐变填充
+      vector-marker: 矢量标注
+      vector-pattern: 矢量标注模式填充
+    tilelayer-projection:
+      arcgis-tile: ArcGIS瓦片图层
+      baidu: 百度投影底图
+      base64: 用base64编码载入瓦片
+      canvas-renderer: Canvas渲染方式的瓦片图层
+      custom-tile: LOD和自定义瓦片图层
+      d3-proj: D3投影
+      different-projection: 载入不同投影的TileLayer
+      epsg4326: 4326投影底图
+      filter: 底图风格滤镜
+      grouptilelayer: 添加瓦片图层组
+      identity: IDENTITY投影底图
+      max-zoom: 增大空间参考的maxZoom
+      multi-tilelayer: 添加多个瓦片图层
+      proj4js: Proj4js自定义投影底图
+      tile-image-custom: 自定义处理瓦片图片
+      tile-mask: 只显示指定范围内的瓦片
+      tile-opacity: 设置瓦片图层透明度
+      title: 瓦片图层与地理投影
+      vector-tile: Vector-Tile图层
+      wms: WMS瓦片图层
+      wms-reload: TileLayer强制重载
+      wmts-tile: WMTS瓦片图层
+    title: 基础功能
+    ui-control:
+      control-attribution: Attribution控件
+      control-compass: 指北针控件
+      control-layer-switcher: 图层选择控件
+      control-overview: 鹰眼控件
+      control-panel: Panel控件
+      control-scale: Scale控件
+      control-show-hide: 控件显示与隐藏
+      control-toolbar: Toolbar控件
+      control-zoom: Zoom控件
+      infowindow-scroll: 信息框内容支持滚动
+      title: 空间与UI组件
+      ui-collision: UI碰撞
+      ui-custom-infownd: 自定义信息框
+      ui-custom-menu: 自定义右键菜单
+      ui-geo-infownd: 图形信息框
+      ui-geo-infownd-bind-mvvm-component: 信息框绑定MVVM组件
+      ui-geo-menu: 图形右键菜单
+      ui-map-infownd: 地图信息框
+      ui-map-menu: 地图右键菜单
+      uimarker-align: UIMarker 对齐
+      uimarker-mvvm-dynamic: UIMarker绑定MVVM组件
+    utils:
+      options-proxy: 通过Proxy更新options
+      title: 工具/全局功能
+  gltf:
+    gltf-layer:
+      add-to-map: 添加图层到地图上
+      blended-drawing: 多个GLTFLayer的融合绘制
+      clear: 清空图层
+      create-by-json: 通过json数据创建图层
+      custom-shader: 自定义着色器
+      filter-by-property: 根据属性条件筛选
+      identify: 识别图层内的GLTFMarker
+      load-event: 模型载入完成事件
+      remove-marker: 移除某个GLTFMarker
+      search-by-id: 根据id查找GLTFMarker
+      set-style: 为图层设置样式条件
+      show-hide: 图层的显示与隐藏
+      title: GLTFLayer
+    gltf-linestring:
+      add: 添加GLTFLineString
+      draw: 绘制模型场景
+      title: GLTFLineString
+    gltf-marker:
+      add-marker: 添加GLTFMarker
+      anchor: 锚点的设置
+      animation-model: 动画模型
+      bloom: 模型泛光效果
+      context-menu: 右键菜单
+      copy-marker: 复制GLTFMarker
+      draco: 添加draco压缩模型
+      fix-size: 固定模型的大小不随地图缩放
+      gltf-modelHeight: 设置模型高度
+      info-window: 设置信息弹出框
+      material: 模型材质调节
+      model-matrix: 更新模型的ModelMatrix
+      mouse-event: 鼠标事件监听
+      outline: 模型设置外轮廓
+      property: 设置/获取属性
+      set-altitude: GLTFMarker设置海拔高度
+      shader: 着色器切换
+      shadow: 阴影设置
+      show-hide: 模型的显示与隐藏
+      skinning: 加载有骨骼动画的模型
+      time-frame: setAnimationTimeFrame
+      title: GLTFMarker
+      trs: 模型的平移，旋转与缩放
+      update-symbol: 模型的symbol设置
+    multi-gltf-marker:
+      add: 添加MultiGLTFMarker
+      add-data: 增加一个数据项
+      mouse-event: 监听鼠标事件
+      remove-data: 移除一个数据项
+      title: MultiGLTFMarker
+      update-data: 更新一个数据项
+    title: GLTF模型
+    transform-control:
+      title: TransformControl
+      trs: 控制模型的平移、旋转、缩放
+  vector:
+    geo:
+      load-event: 数据加载完成
+      load-local: 载入GeoJSON对象数据
+      load-remote: 载入远程GeoJSON数据
+      title: GeoJSONVectorTileLayer
+      transform-function: 数据转换函数
+    interactive:
+      altitude: 查询高程
+      altitude-water: 查询高程-水
+      event-proxy: 给图层派发事件
+      geometry: 获取geojson geometry
+      hide-feature: 元素显示与隐藏
+      highlight: 高亮元素
+      highlight-filter: 高亮元素-filter
+      identify: 获取元素信息
+      merge-data: 合并geojson
+      mousemove: 鼠标动态交互
+      multilayer: 多个图层
+      title: 图层交互
+      tooltip: 模拟 Tooltip
+    linelayer:
+      add-line: 添加线
+      add-multi-line: 添加MultiLineString
+      bind-event: 监听LineString事件
+      dash-style: 线的虚线样式
+      data-json: 数据JSON序列化
+      geojson-line: GeoJSON转成LineString
+      highlight: 数据高亮
+      layer-json: 图层JSON序列化
+      line-geojson: LineString转成GeoJSON
+      line-style: 线的基础样式
+      outline-style: 有描边的线
+      pattern-animation: 线的模式填充动画
+      pattern-file: 线的填充模式
+      pattern-gap: 有间隔的模式填充
+      set-style: 设置图层style
+      title: 线图层
+      update-symbol: 线样式部分更新
+    linestyle:
+      bloom: 开启泛光
+      color-zoom: 颜色随地图级别变化
+      draw-text: 沿线绘制文字
+      property: 根据属性数据设置样式
+      stroke-style: 设置描边样式
+      texture: 纹理动画
+      title: 线类型数据样式
+      width-zoom: 宽度随地图级别变化
+    operation:
+      add-remove: 添加和移除图层
+      available-zoom: 设置图层最大可访问级别
+      features: 获取瓦片feature数据
+      json-layer: 用JSON载入图层
+      layer-json: 图层转化为JSON
+      show-hide: 显示和隐藏图层
+      title: 图层操作
+      zoom-interval: 设置图层缩放区间
+    pointlayer:
+      add-marker: 添加Marker
+      add-multi-point: 添加MultiPoint
+      add-remove: 添加和移除图层
+      batch-add: 批量添加图形
+      collision: 碰撞检测
+      composite-symbol: 组合样式
+      disable-events: 禁用图形事件
+      filter-by-property: 根据属性条件筛选图形
+      geojson-marker: GeoJSON转成Marker
+      geometry-geojson: Marker转成GeoJSON
+      geometry-json: 数据JSON序列化
+      get-by-id: 通过ID获取图形
+      get-extent: 获取所有图形的Extent
+      highlight: 数据高亮
+      hit-detect: 禁用鼠标样式检测
+      image-marker: 图片标注
+      image-text-marker: 带文字的图片标注
+      layer-json: 图层JSON序列化
+      marker-events: 监听Marker事件
+      mass-data: 海量点标注性能
+      max-min-zoom: 图层最小和最大级别
+      middle-alignment: 标注水平和垂直对齐
+      mouse-highlight: 鼠标悬停高亮数据
+      mouse-identify: 鼠标点选数据
+      multi-image-marker: 多图片标注
+      rotate-marker: 旋转标注
+      rotate-text: 旋转文字标注
+      rotation-pitch-alignment: 旋转对齐与倾斜对齐
+      set-style: 设置图层style
+      show-hide: 隐藏显示图层
+      style-scale: 图层数据整体放大
+      svg-marker: SVG矢量标注
+      symbol-by-prop: 根据属性数据设置样式
+      symbol-by-zoom: 根据zoom设置样式
+      text-fit: 图标尺寸自动适应文字
+      title: 点图层
+      update-symbol: 样式的部分更新
+      vector-gradient: 矢量标注渐变填充
+      vector-marker: 矢量标注
+    pointstyle:
+      across-collision: 跨图层的碰撞检测
+      different-icons: 不同属性显示不同的图标
+      icon-text: 组合图标和文字
+      multiple-icon: 组合多个图标
+      pitch: 图标和文字随地图倾斜
+      read-icon: 从属性数据中读取图标
+      read-text: 从属性数据中读取文字
+      rotate: 图标和文字随地图旋转
+      scale: 图标和文字随地图缩放
+      specified-levels: 只在指定的级别上显示
+      title: 点类型数据样式
+    polygonlayer:
+      add-multi-polygon: 添加MultiPolygon
+      add-polygon: 添加面
+      alignment: 面的内部样式
+      basic-style: 面的基本样式
+      geojson-geometry: GeoJSON转成Polygon
+      geometry-geojson: Polygon转成GeoJSON
+      geometry-json: 数据JSON序列化
+      highlight: 数据高亮
+      layer-json: 图层JSON序列化
+      pattern-file: 面的填充模式
+      set-style: 设置图层style
+      title: 面图层
+      update-symbol: 面样式部分更新
+      vertex-marker: 面的端点样式
+    polygonstyle:
+      border-style: 设置面的边框样式
+      texture: 设置纹理
+      title: 面类型数据样式
+    style:
+      filter-data: 筛选符合条件的数据
+      hide-feature: 单独隐藏Feature
+      plugin: 选择渲染插件样式
+      remove-style: 移除图层样式
+      set-feature-style: 单独设置Feature的样式
+      set-style: 样式整体更新
+      title: 样式操作
+      update-data-config: 更新dataConfig
+      update-feature-style: 更新Feature的样式
+      update-scene-config: 更新sceneConfig
+      update-symbol: 样式部分更新
+    title: 矢量瓦片及点线面图层
+    vt-visual:
+      process: 地图后处理
+      road: 道路
+      title: 矢量瓦片图层可视化
+    vtlayer:
+      load-mapbox: 载入mapbox矢量瓦片数据
+      load-maptiler: 载入maptiler矢量瓦片数据
+      load-maptiler-4326: 载入maptiler4326瓦片数据
+      title: 矢量瓦片图层
