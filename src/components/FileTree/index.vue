@@ -13,7 +13,13 @@
             <el-icon v-if="item.icon" class="vertical-text-top pt-4px" size="14">
               <component :is="item.icon"></component>
             </el-icon>
-            <span :class="['label', item.icon ? 'ml-10px' : 'ml-0']">{{ item.name }}</span>
+            <span :class="['label', item.icon ? 'ml-10px' : 'ml-0']">
+              {{
+                depth <= 2
+                  ? t(`playgrounds.${item.path.split('/').join('.')}.title`)
+                  : t(`playgrounds.${item.path.split('/').join('.')}`)
+              }}
+            </span>
           </div>
         </span>
         <span
@@ -36,6 +42,7 @@
 
 <script setup lang="ts">
   import { isUndefined } from 'lodash-es';
+  import { useI18n } from 'vue-i18n';
 
   defineOptions({
     name: 'FileTree',
@@ -52,6 +59,8 @@
       depth: 1,
     },
   );
+
+  const { t } = useI18n();
 
   const emits = defineEmits(['update:modelValue', 'change']);
 

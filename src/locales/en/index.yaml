@@ -3,12 +3,21 @@ app:
   title: maptalks-playground
   actions:
     create_template: Create template
+    cancel: Cancel
+    confirm: Confirm
+
+  pls:
+    create:
+      title: Create
+      name: Name
+      folder: Folder
+      placeholder: Please enter
 
 playgrounds:
   __all:
     title: All
   basic:
-    title: basic
+    title: Basic
     map:
       title: Map
       load: Display a map
@@ -211,7 +220,7 @@ playgrounds:
       drawoninteracting: HelloLayer with drawOnInteracting
       animation: HelloLayer with animation
   vector:
-    title: vector
+    title: Vector
     operation:
       title: Layer operation
       add-remove: Add and remove layer
@@ -361,7 +370,7 @@ playgrounds:
       geometry-geojson: Polygon to GeoJSON
       geojson-geometry: GeoJSON to Polygon
   gltf:
-    title: gltf
+    title: GLTF
     gltf-marker:
       title: GLTFMarker
       add-marker: Add a GLTF Marker
@@ -416,7 +425,7 @@ playgrounds:
       title: TransformControl
       trs: Control the translation, rotation, and scaling of the model
   3d:
-    title: 3d
+    title: 3D
     line-3d-style:
       title: Line data 3d Style
       texture: Set textures

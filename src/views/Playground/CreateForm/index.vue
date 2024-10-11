@@ -20,7 +20,7 @@
             <el-select v-model="formData.playgroundType" clearable placeholder="请选择">
               <el-option
                 v-for="playgroundType in appStore.playgroundTypes"
-                :key="playgroundType.label"
+                :key="playgroundType.id"
                 :label="playgroundType.label"
                 :value="playgroundType.label"
               />

@@ -135,11 +135,7 @@
         productionMode.value = true;
       }
 
-      if (ssrMode === 'SSR') {
-        useSSRMode.value = true;
-      } else {
-        useSSRMode.value = false;
-      }
+      useSSRMode.value = ssrMode === 'SSR';
     },
     {
       immediate: true,
@@ -282,7 +278,7 @@
 
               if (subItem.children && subItem.children.length > 0) {
                 for (let k = 0; k < subItem.children.length; k++) {
-                  const playgroundItem = subItem.children[j];
+                  const playgroundItem = subItem.children[k];
 
                   if (playgroundItem.name === name) {
                     playgroundItem.collapse = false;
@@ -303,6 +299,8 @@
   const getMenuList = async () => {
     setLoading(true);
     const data = await getFileTree();
+
+    console.log(data);
 
     list.value = data;
 

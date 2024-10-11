@@ -2,8 +2,6 @@ import type { RouteRecordRaw } from 'vue-router';
 import BasicLayout from '@/layout/BlankLayout/index.vue';
 import { playgroundRoutes } from './pls';
 
-console.log(playgroundRoutes);
-
 export const root = {
   path: '/',
   name: 'Root',

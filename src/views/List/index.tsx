@@ -105,14 +105,13 @@ export default defineComponent({
       setPlaygroundList(res);
     };
 
-    const handleJump = (example, sub, subList) => {
-      console.log(example, sub, subList);
+    const handleJump = (example, subclass, category) => {
       router.push({
         name: 'Playground',
         query: {
-          name: '展示',
-          category: '基础功能',
-          subclass: '地图',
+          category: category.path,
+          subclass: subclass.path,
+          name: example.path,
         },
       });
     };

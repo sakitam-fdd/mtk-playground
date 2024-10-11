@@ -1,8 +1,6 @@
 import type { Router } from 'vue-router';
 import { isNavigationFailure } from 'vue-router';
 import NProgress from 'nprogress';
-import { isEmpty } from 'lodash-es';
-import { useAppStore } from '@/store/modules';
 
 NProgress.configure({
   easing: 'ease',
@@ -13,17 +11,9 @@ NProgress.configure({
 });
 
 async function setupPageGuard(router: Router) {
-  const appStore = useAppStore();
-
   router.beforeEach(async (to, from, next) => {
     if (!NProgress.isStarted()) {
       NProgress.start();
-    }
-
-    const templates = toRaw(appStore.templates);
-
-    if (isEmpty(templates)) {
-      // await appStore.getTemplates();
     }
 
     next();

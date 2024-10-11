@@ -15,6 +15,7 @@ async function bootStrap() {
 
   // 设置样式加载
   setupAssets();
+
   // 创建vue
   const app = createApp(App);
 

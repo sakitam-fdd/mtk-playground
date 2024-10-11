@@ -1,4 +1,4 @@
-FROM node:20.16.0
+FROM node:20.18.0
 
 # https://pptr.dev/troubleshooting#chrome-doesnt-launch-on-linux
 RUN apt-get update && \

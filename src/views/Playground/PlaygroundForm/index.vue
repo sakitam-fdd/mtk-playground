@@ -1,7 +1,7 @@
 <template>
   <el-dialog
     v-model="dialogVisible"
-    title="新增示例"
+    :title="t('app.pls.create.title')"
     destroy-on-close
     center
     width="380px"
@@ -11,26 +11,35 @@
     <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" label-position="top">
       <el-row :gutter="20">
         <el-col :span="24">
-          <el-form-item class="mb-30px" prop="name" label="示例名称">
-            <el-input v-model="formData.name" clearable placeholder="请输入" />
+          <el-form-item class="mb-30px" prop="name" :label="t('app.pls.create.name')">
+            <el-input v-model="formData.name" clearable :placeholder="t('app.pls.create.placeholder')" />
           </el-form-item>
         </el-col>
         <el-col :span="24">
-          <el-form-item class="mb-30px" prop="folder" label="所属目录">
+          <el-form-item class="mb-30px" prop="folder" :label="t('app.pls.create.folder')">
             <el-tree-select
               node-key="path"
               :props="{ label: 'name' }"
               v-model="formData.folder"
               :data="filterFolders(tree)"
               :render-after-expand="false"
-            />
+            >
+              <template #default="{ data }">
+                <span>{{ t(`playgrounds.${data.path?.split('/')?.join('.')}.title`) }}</span>
+              </template>
+              <template #label="{ value }">
+                <span>{{ t(`playgrounds.${value?.split('/')?.join('.')}.title`) }}</span>
+              </template>
+            </el-tree-select>
           </el-form-item>
         </el-col>
       </el-row>
     </el-form>
     <template #footer>
-      <el-button @click="handleCancel">取消</el-button>
-      <el-button type="primary" @click="handleCreateOrUpdate" :loading="loading">确认</el-button>
+      <el-button @click="handleCancel">{{ t('app.actions.cancel') }}</el-button>
+      <el-button type="primary" @click="handleCreateOrUpdate" :loading="loading">
+        {{ t('app.actions.confirm') }}
+      </el-button>
     </template>
   </el-dialog>
 </template>
@@ -41,6 +50,7 @@
   import { ElMessage, FormInstance, FormRules } from 'element-plus';
   import { filterFolders, updatePlayground } from '@/api/graphql';
   import type { ReplStore } from '@vue/repl';
+  import { useI18n } from 'vue-i18n';
   import { buildCommit } from '@/views/Playground/Download/download';
   import { to } from '@/utils/to';
 
@@ -61,6 +71,8 @@
       tree: () => [],
     },
   );
+
+  const { t } = useI18n();
 
   const DEFAULT_FORM_DATA = {
     name: '',

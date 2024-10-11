@@ -19,24 +19,28 @@ export const useAppStore = defineStore('app', {
     templates: {} as State['templates'],
     playgroundTypes: [
       {
+        id: 'basic',
         label: '基础功能',
         icon: GisIcon,
         collapse: true,
         rank: 1,
       },
       {
+        id: 'vector',
         label: '矢量瓦片及点线面图层',
         icon: LayerIcon,
         collapse: true,
         rank: 2,
       },
       {
+        id: 'gltf',
         label: 'GLTF模型',
         icon: GLTFIcon,
         collapse: true,
         rank: 3,
       },
       {
+        id: '3d',
         label: '三维功能',
         icon: SphereIcon,
         collapse: true,
@@ -45,7 +49,6 @@ export const useAppStore = defineStore('app', {
     ],
   }),
   getters: {
-    getTemplates: (state) => state.templates,
     getLocale: (state) => state.locale,
   },
   actions: {
@@ -53,18 +56,6 @@ export const useAppStore = defineStore('app', {
       this.locale = locale;
       localStorage.setItem('locale', locale);
       i18n.global.locale.value = locale;
-    },
-
-    async getTemplates(force?: boolean) {
-      if (isEmpty(this.templates) || force) {
-        await getSomething()
-          .then(() => {
-            this.templates = res.data;
-          })
-          .catch(() => {
-            this.templates = {} as State['templates'];
-          });
-      }
     },
 
     updatePlaygroundTypes(types) {

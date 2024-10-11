@@ -404,7 +404,7 @@ export async function getFileTree(sha = 'main', depth = 0, path = '') {
       for (let i = 0; i < array.length; i++) {
         const item = array[i];
 
-        const p = appStore.playgroundTypes.find((pl) => pl.label === item.name);
+        const p = appStore.playgroundTypes.find((pl) => pl.id === item.name);
 
         if (p) {
           // 给枚举数据赋值上sha

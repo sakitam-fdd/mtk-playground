@@ -4,6 +4,16 @@ app:
 
   actions:
     create_template: 创建空模板
+    cancel: 取消
+    confirm: 确定
+
+  pls:
+    create:
+      title: 新增示例
+      name: 示例名称
+      folder: 所属目录
+      placeholder: 请输入
+
 
 playgrounds:
   __all:
@@ -213,7 +223,7 @@ playgrounds:
       drawoninteracting: HelloLayer交互绘制
       animation: HelloLayer动画图层
   vector:
-    title: vector
+    title: 矢量瓦片及点线面图层
     operation:
       title: 图层操作
       add-remove: 添加和移除图层
@@ -363,7 +373,7 @@ playgrounds:
       geometry-geojson: Polygon转成GeoJSON
       geojson-geometry: GeoJSON转成Polygon
   gltf:
-    title: gltf
+    title: GLTF模型
     gltf-marker:
       title: GLTFMarker
       add-marker: 添加GLTFMarker
@@ -418,7 +428,7 @@ playgrounds:
       title: TransformControl
       trs: 控制模型的平移、旋转、缩放
   3d:
-    title: 3d
+    title: 三维功能
     line-3d-style:
       title: 线数据三维样式
       texture: 设置纹理
