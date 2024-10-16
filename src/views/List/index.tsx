@@ -214,16 +214,42 @@ export default defineComponent({
                               </div>
                             </div>
                             <div class="flex h-[40px] items-center justify-between px-[12px]">
-                              <span class={styles.footerTitle}>{t(`playgrounds.${example.name.split('_').join('.')}`)}</span>
-                              <div
-                                class="icon__settings !h-[26px] !w-[26px]"
-                                onClick={() => openSettings(example, sub, subList)}
-                              >
-                                <div class="flex items-center justify-center rounded-md transition-all">
-                                  <span
-                                    class="iconify i-material-symbols:more-horiz m-1 text-black dark:text-white"
-                                    style={{ fontSize: '18px' }}
-                                  />
+                              <div class={styles.footerTitle}>
+                                {t(`playgrounds.${example.name.split('_').join('.')}`)}
+                              </div>
+                              <div class="flex items-center gap-6px">
+                                <div
+                                  class="icon__settings !h-[26px] !w-[26px] hover:accent-primary"
+                                  onClick={() => openSettings(example, sub, subList)}
+                                >
+                                  <div class="flex items-center justify-center rounded-md transition-all">
+                                    <span
+                                      class="iconify i-material-symbols:more-horiz m-1 text-black dark:text-white"
+                                      style={{ fontSize: '18px' }}
+                                    />
+                                  </div>
+                                </div>
+                                <div
+                                  class="icon__settings !h-[26px] !w-[26px]"
+                                  onClick={() => openSettings(example, sub, subList)}
+                                >
+                                  <div class="flex items-center justify-center rounded-md transition-all">
+                                    <span
+                                      class="iconify i-material-symbols:more-horiz m-1 text-black dark:text-white"
+                                      style={{ fontSize: '18px' }}
+                                    />
+                                  </div>
+                                </div>
+                                <div
+                                  class="icon__settings !h-[26px] !w-[26px]"
+                                  onClick={() => openSettings(example, sub, subList)}
+                                >
+                                  <div class="flex items-center justify-center rounded-md transition-all">
+                                    <span
+                                      class="iconify i-material-symbols:more-horiz m-1 text-black dark:text-white"
+                                      style={{ fontSize: '18px' }}
+                                    />
+                                  </div>
                                 </div>
                               </div>
                             </div>

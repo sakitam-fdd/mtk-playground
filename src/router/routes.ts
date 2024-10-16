@@ -17,6 +17,7 @@ export const root = {
       meta: {
         title: '首页',
         iconSize: 16,
+        isPlayground: false,
       },
     },
     {
@@ -26,6 +27,7 @@ export const root = {
       meta: {
         title: '示例列表',
         iconSize: 16,
+        isPlayground: false,
       },
     },
     {
@@ -35,6 +37,7 @@ export const root = {
       meta: {
         title: '编辑器',
         iconSize: 16,
+        isPlayground: false,
       },
     },
     {
@@ -43,6 +46,7 @@ export const root = {
       meta: {
         title: '示例动态路由',
         iconSize: 16,
+        isPlayground: true,
       },
       children: playgroundRoutes,
     },

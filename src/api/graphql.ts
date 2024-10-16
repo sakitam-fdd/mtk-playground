@@ -5,6 +5,7 @@ import { to } from '@/utils/to';
 import { useAppStoreHook } from '@/store/modules';
 import { ElNotification } from 'element-plus';
 import { ascending } from '@/utils/utils';
+import { t } from '@/plugins/locales';
 import { playgroundRoutes } from '@/router/pls';
 // Octokit.js
 // https://github.com/octokit/core.js#readme
@@ -24,10 +25,19 @@ const commonAuthor = {
   email: import.meta.env.VITE_COMMON_AUTHOR_EMAIL,
 };
 
+/**
+ * 判断请求是否成功 (用在 Rest接口)
+ * @param res
+ * @returns
+ */
 export function isSuccess(res: Record<string, any>) {
   return [201, 200].includes(res.status);
 }
 
+/**
+ * 生成临时分支
+ * @returns String
+ */
 export function buildBranch() {
   return `feature/docs-demo-${dayjs().format('YYYY-MM-DD-HH-mm')}`;
 }
@@ -119,6 +129,12 @@ export async function createBranch({ branchName }: { branchName: string }) {
   return res;
 }
 
+/**
+ * 匹配文件 sha
+ * @param currentEditorFiles
+ * @param files
+ * @returns
+ */
 export function matchSha(currentEditorFiles: any[], files) {
   let needUpdate = false;
   for (let i = 0; i < currentEditorFiles.length; i++) {
@@ -167,7 +183,7 @@ export function getFolder(currentEditorFiles: any[]) {
  */
 export async function createFile(
   files: { name: string; path: string; content: string; sha?: string }[],
-  { branch, folder },
+  { branch, folder, repositoryId },
 ) {
   let isUpdate = false;
   for (let i = 0; i < files.length; i++) {
@@ -195,6 +211,7 @@ export async function createFile(
 
   await to(
     createPR({
+      repositoryId,
       branch,
       title: isUpdate ? `update: edit ${folder} playground` : `feature: add ${folder} playground`,
       body: isUpdate ? `edit ${folder} playground` : `add ${folder} playground`,
@@ -304,35 +321,35 @@ export async function updatePlayground(folder: string, content: any[], isUpdate 
             });
           }
           ElNotification({
-            title: '错误',
-            message: '更新ref出错',
+            title: t('app.messages.error'),
+            message: t('app.messages.updateRefError'),
             type: 'error',
           });
         } else {
           ElNotification({
-            title: '错误',
-            message: '创建 commit 出错',
+            title: t('app.messages.error'),
+            message: t('app.messages.createCommitError'),
             type: 'error',
           });
         }
       } else {
         ElNotification({
-          title: '错误',
-          message: '创建文件树出错',
+          title: t('app.messages.error'),
+          message: t('app.messages.createFileTreeError'),
           type: 'error',
         });
       }
     } else {
       ElNotification({
-        title: '错误',
-        message: '获取最新 commit 出错',
+        title: t('app.messages.error'),
+        message: t('app.messages.getLatestCommitError'),
         type: 'error',
       });
     }
   } else {
     ElNotification({
-      title: '创建分支失败',
-      message: '请稍后再试',
+      title: t('app.messages.error'),
+      message: t('app.messages.pleaseTryAgainLater'),
       type: 'error',
     });
   }
@@ -344,7 +361,7 @@ export async function updatePlayground(folder: string, content: any[], isUpdate 
 export async function getFileTree(sha = 'main', depth = 0, path = '') {
   if (depth > 2) return [];
 
-  const [error, res] = await to(
+  const [error, res] = await to<any>(
     octokit.graphql(
       `
       query($owner: String!, $repo: String!, $expression: String!) {
@@ -445,7 +462,6 @@ export async function getFileTree(sha = 'main', depth = 0, path = '') {
     };
 
     const newData = loop(data);
-    console.log(newData);
 
     return ascending(newData);
   }
@@ -707,36 +723,36 @@ export async function createFolder(body: { name: string; playgroundType: string;
             );
           } else {
             ElNotification({
-              title: '错误',
-              message: '更新ref出错',
+              title: t('app.messages.error'),
+              message: t('app.messages.updateRefError'),
               type: 'error',
             });
           }
         } else {
           ElNotification({
-            title: '错误',
-            message: '创建 commit 出错',
+            title: t('app.messages.error'),
+            message: t('app.messages.createCommitError'),
             type: 'error',
           });
         }
       } else {
         ElNotification({
-          title: '错误',
-          message: '创建文件树出错',
+          title: t('app.messages.error'),
+          message: t('app.messages.createFileTreeError'),
           type: 'error',
         });
       }
     } else {
       ElNotification({
-        title: '错误',
-        message: '获取最新 commit 出错',
+        title: t('app.messages.error'),
+        message: t('app.messages.getLatestCommitError'),
         type: 'error',
       });
     }
   } else {
     ElNotification({
-      title: '错误',
-      message: '创建分支出错',
+      title: t('app.messages.error'),
+      message: t('app.messages.createBranchError'),
       type: 'error',
     });
   }
@@ -747,110 +763,63 @@ export async function updateFolder(body) {
 }
 
 /**
- * 上传多张图片到 GitHub 仓库
+ * 上传资源到 GitHub 仓库
+ * tip: 静态资源是否需要审核，目前来说我们上传完需要立即使用审核的话会割裂这一流程
  * @param userConfigInfo
- * @param imgs
+ * @param files
  */
-export async function uploadImagesToGitHub(
-  userConfigInfo: UserConfigInfoModel,
-  imgs: UploadImageModel[],
-): Promise<boolean> {
-  const { branch, repo, selectedDir, owner } = userConfigInfo;
+export async function uploadResources(userConfigInfo: any, files: any[]): Promise<boolean> {
+  const { branch, selectedDir } = userConfigInfo;
 
   const blobs = [];
   // eslint-disable-next-line no-restricted-syntax
-  for (const img of imgs) {
-    img.uploadStatus.uploading = true;
-    const tempBase64 = (img.base64.compressBase64 || img.base64.watermarkBase64 || img.base64.originalBase64).split(
-      ',',
-    )[1];
-    // 上传图片文件，为仓库创建 blobs
-    const blobRes = await getFileBlob(tempBase64, owner, repo);
+  for (const file of files) {
+    file.uploadStatus.uploading = true;
+    const blobRes = await getFileBlob(file, owner, repo);
     if (blobRes) {
-      blobs.push({ img, ...blobRes });
+      blobs.push({ file, ...blobRes });
     } else {
-      img.uploadStatus.uploading = false;
-      ElMessage.error(i18n.global.t('upload_page.tip_11', { name: img.filename.final }));
+      file.uploadStatus.uploading = false;
     }
   }
 
-  // 获取 head，用于获取当前分支信息（根目录的 tree sha 以及 head commit sha）
-  const branchRes: any = await getBranchInfo(owner, repo, branch);
-  if (!branchRes) {
-    return Promise.resolve(false);
+  const [error, res] = await to(getBranch());
+
+  if (!error && res) {
+    const finalPath = selectedDir === '/' ? '' : `${selectedDir}/`;
+
+    // 创建 tree
+    const treeRes = await createTree(
+      owner,
+      repo,
+      blobs.map((x: any) => ({
+        sha: x.sha,
+        path: `${finalPath}${x.img.filename.final}`,
+      })),
+      branchRes,
+    );
+    if (!treeRes) {
+      return Promise.resolve(false);
+    }
+
+    // 创建 commit 节点
+    const commitRes: any = await createCommit(owner, repo, treeRes, branchRes);
+    if (!commitRes) {
+      return Promise.resolve(false);
+    }
+
+    // 将当前分支 ref 指向新创建的 commit
+    const refRes = await createRef(owner, repo, branch, commitRes.sha);
+    if (!refRes) {
+      return Promise.resolve(false);
+    }
+
+    blobs.forEach((blob: any) => {
+      // todo
+    });
   }
 
-  const finalPath = selectedDir === '/' ? '' : `${selectedDir}/`;
-
-  // 创建 tree
-  const treeRes = await createTree(
-    owner,
-    repo,
-    blobs.map((x: any) => ({
-      sha: x.sha,
-      path: `${finalPath}${x.img.filename.final}`,
-    })),
-    branchRes,
-  );
-  if (!treeRes) {
-    return Promise.resolve(false);
-  }
-
-  // 创建 commit 节点
-  const commitRes: any = await createCommit(owner, repo, treeRes, branchRes);
-  if (!commitRes) {
-    return Promise.resolve(false);
-  }
-
-  // 将当前分支 ref 指向新创建的 commit
-  const refRes = await createRef(owner, repo, branch, commitRes.sha);
-  if (!refRes) {
-    return Promise.resolve(false);
-  }
-
-  blobs.forEach((blob: any) => {
-    const name = blob.img.filename.final;
-    uploadedHandle({ name, sha: blob.sha, path: `${finalPath}${name}`, size: 0 }, blob.img, userConfigInfo);
-  });
   return Promise.resolve(true);
-}
-
-/**
- * 上传一张图片到 GitHub 仓库
- * @param userConfigInfo
- * @param img
- */
-export function uploadImageToGitHub(userConfigInfo: UserConfigInfoModel, img: UploadImageModel): Promise<Boolean> {
-  const { branch, email, owner } = userConfigInfo;
-
-  const data: any = {
-    message: PICX_UPLOAD_IMG_DESC,
-    branch,
-    content: (img.base64.compressBase64 || img.base64.watermarkBase64 || img.base64.originalBase64).split(',')[1],
-  };
-
-  if (email) {
-    data.committer = {
-      name: owner,
-      email,
-    };
-  }
-
-  img.uploadStatus.uploading = true;
-
-  // eslint-disable-next-line no-async-promise-executor
-  return new Promise(async (resolve) => {
-    const uploadRes = await uploadSingleImage(uploadUrlHandle(userConfigInfo, img), data);
-    console.log('uploadSingleImage >> ', uploadRes);
-    img.uploadStatus.uploading = false;
-    if (uploadRes) {
-      const { name, sha, path, size } = uploadRes.content;
-      uploadedHandle({ name, sha, path, size }, img, userConfigInfo);
-      resolve(true);
-    } else {
-      resolve(false);
-    }
-  });
 }
 
 /**

@@ -44,6 +44,15 @@ app:
       playgroundName: 请输入示例名称
       playgroundType: 请选择示例类型
   title: maptalks-playground
+  messages:
+    error: 错误
+    updateRefError: 更新 ref 出错
+    createCommitError: 创建 commit 出错
+    createFileTreeError: 创建文件树出错
+    getLatestCommitError: 获取最新 commit 出错
+    pleaseTryAgainLater: 请稍后再试
+    createBranchError: 创建分支失败
+    repositoryId: 仓库 ID
 playgrounds:
   3d:
     3dtiles:

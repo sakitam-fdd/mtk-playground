@@ -44,6 +44,15 @@ app:
       playgroundName: Please enter the example name
       playgroundType: Please select the example type
   title: maptalks-playground
+  messages:
+    error: Error
+    updateRefError: Update ref failed
+    createCommitError: Create commit failed
+    createFileTreeError: Create file tree failed
+    getLatestCommitError: Get latest commit failed
+    pleaseTryAgainLater: Please try again later
+    createBranchError: Create branch failed
+    repositoryId: Repository ID
 playgrounds:
   3d:
     3dtiles:
