@@ -16,6 +16,7 @@ export const pathResolve = (pathStr: string): string => resolve(getRootPath(), '
 export function wrapperEnv(envConf: Recordable): ImportMetaEnv {
   const ret: any = {};
 
+  // eslint-disable-next-line no-restricted-syntax
   for (const envName of Object.keys(envConf)) {
     let realName = envConf[envName].replace(/\\n/g, '\n');
     realName = realName === 'true' ? true : realName === 'false' ? false : realName;
@@ -58,6 +59,7 @@ const httpsRE = /^https:\/\//;
  */
 export function createProxy(list: any = []) {
   const ret: any = {};
+  // eslint-disable-next-line no-restricted-syntax
   for (const [prefix, target] of list) {
     const isHttps = httpsRE.test(target);
 
@@ -65,7 +67,7 @@ export function createProxy(list: any = []) {
       target,
       changeOrigin: true,
       ws: true,
-      rewrite: (p) => p.replace(new RegExp(`^${prefix}`), prefix),
+      rewrite: (p: string) => p.replace(new RegExp(`^${prefix}`), prefix),
       ...(isHttps ? { secure: false } : {}),
     };
   }

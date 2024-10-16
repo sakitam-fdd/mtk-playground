@@ -13,16 +13,10 @@ bug report 和 feature request。
 1. clone [mtk-playground]()
 
 ```bash
-git clone https://github.com/maptalks/mtk-playground.git
+git clone https://github.com/maptalks/mtk-playground.git --recursive
 ```
 
-2. clone [mtk-playgrounds-store]()
-
-```bash
-git clone https://github.com/maptalks/mtk-playgrounds-store.git .playgrounds
-```
-
-3. 安装依赖
+2. 安装依赖
 
 注意这里需要的 node 版本为 `20.18.0`，如果不符合此版本要求可以通过 [fnm](https://github.com/Schniz/fnm) 或者 [nvm](https://github.com/nvm-sh/nvm) 来切换版本
 
@@ -32,7 +26,7 @@ pnpm i
 
 执行以上命令后除了安装必要的依赖外，还会安装 puppeteer chrome，耗时可能会比较长，请耐心等待。
 
-4. 新建环境变量文件
+3. 新建环境变量文件
 
 ```bash
 touch .env.local
@@ -51,7 +45,7 @@ VITE_COMMON_AUTHOR_NAME=
 VITE_COMMON_AUTHOR_EMAIL=
 ```
 
-5. 启动项目
+4. 启动项目
 
 ```bash
 pnpm start
@@ -70,6 +64,11 @@ pnpm build:thumbnail
 这两步实际上就是根据克隆下的示例目录生成路由（目录层级固定），然后构建，再使用无头浏览器进行页面访问-截图生成缩略图。
 生成的示例会保存在 `public/thumbnails` 目录下 (此处待讨论，是否需要直接保存仓库中)。
 
+5. 更新子模块
+
+```bash
+git submodule foreach git pull
+```
 
 ### 如何新增示例
 

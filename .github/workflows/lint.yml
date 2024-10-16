@@ -1,0 +1,24 @@
+name: autofix.ci # for "security reasons", this has to be named autofix.ai
+permissions:
+  contents: read
+on:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  autofix:
+    name: 'Lint and auto-fix'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: 'recursive' # 检出子模块
+      - uses: ./.github/setup
+
+      - run: pnpm lint
+        if: ${{ failure() || success() }}

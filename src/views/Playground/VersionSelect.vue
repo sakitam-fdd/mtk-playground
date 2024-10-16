@@ -29,6 +29,7 @@
       // otherwise filter out pre-releases
       let isInPreRelease = versions.value[0].includes('-');
       const filteredVersions: string[] = [];
+      // eslint-disable-next-line no-restricted-syntax
       for (const v of versions) {
         if (v.includes('-')) {
           if (isInPreRelease) {

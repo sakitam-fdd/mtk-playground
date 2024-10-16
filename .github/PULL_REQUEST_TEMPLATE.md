@@ -1,6 +1,6 @@
 <!--
-Thank you for your pull request. Please review below requirements.
-Bug fixes and new features should include tests and possibly benchmarks.
+感谢您的拉取请求。请查看以下要求。
+错误修复和新特性应包括测试和可能的基准测试。
 -->
 
 [[English Template / 英文模板](https://github.com/maptalks/mtk-playground/blob/main/.github/PULL_REQUEST_TEMPLATE_EN.md?plain=1)]

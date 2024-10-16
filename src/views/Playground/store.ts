@@ -5,6 +5,7 @@ import * as defaultCompiler from 'vue/compiler-sfc';
 import type { ReplStore, StoreState, Store, ImportMap } from '@vue/repl';
 import { ref, computed } from 'vue';
 import type { Ref } from 'vue';
+import { ElMessage } from 'element-plus';
 
 const appFileCode = `
 <template>
@@ -241,7 +242,7 @@ export function useStore(
     if (!file.hidden) setActive(file.filename);
   };
   const deleteFile: Store['deleteFile'] = (filename) => {
-    // eslint-disable-next-line no-restricted-globals
+    // eslint-disable-next-line no-restricted-globals, no-alert
     if (!confirm(`Are you sure you want to delete ${stripSrcPrefix(filename)}?`)) {
       return;
     }
@@ -340,7 +341,10 @@ export function useStore(
       saved = JSON.parse(atou(serializedState));
     } catch (err) {
       console.error(err);
-      alert('Failed to load code from URL.');
+      ElMessage({
+        type: 'error',
+        message: 'Failed to load code from URL.',
+      });
       return setDefaultFile();
     }
     // eslint-disable-next-line no-restricted-syntax

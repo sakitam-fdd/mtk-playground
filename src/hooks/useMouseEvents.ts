@@ -2,18 +2,18 @@ export default function useMouseEvents(mouseDownHandler: any, mouseMoveHandler: 
   return function mouseEventsHandler(event: Event) {
     let positions = mouseDownHandler(event);
 
-    function onMouseMove(event: Event) {
-      positions = mouseMoveHandler(event, positions) || positions;
+    function onMouseMove(e: Event) {
+      positions = mouseMoveHandler(e, positions) || positions;
     }
 
     window.addEventListener('mousemove', onMouseMove);
 
     window.addEventListener(
       'mouseup',
-      (event) => {
+      (e) => {
         window.removeEventListener('mousemove', onMouseMove);
 
-        mouseUpHandler && mouseUpHandler(event, positions);
+        mouseUpHandler && mouseUpHandler(e, positions);
       },
       { once: true },
     );

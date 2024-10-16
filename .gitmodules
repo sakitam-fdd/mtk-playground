@@ -1,0 +1,4 @@
+[submodule ".playgrounds"]
+	path = .playgrounds
+	url = https://github.com/aurorafe/mtk-playgrounds-store.git
+	branch = main

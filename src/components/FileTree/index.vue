@@ -129,7 +129,7 @@
           min-width: 0;
           overflow: hidden;
           text-overflow: ellipsis;
-          transition: color .3s;
+          transition: color 0.3s;
 
           .label {
             display: inline-block;

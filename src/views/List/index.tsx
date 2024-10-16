@@ -3,7 +3,7 @@ import { useTheme } from '@/hooks/useTheme';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import Header from '@/components/Header/index.vue';
-import { ElButton, ElIcon } from 'element-plus';
+import { ElButton, ElIcon, ElTooltip } from 'element-plus';
 import { Plus } from '@element-plus/icons-vue';
 import useState from '@/hooks/useState';
 import ScrollTop from '@/components/ScrollTop/index.vue';
@@ -28,7 +28,7 @@ const ALL_FLAG = '__all';
 export default defineComponent({
   name: 'PlaygroundList',
   props,
-  setup(props: Props) {
+  setup(_: Props) {
     const { isDark } = useTheme();
     const router = useRouter();
     const { t } = useI18n();
@@ -70,7 +70,7 @@ export default defineComponent({
       // Implement fullscreen logic
     };
 
-    const openSettings = (example, sub, subList) => {
+    const openNew = (example, sub, subList) => {
       router.push({
         name: example.name,
       });
@@ -214,43 +214,36 @@ export default defineComponent({
                               </div>
                             </div>
                             <div class="flex h-[40px] items-center justify-between px-[12px]">
-                              <div class={styles.footerTitle}>
+                              <div class={[styles.footerTitle, 'text-overflow']}>
                                 {t(`playgrounds.${example.name.split('_').join('.')}`)}
                               </div>
                               <div class="flex items-center gap-6px">
-                                <div
-                                  class="icon__settings !h-[26px] !w-[26px] hover:accent-primary"
-                                  onClick={() => openSettings(example, sub, subList)}
-                                >
-                                  <div class="flex items-center justify-center rounded-md transition-all">
-                                    <span
-                                      class="iconify i-material-symbols:more-horiz m-1 text-black dark:text-white"
-                                      style={{ fontSize: '18px' }}
-                                    />
+                                <ElTooltip content={t('app.actions.openNew')}>
+                                  <div
+                                    class="icon__settings !h-[26px] !w-[26px] text-black dark:text-white hover:color-primary hover:scale-110 cursor-pointer"
+                                    onClick={() => openNew(example, sub, subList)}
+                                  >
+                                    <div class="flex items-center justify-center rounded-md transition-all">
+                                      <span
+                                        class="iconify i-material-symbols:open-in-new m-1"
+                                        style={{ fontSize: '18px' }}
+                                      />
+                                    </div>
                                   </div>
-                                </div>
-                                <div
-                                  class="icon__settings !h-[26px] !w-[26px]"
-                                  onClick={() => openSettings(example, sub, subList)}
-                                >
-                                  <div class="flex items-center justify-center rounded-md transition-all">
-                                    <span
-                                      class="iconify i-material-symbols:more-horiz m-1 text-black dark:text-white"
-                                      style={{ fontSize: '18px' }}
-                                    />
+                                </ElTooltip>
+                                <ElTooltip content={t('app.actions.sfc')}>
+                                  <div
+                                    class="icon__settings !h-[26px] !w-[26px] text-black dark:text-white cursor-pointer hover:color-primary hover:scale-110"
+                                    onClick={() => handleJump(example, sub, subList)}
+                                  >
+                                    <div class="flex items-center justify-center rounded-md transition-all">
+                                      <span
+                                        class="iconify i-material-symbols:deployed-code m-1"
+                                        style={{ fontSize: '18px' }}
+                                      />
+                                    </div>
                                   </div>
-                                </div>
-                                <div
-                                  class="icon__settings !h-[26px] !w-[26px]"
-                                  onClick={() => openSettings(example, sub, subList)}
-                                >
-                                  <div class="flex items-center justify-center rounded-md transition-all">
-                                    <span
-                                      class="iconify i-material-symbols:more-horiz m-1 text-black dark:text-white"
-                                      style={{ fontSize: '18px' }}
-                                    />
-                                  </div>
-                                </div>
+                                </ElTooltip>
                               </div>
                             </div>
                           </div>

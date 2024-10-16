@@ -18,6 +18,7 @@ module.exports = {
     defineOptions: true,
   },
   rules: {
+    'vuejs-accessibility/click-events-have-key-events': 'off',
     // 组件配置面的值的双向绑定
     'vue/no-mutating-props': 'off',
     'vue/v-on-event-hyphenation': [

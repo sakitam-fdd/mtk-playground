@@ -56,6 +56,7 @@ function getObjectKeys(obj) {
     // eslint-disable-next-line @typescript-eslint/no-shadow
     const { obj, key } = stack.pop();
 
+    // eslint-disable-next-line no-restricted-syntax
     for (const k in obj) {
       const newKey = key ? `${key}.${k}` : k;
 

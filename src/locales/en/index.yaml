@@ -16,6 +16,8 @@ app:
     upload: Upload
     language: 中文 / English
     languageReverse: English / 中文
+    openNew: Open in new window
+    sfc: Edit in SFC
   name: mtk-playground
   pages:
     '401': Sorry, you don't have permission to access this resource

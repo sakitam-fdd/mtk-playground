@@ -1,0 +1,36 @@
+name: Publish Site
+
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - '**'  # 监控所有文件的变更，包括子模块
+  pull_request:
+    branches:
+      - 'main'
+    paths:
+      - '**'  # 监控所有文件的变更，包括子模块
+
+jobs:
+  site:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: 'recursive' # 检出子模块
+      - uses: ./.github/setup
+
+      - run: pnpm run build:pls
+      - run: pnpm run build:thumbnail
+      - run: pnpm run build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.PKG_DEPLOY_TOKEN }}
+          publish_dir: dist
+          cname: examples.maptalks.com

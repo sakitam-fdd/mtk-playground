@@ -75,6 +75,7 @@
 
 <script setup lang="ts">
   import { Repl, SFCOptions, useVueImportMap, mergeImportMap, File } from '@vue/repl';
+  // eslint-disable-next-line
   import Monaco from '@vue/repl/monaco-editor';
   import { ref, watchEffect, onMounted, computed, watch } from 'vue';
   import { Plus } from '@element-plus/icons-vue';

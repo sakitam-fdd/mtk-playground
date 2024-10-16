@@ -16,6 +16,8 @@ app:
     upload: 上传
     language: 中文 / English
     languageReverse: English / 中文
+    openNew: 新窗口打开
+    sfc: 在 SFC 中编辑
   name: mtk-playground
   pages:
     '401': 对不起，您没有访问该资源的权限～

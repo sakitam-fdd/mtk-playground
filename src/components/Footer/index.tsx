@@ -19,11 +19,11 @@ const Footer = defineComponent({
       const ABOUT_US_LINKS_LIST = [
         {
           title: '公司简介',
-          href: '/about',
+          href: 'https://maptalks.com/contact',
         },
         {
           title: '联系我们',
-          href: '/contact',
+          href: 'https://maptalks.com/contact',
         },
       ];
 
@@ -38,7 +38,7 @@ const Footer = defineComponent({
         },
         {
           title: '订阅报价',
-          href: 'https://maptalks.com/#',
+          href: 'https://maptalks.com/offer',
         },
       ];
 

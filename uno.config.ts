@@ -25,7 +25,7 @@ export default defineConfig({
   ],
   theme: {
     colors: {
-      primary: 'rgb(var(--el-color-primary))',
+      primary: 'var(--el-color-primary)',
       transparent: 'transparent',
       white: '#FFFFFF',
       black: '#121723',

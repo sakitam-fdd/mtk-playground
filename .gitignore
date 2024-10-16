@@ -55,7 +55,7 @@ src/api/deploy.http
 mock.bundle.js.timestamp-*
 
 # playground
-.playgrounds
+# .playgrounds
 
 # thumbnails
 public/thumbnails

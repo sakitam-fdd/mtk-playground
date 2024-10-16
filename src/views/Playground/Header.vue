@@ -7,7 +7,9 @@
     <div class="flex items-center">
       <VersionSelect :model-value="mtkVersion" @update:model-value="setVersion" pkg="maptalks" label="Maptalks Version">
         <li>
-          <a href="https://github.com/maptalks/maptalks.js/releases" target="_blank">Releases History</a>
+          <a href="https://github.com/maptalks/maptalks.js/releases" target="_blank" rel="noopener noreferrer">
+            Releases History
+          </a>
         </li>
       </VersionSelect>
       <el-button
