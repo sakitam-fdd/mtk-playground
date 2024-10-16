@@ -208,8 +208,10 @@ export default defineComponent({
                                   class="flex items-center justify-center rounded-md transition-all hover:bg-[#ffffff1f] button-icon absolute right-3 top-3"
                                   onClick={openFullscreen}
                                 />
-                                <div class="flex h-full w-full items-center justify-center text-black dark:text-white">
-                                  <span>{t(`playgrounds.${example.name.split('_').join('.')}`)}</span>
+                                <div class="flex h-full w-full items-center justify-center">
+                                  <span class="font-600 text-size-18px text-black text-shadow-[1px_-1px_0_#fff,_1px_-1px_0_#fff,_-1px_1px_0_#fff,_1px_1px_0_#fff] dark:text-white dark:text-shadow-[1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]">
+                                    {t(`playgrounds.${example.name.split('_').join('.')}`)}
+                                  </span>
                                 </div>
                               </div>
                             </div>
