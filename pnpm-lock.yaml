@@ -689,6 +689,182 @@ importers:
         specifier: ^5.4.0
         version: 5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5)
 
+  .playgrounds/basic/interaction/area-tool:
+    dependencies:
+      maptalks:
+        specifier: 1.0.0-rc.37
+        version: 1.0.0-rc.37
+      vue:
+        specifier: ^3.4.0
+        version: 3.5.7(typescript@5.5.4)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5))(vue@3.5.7(typescript@5.5.4))
+      vite:
+        specifier: ^5.4.0
+        version: 5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5)
+
+  .playgrounds/basic/interaction/distance-tool:
+    dependencies:
+      maptalks:
+        specifier: 1.0.0-rc.37
+        version: 1.0.0-rc.37
+      vue:
+        specifier: ^3.4.0
+        version: 3.5.7(typescript@5.5.4)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5))(vue@3.5.7(typescript@5.5.4))
+      vite:
+        specifier: ^5.4.0
+        version: 5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5)
+
+  .playgrounds/basic/interaction/drag-geometries:
+    dependencies:
+      maptalks:
+        specifier: 1.0.0-rc.37
+        version: 1.0.0-rc.37
+      vue:
+        specifier: ^3.4.0
+        version: 3.5.7(typescript@5.5.4)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5))(vue@3.5.7(typescript@5.5.4))
+      vite:
+        specifier: ^5.4.0
+        version: 5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5)
+
+  .playgrounds/basic/interaction/draw-tool:
+    dependencies:
+      maptalks:
+        specifier: 1.0.0-rc.37
+        version: 1.0.0-rc.37
+      vue:
+        specifier: ^3.4.0
+        version: 3.5.7(typescript@5.5.4)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5))(vue@3.5.7(typescript@5.5.4))
+      vite:
+        specifier: ^5.4.0
+        version: 5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5)
+
+  .playgrounds/basic/json/copy-map:
+    dependencies:
+      maptalks:
+        specifier: 1.0.0-rc.37
+        version: 1.0.0-rc.37
+      vue:
+        specifier: ^3.4.0
+        version: 3.5.7(typescript@5.5.4)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5))(vue@3.5.7(typescript@5.5.4))
+      vite:
+        specifier: ^5.4.0
+        version: 5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5)
+
+  .playgrounds/basic/json/geojson-to-geometry:
+    dependencies:
+      maptalks:
+        specifier: 1.0.0-rc.37
+        version: 1.0.0-rc.37
+      vue:
+        specifier: ^3.4.0
+        version: 3.5.7(typescript@5.5.4)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5))(vue@3.5.7(typescript@5.5.4))
+      vite:
+        specifier: ^5.4.0
+        version: 5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5)
+
+  .playgrounds/basic/json/geometry-json:
+    dependencies:
+      maptalks:
+        specifier: 1.0.0-rc.37
+        version: 1.0.0-rc.37
+      vue:
+        specifier: ^3.4.0
+        version: 3.5.7(typescript@5.5.4)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5))(vue@3.5.7(typescript@5.5.4))
+      vite:
+        specifier: ^5.4.0
+        version: 5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5)
+
+  .playgrounds/basic/json/geometry-to-geojson:
+    dependencies:
+      maptalks:
+        specifier: 1.0.0-rc.37
+        version: 1.0.0-rc.37
+      vue:
+        specifier: ^3.4.0
+        version: 3.5.7(typescript@5.5.4)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5))(vue@3.5.7(typescript@5.5.4))
+      vite:
+        specifier: ^5.4.0
+        version: 5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5)
+
+  .playgrounds/basic/json/json-to-map:
+    dependencies:
+      maptalks:
+        specifier: 1.0.0-rc.37
+        version: 1.0.0-rc.37
+      vue:
+        specifier: ^3.4.0
+        version: 3.5.7(typescript@5.5.4)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5))(vue@3.5.7(typescript@5.5.4))
+      vite:
+        specifier: ^5.4.0
+        version: 5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5)
+
+  .playgrounds/basic/json/layer-json:
+    dependencies:
+      maptalks:
+        specifier: 1.0.0-rc.37
+        version: 1.0.0-rc.37
+      vue:
+        specifier: ^3.4.0
+        version: 3.5.7(typescript@5.5.4)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5))(vue@3.5.7(typescript@5.5.4))
+      vite:
+        specifier: ^5.4.0
+        version: 5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5)
+
+  .playgrounds/basic/json/map-to-json:
+    dependencies:
+      maptalks:
+        specifier: 1.0.0-rc.37
+        version: 1.0.0-rc.37
+      vue:
+        specifier: ^3.4.0
+        version: 3.5.7(typescript@5.5.4)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5))(vue@3.5.7(typescript@5.5.4))
+      vite:
+        specifier: ^5.4.0
+        version: 5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5)
+
   .playgrounds/basic/layer/add-remove:
     dependencies:
       maptalks:
@@ -1703,6 +1879,70 @@ importers:
         specifier: ^5.4.0
         version: 5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5)
 
+  .playgrounds/vector/geo/load-event:
+    dependencies:
+      maptalks-gl:
+        specifier: ^0.103.1
+        version: 0.103.1
+      vue:
+        specifier: ^3.4.0
+        version: 3.5.7(typescript@5.5.4)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5))(vue@3.5.7(typescript@5.5.4))
+      vite:
+        specifier: ^5.4.0
+        version: 5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5)
+
+  .playgrounds/vector/geo/load-local:
+    dependencies:
+      maptalks-gl:
+        specifier: ^0.103.1
+        version: 0.103.1
+      vue:
+        specifier: ^3.4.0
+        version: 3.5.7(typescript@5.5.4)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5))(vue@3.5.7(typescript@5.5.4))
+      vite:
+        specifier: ^5.4.0
+        version: 5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5)
+
+  .playgrounds/vector/geo/load-remote:
+    dependencies:
+      maptalks-gl:
+        specifier: ^0.103.1
+        version: 0.103.1
+      vue:
+        specifier: ^3.4.0
+        version: 3.5.7(typescript@5.5.4)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5))(vue@3.5.7(typescript@5.5.4))
+      vite:
+        specifier: ^5.4.0
+        version: 5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5)
+
+  .playgrounds/vector/geo/transform-function:
+    dependencies:
+      maptalks-gl:
+        specifier: ^0.103.1
+        version: 0.103.1
+      vue:
+        specifier: ^3.4.0
+        version: 3.5.7(typescript@5.5.4)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5))(vue@3.5.7(typescript@5.5.4))
+      vite:
+        specifier: ^5.4.0
+        version: 5.4.7(@types/node@18.19.44)(less@4.2.0)(sass@1.77.8)(terser@5.31.5)
+
 packages:
 
   '@algolia/autocomplete-core@1.9.3':
@@ -2652,11 +2892,72 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
+  '@mapbox/point-geometry@0.1.0':
+    resolution: {integrity: sha512-6j56HdLTwWGO0fJPlrZtdU/B13q8Uwmo18Ck2GnGgN9PCFyKTZ3UbXeEdRFh18i9XQ92eH2VdtpJHpBD3aripQ==}
+
+  '@mapbox/shelf-pack@3.2.0':
+    resolution: {integrity: sha512-dyQxe6ukILV6qaEvxoKCIwhblgRjYp1ZGlClo4xvfbmxzFO5LYu7Tnrg2AZrRgN7VsSragsGcNjzUe9kCdKHYQ==}
+    engines: {node: '>=6.0.0'}
+
+  '@mapbox/vector-tile@1.3.1':
+    resolution: {integrity: sha512-MCEddb8u44/xfQ3oD+Srl/tNcQoqTw3goGk2oLsrFxOTc3dUp+kAnby3PvAeeBYSMSjSPD1nd1AJA6W49WnoUw==}
+
+  '@maptalks/3dtiles@0.102.1':
+    resolution: {integrity: sha512-CGF63IbTcULvZNMLM4G+ug6NJO2EuXACAyfbGcTZ/RTTpg9Dyi9NpzqDk62aXmoB96p0poq0YTkdNbeXIkArpQ==}
+
+  '@maptalks/analysis@0.98.3':
+    resolution: {integrity: sha512-97P6KA3zIU98RIOMRBUTm0d4etv9fwI5ScqvwMsODBrWoJ7B0Z8WapDTSEpJFY6UEK3O1ilCymRmFbCqcSTXTw==}
+
   '@maptalks/feature-filter@1.3.0':
     resolution: {integrity: sha512-O6GcFzPuCbz6bO4TNBnmP8VunS0GexTzZ4m36A4HbYQICY1cplpFgntX2fyB/TY3cZrFRGoeMePBeMZFMOOhcQ==}
 
   '@maptalks/function-type@1.4.0':
     resolution: {integrity: sha512-T6Ss+EyBdMhTMoD8z4KVyX9NVGQ/pu2asBcAP1T6Bzl+fgnmGZu8T2meO8MfBDyvqjqgQhAb+/RAYtSMQLeVEg==}
+
+  '@maptalks/fusiongl@0.7.2':
+    resolution: {integrity: sha512-y3RjqQ0Uu4+wRhDb+gobMSp+Q02cuCRsSKTMnABgm1mYvYjdqlHcydMy/6Y2Bk5Hma4Z215xTPy7/nJcc00nIg==}
+
+  '@maptalks/geojson-bbox@1.0.5':
+    resolution: {integrity: sha512-DLeXOssDHx1cWTMhAh3ZDSEv2mMEaEbYeX/4DrGzUMpYAzQHV86BGFymLvhyZ/K08vVImzeQ882aPiRWm0OXGQ==}
+
+  '@maptalks/geojson-vt@3.5.0':
+    resolution: {integrity: sha512-7c/SXnGv6CSXimu7wFrYv3Tn+HO+P/hdV+bWihMqDcN1ln/SS75jPgrR8cXXSsPGOY1Q8JnvbV1KrpHTRrZyww==}
+
+  '@maptalks/gl@0.102.1':
+    resolution: {integrity: sha512-s7x83OuvSnPYqMsfLVtpzD3g7A0jEROGJ7jR4h9alW2bYEkJ1hypdrKWHPc5hNlwfOhbfYhbo0pa/KSqluN9LA==}
+
+  '@maptalks/gltf-layer@0.101.1':
+    resolution: {integrity: sha512-OuL7+W0fYId7nMOq4MwhnmvRhjF80q3GvNzYEbVeEOzPUPJ9pmJSBfShTNj5smyigE324CAdxme8YsJs4lS+Jw==}
+
+  '@maptalks/gltf-loader@0.98.4':
+    resolution: {integrity: sha512-x5B4d1KgV4Mn3yUaGL7yrCZagMqg2gjiv88NcjOlmjHwyeIOLXo/5S8600WKCsGAmfgkn9UWfL3E92eMckF9ZQ==}
+
+  '@maptalks/martini@0.4.0':
+    resolution: {integrity: sha512-h7yiE8FXaBhTncygKDOt24VNqvSwzK/nPVu7irr33jdp+1dmvKPWLyp40EUxecs9DOHMr/clbRD3sBJbtU9KnA==}
+
+  '@maptalks/msd-json-loader@0.1.0':
+    resolution: {integrity: sha512-PV1l9WlmndsaZzhFiiI7lhlRPT9+5XFx3YtGQqowInry5DcWVb27HukF51AAGYbO2W+KhUjV8Rj6fvEpxWYK+g==}
+
+  '@maptalks/regl@3.4.0':
+    resolution: {integrity: sha512-vir0oI5PXlLfxp1/B5TOOkmQfy7qeCwnx16uALViXfwo/ZJ79OLwePYENxwGLkbEV3HxETpdTm3dDU3Et9O4kw==}
+
+  '@maptalks/reshader.gl@0.101.1':
+    resolution: {integrity: sha512-yvzxceFZCyq+giLEOoat6FJnIl8aKhLmeMm8TeXpGImNh0FYaaEuR+/eXobNOBX/MWsHGpPcZDNK8hFg7HKVqg==}
+
+  '@maptalks/tbn-packer@1.4.5':
+    resolution: {integrity: sha512-miZF0diQ0Zf5bs4FNrBXp3ifdii6MUuW7lKxp+TZdzcj4Gs53BLX/rKLH24e1UbJJzQXjcxK37x6du5fXBCWNg==}
+
+  '@maptalks/transform-control@0.102.1':
+    resolution: {integrity: sha512-0TTCvTRQE3ZwHBPvqx0psgOpEHN4zQPeG7hPijScA9oyH/Eihe7J/TLYEYE8xVJhkjygqHg/P39Ji8MAqY3eaQ==}
+
+  '@maptalks/video-layer@0.98.3':
+    resolution: {integrity: sha512-ElcYkna4iuJWjM/Zs55Bmqz1MF595/RRxabwVOKLaCP96g/px4sczNfl2pKNpwZhj8KPOJPVP86B/WineplhRg==}
+
+  '@maptalks/vt-plugin@0.96.3':
+    resolution: {integrity: sha512-ZAeEsdBDGM3dGN6leqY9LkafIDWM9Y68U2rUgQCnJhYBUuQwyOXpmaZgyehDnB2y1Ug5VA+3ev2jRTax7PpF2A==}
+
+  '@maptalks/vt@0.101.1':
+    resolution: {integrity: sha512-qjEwmUdMv43M43nFfL6d1jDMF2bf7C5ObI8NNtu91BJ3mOWyW6oHUGmcIQfEap6FEGtJHo2j8yS05k9LVQz6BQ==}
 
   '@monaco-editor/loader@1.4.0':
     resolution: {integrity: sha512-00ioBig0x642hytVspPl7DbQyaSWRaolYie/UFNjoTdvoKPzo6xrXLhTk9ixgIKcLH5b5vDOjVNiGyY+uDCUlg==}
@@ -3004,6 +3305,42 @@ packages:
 
   '@tootallnate/quickjs-emscripten@0.23.0':
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
+
+  '@turf/along@6.5.0':
+    resolution: {integrity: sha512-LLyWQ0AARqJCmMcIEAXF4GEu8usmd4Kbz3qk1Oy5HoRNpZX47+i5exQtmIWKdqJ1MMhW26fCTXgpsEs5zgJ5gw==}
+
+  '@turf/bbox@6.5.0':
+    resolution: {integrity: sha512-RBbLaao5hXTYyyg577iuMtDB8ehxMlUqHEJiMs8jT1GHkFhr6sYre3lmLsPeYEi/ZKj5TP5tt7fkzNdJ4GIVyw==}
+
+  '@turf/bearing@6.5.0':
+    resolution: {integrity: sha512-dxINYhIEMzgDOztyMZc20I7ssYVNEpSv04VbMo5YPQsqa80KO3TFvbuCahMsCAW5z8Tncc8dwBlEFrmRjJG33A==}
+
+  '@turf/buffer@6.5.0':
+    resolution: {integrity: sha512-qeX4N6+PPWbKqp1AVkBVWFerGjMYMUyencwfnkCesoznU6qvfugFHNAngNqIBVnJjZ5n8IFyOf+akcxnrt9sNg==}
+
+  '@turf/center@6.5.0':
+    resolution: {integrity: sha512-T8KtMTfSATWcAX088rEDKjyvQCBkUsLnK/Txb6/8WUXIeOZyHu42G7MkdkHRoHtwieLdduDdmPLFyTdG5/e7ZQ==}
+
+  '@turf/clone@6.5.0':
+    resolution: {integrity: sha512-mzVtTFj/QycXOn6ig+annKrM6ZlimreKYz6f/GSERytOpgzodbQyOgkfwru100O1KQhhjSudKK4DsQ0oyi9cTw==}
+
+  '@turf/destination@6.5.0':
+    resolution: {integrity: sha512-4cnWQlNC8d1tItOz9B4pmJdWpXqS0vEvv65bI/Pj/genJnsL7evI0/Xw42RvEGROS481MPiU80xzvwxEvhQiMQ==}
+
+  '@turf/distance@6.5.0':
+    resolution: {integrity: sha512-xzykSLfoURec5qvQJcfifw/1mJa+5UwByZZ5TZ8iaqjGYN0vomhV9aiSLeYdUGtYRESZ+DYC/OzY+4RclZYgMg==}
+
+  '@turf/helpers@6.5.0':
+    resolution: {integrity: sha512-VbI1dV5bLFzohYYdgqwikdMVpe7pJ9X3E+dlr425wa2/sMJqYDhTO++ec38/pcPvPE6oD9WEEeU3Xu3gza+VPw==}
+
+  '@turf/invariant@6.5.0':
+    resolution: {integrity: sha512-Wv8PRNCtPD31UVbdJE/KVAWKe7l6US+lJItRR/HOEW3eh+U/JwRCSUl/KZ7bmjM/C+zLNoreM2TU6OoLACs4eg==}
+
+  '@turf/meta@6.5.0':
+    resolution: {integrity: sha512-RrArvtsV0vdsCBegoBtOalgdSOfkBrTJ07VkpiCnq/491W67hnMWmDu7e6Ztw0C3WldRYTXkg3SumfdzZxLBHA==}
+
+  '@turf/projection@6.5.0':
+    resolution: {integrity: sha512-/Pgh9mDvQWWu8HRxqpM+tKz8OzgauV+DiOcr3FCjD6ubDnrrmMJlsf6fFJmggw93mtVPrZRL6yyi9aYCQBOIvg==}
 
   '@types/aws-lambda@8.10.143':
     resolution: {integrity: sha512-u5vzlcR14ge/4pMTTMDQr3MF0wEe38B2F9o84uC4F43vN5DGTy63npRrB6jQhyt+C0lGv4ZfiRcRkqJoZuPnmg==}
@@ -3631,6 +3968,9 @@ packages:
   algoliasearch@4.24.0:
     resolution: {integrity: sha512-bf0QV/9jVejssFBmz2HQLxUadxk574t4iwjCKp5E7NBzwKkrDEhKPISIIjAU/p6K5qDx3qoeh4+26zWN1jmw3g==}
 
+  animation-easings@0.1.0:
+    resolution: {integrity: sha512-v+y9l1aOaW6ej81MJx2CwU3SRpOqzTBynZa6+/OdlS3WKN9Rv5rz90WxFmcCgtpOVTYdt+pLHJAQBhCIzRiCuw==}
+
   ansi-align@3.0.1:
     resolution: {integrity: sha512-IOfwwBF5iczOjp/WeY4YxyjqAFMQoZufdQWDd19SEExbVLNXqvpzSJ/M7Za4/sCPmQ0+GRquoA7bGcINcxew6w==}
 
@@ -4019,6 +4359,12 @@ packages:
   color-name@1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
 
+  color-string@1.9.1:
+    resolution: {integrity: sha512-shrVawQFojnZv6xM40anx4CkoDP+fZsw/ZerEMsW/pyzsRbElpsL/DBVW7q3ExxwusdNXI3lXpuhEZkzs8p5Eg==}
+
+  color@3.2.1:
+    resolution: {integrity: sha512-aBl7dZI9ENN6fUGC7mWpMTPNHmWUSNan9tuWN6ahh5ZLNk9baLJOnSMlrQkHcrfFgz2/RigjUVAjdx36VcemKA==}
+
   colord@2.9.3:
     resolution: {integrity: sha512-jeC1axXpnb0/2nn/Y1LPuLdgXBLH7aDcHu4KEKfqw3CUhX7ZpfBSlPKyqXE6btIgEzfWtrX3/tyBCaCvXvMkOw==}
 
@@ -4027,6 +4373,9 @@ packages:
 
   colorin@0.5.0:
     resolution: {integrity: sha512-gN6fIMCehYUonAhbmm5+ZHeFunG75u77hI2tRlVndNthO6v0wZMV2G2FwYSi8Ws4b4lpFJK1ql2a/MlW9z/Vhg==}
+
+  colorin@0.6.0:
+    resolution: {integrity: sha512-huI54MwKNMP6eypurqzxGf7rvTA3pNWdXZopQbN7v3TDxXYWyyGQ3CtQndNZ2Z0Gy6HDWqA7sRYxbjRDO2FZMA==}
 
   combined-stream@1.0.8:
     resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
@@ -4243,6 +4592,9 @@ packages:
     resolution: {integrity: sha512-VntWcIEFfW8+7RgwYaRn1r10NhUkl8/8ZdJQRupEdqE7QXBCSjNP8hKSk9zhSLzYAsdXfGEAwiAYJM1T2Qsh8w==}
     engines: {node: '>=v12.20.0'}
 
+  d3-array@1.2.4:
+    resolution: {integrity: sha512-KHW6M86R+FUPYGb3R5XiYjXPq7VzwxZ22buHhAEVG5ztoEcZZMLov530mmccaqA1GghZArjQV46fuc8kUqhhHw==}
+
   d3-array@3.2.4:
     resolution: {integrity: sha512-tdQAmyA18i4J7wprpYq8ClcxZy3SC31QMeByyCFyRt7BVHdREQZ5lpzoe5mFEYZUWe+oq8HBvk9JjpibyEV4Jg==}
     engines: {node: '>=12'}
@@ -4299,6 +4651,9 @@ packages:
   d3-format@3.1.0:
     resolution: {integrity: sha512-YyUI6AEuY/Wpt8KWLgZHsIU86atmikuoOmCfommt0LYHiQSPjvX2AcFc38PX0CBpr2RCyZhjex+NS/LPOv6YqA==}
     engines: {node: '>=12'}
+
+  d3-geo@1.7.1:
+    resolution: {integrity: sha512-O4AempWAr+P5qbk2bC2FuN/sDW4z+dN2wDf9QV3bxQt4M5HfOEeXLgJ/UKQW0+o1Dj8BE+L5kiDbdWUMjsmQpw==}
 
   d3-geo@3.1.1:
     resolution: {integrity: sha512-637ln3gXKXOwhalDzinUgY83KzNWZRKbYubaG+fGVuc/dxO64RRljtCTnf5ecMyE1RIdtqpkVcq0IbtU2S8j2Q==}
@@ -4586,6 +4941,9 @@ packages:
 
   duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
+
+  earcut@2.2.4:
+    resolution: {integrity: sha512-/pjZsA1b4RPHbeWZQn66SWS8nZZWLQQ23oE3Eam7aroEFGEvwKAsJfZ9ytiEMycfzXWpca4FA9QIOehf7PocBQ==}
 
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -4925,6 +5283,9 @@ packages:
   fast-copy@3.0.2:
     resolution: {integrity: sha512-dl0O9Vhju8IrcLndv2eU4ldt1ftXMqqfgN4H1cpmGV7P6jeB9FwpN9a2c8DPGE1Ys88rNUJVYDHq73CGAGOPfQ==}
 
+  fast-deep-equal@2.0.1:
+    resolution: {integrity: sha512-bCK/2Z4zLidyB4ReuIsvALH6w31YfAQDmXMqMx6FyfHqvBxtjC0eRumeSu4Bs3XtXwpyIywtSTrVT99BxY1f9w==}
+
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
 
@@ -5068,6 +5429,9 @@ packages:
   frustum-intersects@0.1.0:
     resolution: {integrity: sha512-W0S6dmX5LJLtamimyuKhvbkpDTm5eVfMgk4X9yXNyWQ1zZ/cMm0PZoeX9Pm0tL302l+erQVrdfRGhV3ILfeTeQ==}
 
+  frustum-intersects@0.2.4:
+    resolution: {integrity: sha512-TMlFs01jIHzRkYW9jJjLUa45UFt9Yi7cv5S+4d6cGg4u1W4HNwxa4QNXhinUzQdW7y5GNRV58NkuPmzugs2BCg==}
+
   fs-extra@10.1.0:
     resolution: {integrity: sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==}
     engines: {node: '>=12'}
@@ -5163,6 +5527,12 @@ packages:
 
   git-url-parse@14.0.0:
     resolution: {integrity: sha512-NnLweV+2A4nCvn4U/m2AoYu0pPKlsmhK9cknG7IMwsjFY1S2jxM+mAhsDxyxfCIGfGaD+dozsyX4b6vkYc83yQ==}
+
+  gl-matrix@2.8.1:
+    resolution: {integrity: sha512-0YCjVpE3pS5XWlN3J4X7AiAx65+nqAI54LndtVFnQZB6G/FVLkZH8y8V6R3cIoOQR4pUdfwQGd1iwyoXHJ4Qfw==}
+
+  gl-matrix@3.4.3:
+    resolution: {integrity: sha512-wcCp8vu8FT22BnvKVPjXa/ICBWRq/zjFfdofZy1WSpQZpphblv12/bOQLBC1rMM7SGOFS9ltVmKOHil5+Ml7gA==}
 
   glob-parent@5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
@@ -5464,6 +5834,9 @@ packages:
 
   is-arrayish@0.2.1:
     resolution: {integrity: sha512-zz06S8t0ozoDXMG+ube26zeCTNXcKIPJZJi8hBrF4idCLms4CG9QtK7qBl1boi5ODzFpjswb5JPmHCbMpjaYzg==}
+
+  is-arrayish@0.3.2:
+    resolution: {integrity: sha512-eVRqCvVlZbuw3GrM63ovNSNAeA1K16kaR/LRY/92w0zxQ5/1YzwblUX652i4Xs9RwAGjW9d9y6X88t8OaAJfWQ==}
 
   is-async-function@2.0.0:
     resolution: {integrity: sha512-Y1JXKrfykRJGdlDwdKlLpLyMIiWqWvuSd17TvZk68PLAOGOoF4Xyav1z0Xhoi+gCYjZVeC5SI+hYFOfvXmGRCA==}
@@ -6031,8 +6404,14 @@ packages:
   make-synchronized@0.2.9:
     resolution: {integrity: sha512-4wczOs8SLuEdpEvp3vGo83wh8rjJ78UsIk7DIX5fxdfmfMJGog4bQzxfvOwq7Q3yCHLC4jp1urPHIxRS/A93gA==}
 
+  maptalks-gl@0.103.1:
+    resolution: {integrity: sha512-VhC5Kt8brSSHiWWQS++XrFkOtDhu2ZiYj2UMwSJtlgLB1z+hSJYtncyUcIQ4b+xmh/jXJKFx6+qOBaamwAvghw==}
+
   maptalks@1.0.0-rc.37:
     resolution: {integrity: sha512-Zn1pjS0wgnYJBGQBt656QoeCaLj5SnUIPwV8i8eAhpQj6oln5rEwKSBnUjO8RqqEmeGjgP11kssXjKUDd2FTxw==}
+
+  maptalks@1.0.0-rc.40:
+    resolution: {integrity: sha512-XY6Y/ZxM0PvtJBtadMGgKNkOk1bz8f2wqbN/rOJyAF5OTIkrFtlZsNlZFLhl1PgvluKZLY5Mz79+mYPQRhpw6Q==}
 
   mark.js@8.11.1:
     resolution: {integrity: sha512-1I+1qpDt4idfgLQG+BNWmrqku+7/2bi5nLf4YwF8y8zXvmfiTBY3PV3ZibfrjBueCByROpuBjLLFCajqkgYoLQ==}
@@ -6427,12 +6806,18 @@ packages:
   pako@1.0.11:
     resolution: {integrity: sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==}
 
+  pako@2.1.0:
+    resolution: {integrity: sha512-w+eufiZ1WuJYgPXbV/PO3NCMEc3xqylkKHzp8bxp1uW4qaSNQUkwmLLEc3kKsfz8lpV1F8Ht3U1Cm+9Srog2ug==}
+
   param-case@3.0.4:
     resolution: {integrity: sha512-RXlj7zCYokReqWpOPH9oYivUzLYZ5vAPIfEmCTNViosC78F8F0H9y7T7gG2M39ymgutxF5gcFEsyZQSph9Bp3A==}
 
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
     engines: {node: '>=6'}
+
+  parse-dds@1.2.1:
+    resolution: {integrity: sha512-oE88N8mzUi9d26tAaKVc0clxi6AjeTSWpLwgtcEVjXTYY1MW58w8FctmM9gGgvFd6YGu1/eFFYVeDVnlMsKBtA==}
 
   parse-json@5.2.0:
     resolution: {integrity: sha512-ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg==}
@@ -6517,6 +6902,10 @@ packages:
     resolution: {integrity: sha512-vE7JKRyES09KiunauX7nd2Q9/L7lhok4smP9RZTDeD4MVs72Dp2qNFVz39Nz5a0FVEW0BJR6C0DYrq6unoziZA==}
     engines: {node: '>= 14.16'}
 
+  pbf@3.3.0:
+    resolution: {integrity: sha512-XDF38WCH3z5OV/OVa8GKUNtLAyneuzbCisx7QUCF8Q6Nutx0WnJrQe5O+kOtBlLfRNUws98Y58Lblp+NJG5T4Q==}
+    hasBin: true
+
   pend@1.2.0:
     resolution: {integrity: sha512-F3asv42UuXchdzt+xXqfW1OGlVBe+mxa2mqI0pg5yAHZPvFmY3Y6drSf/GQ1A86WgWEN9Kzh/WrgKa6iGcHXLg==}
 
@@ -6581,6 +6970,9 @@ packages:
   pngjs@7.0.0:
     resolution: {integrity: sha512-LKWqWJRhstyYo9pGvgor/ivk2w94eSjE3RGVuzLGlr3NmD8bf7RcYGze1mNdEHRP6TRP6rMuDHk5t44hnTRyow==}
     engines: {node: '>=14.19.0'}
+
+  point-in-polygon@1.1.0:
+    resolution: {integrity: sha512-3ojrFwjnnw8Q9242TzgXuTD+eKiutbzyslcq1ydfu82Db2y+Ogbmyrkpv0Hgj31qwT3lbS9+QAAO/pIQM35XRw==}
 
   popmotion@11.0.5:
     resolution: {integrity: sha512-la8gPM1WYeFznb/JqF4GiTkRRPZsfaj2+kCxqQgr2MJylMmIKUwBfWW8Wa5fml/8gmtlD5yI01MP1QCZPWmppA==}
@@ -6674,6 +7066,9 @@ packages:
   proto-list@1.2.4:
     resolution: {integrity: sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA==}
 
+  protocol-buffers-schema@3.6.0:
+    resolution: {integrity: sha512-TdDRD+/QNdrCGCE7v8340QyuXd4kIWIgapsE2+n/SaGiSSbomYl4TjHlvIoCWRpE7wFt02EpB35VVA2ImcBVqw==}
+
   protocols@2.0.1:
     resolution: {integrity: sha512-/XJ368cyBJ7fzLMwLKv1e4vLxOju2MNAIokcr7meSaNcVbWz/CPcW22cP04mwxOErdA5mwjA8Q6w/cdAQxVn7Q==}
 
@@ -6733,8 +7128,14 @@ packages:
   quickselect@1.1.1:
     resolution: {integrity: sha512-qN0Gqdw4c4KGPsBOQafj6yj/PA6c/L63f6CaZ/DCF/xF4Esu3jVmKLUDYxghFx8Kb/O7y9tI7x2RjTSXwdK1iQ==}
 
+  quickselect@2.0.0:
+    resolution: {integrity: sha512-RKJ22hX8mHe3Y6wH/N3wCM6BWtjaxIyyUIkpHOvfFnxdI4yD4tBXEBKSbriGujF6jnSVkJrffuo6vxACiSSxIw==}
+
   rbush@2.0.2:
     resolution: {integrity: sha512-XBOuALcTm+O/H8G90b6pzu6nX6v2zCKiFG4BJho8a+bY6AER6t8uQUZdi5bomQc0AprCWhEGa7ncAbbRap0bRA==}
+
+  rbush@3.0.1:
+    resolution: {integrity: sha512-XRaVO0YecOpEuIvbhbpTrZgoiI6xBlz6hnlr6EHhd+0x9ase6EmeN+hdwwUaJvLcsFFQ8iWVF1GAK1yB0BWi0w==}
 
   rc9@2.1.2:
     resolution: {integrity: sha512-btXCnMmRIBINM2LDZoEmOogIZU7Qe7zn4BpomSKZ/ykbLObuBdvG+mFq11DL6fjH1DRwHhrlgtYWG96bJiC7Cg==}
@@ -6837,6 +7238,9 @@ packages:
   resolve-pkg-maps@1.0.0:
     resolution: {integrity: sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==}
 
+  resolve-protobuf-schema@2.1.0:
+    resolution: {integrity: sha512-kI5ffTiZWmJaS/huM8wZfEMer1eRd7oJQhDuxeCLe3t7N7mX3z94CN0xPxBQxFYQTSNz9T0i+v6inKqSdK8xrQ==}
+
   resolve.exports@2.0.2:
     resolution: {integrity: sha512-X2UW6Nw3n/aMgDVy+0rSqgHlv39WZAlZrXCdnbyEiKm17DSqHX4MmQMaST3FbeWR5FTuRcUwYAziZajji0Y7mg==}
     engines: {node: '>=10'}
@@ -6881,6 +7285,9 @@ packages:
     resolution: {integrity: sha512-9dkvaxAsk/xNXSJzMgFqqMCuFgt2+KsOFek3TMLfo8NCPfWpBmqwyNn5Y+NX56QUYfCtsyhF3ayiboEoUmJk/A==}
     engines: {node: 20 || >=22}
     hasBin: true
+
+  robust-predicates@2.0.4:
+    resolution: {integrity: sha512-l4NwboJM74Ilm4VKfbAtFeGq7aEjWL+5kVFcmgFA2MrdnQWx9iE/tUGvxY5HyMI7o/WpSIUFLbC5fbeaHgSCYg==}
 
   robust-predicates@3.0.2:
     resolution: {integrity: sha512-IXgzBWvWQwE6PrDI05OvmXUIruQTcoMDzRsOd5CDvHCVLcLHMTSYvOK5Cm46kWqlV3yAbuSpBZdJ5oP5OUoStg==}
@@ -7036,6 +7443,9 @@ packages:
   signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
+
+  simple-swizzle@0.2.2:
+    resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
 
   simplify-js@1.2.4:
     resolution: {integrity: sha512-vITfSlwt7h/oyrU42R83mtzFpwYk3+mkH9bOHqq/Qw6n8rtR7aE3NZQ5fbcyCUVVmuMJR6ynsAhOfK2qoah8Jg==}
@@ -7376,6 +7786,9 @@ packages:
     resolution: {integrity: sha512-KIKExllK7jp3uvrNtvRBYBWBOAXSX8ZvoaD8T+7KB/QHIuoJW3Pmr60zucywjAlMb5TeXUkcs/MWeWLu0qvuAQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
 
+  tinyqueue@2.0.3:
+    resolution: {integrity: sha512-ppJZNDuKGgxzkHihX8v9v9G5f+18gzaTfrukGrq6ueg0lmH4nqVnA2IPG0AEH3jKEk2GRJCUhDoqpoiw3PHLBA==}
+
   tinyrainbow@1.2.0:
     resolution: {integrity: sha512-weEDEq7Z5eTHPDh4xjX789+fHfF+P8boiFB+0vbWzpbnbsEr/GRaohi/uMKxg8RZMXnl1ItAi/IUHWMsjDV7kQ==}
     engines: {node: '>=14.0.0'}
@@ -7447,6 +7860,9 @@ packages:
     resolution: {integrity: sha512-0flMz1lh74BR4wOvBjuh9olbnwqCPc35OOlfyzHba0Dc+QNUeWX/Gq2YTbnwcWPO3BMd8fkzRVrHcsR+a7z7rA==}
     engines: {node: '>=18.0.0'}
     hasBin: true
+
+  turf-jsts@1.2.3:
+    resolution: {integrity: sha512-Ja03QIJlPuHt4IQ2FfGex4F4JAr8m3jpaHbFbQrgwr7s7L6U8ocrHiF3J1+wf9jzhGKxvDeaCAnGDot8OjGFyA==}
 
   tweakpane@4.0.4:
     resolution: {integrity: sha512-RkWD54zDlEbnN01wQPk0ANHGbdCvlJx/E8A1QxhTfCbX+ROWos1Ws2MnhOm39aUGMOh+36TjUwpDmLfmwTr1Fg==}
@@ -7824,6 +8240,9 @@ packages:
         optional: true
       jsdom:
         optional: true
+
+  vt-pbf@3.1.3:
+    resolution: {integrity: sha512-2LzDFzt0mZKZ9IpVF2r69G9bXaP2Q2sArJCmcCgvfTdCCZzSyz4aCLoQyUilu37Ll56tCblIZrXFIjNUpGIlmA==}
 
   vue-component-type-helpers@2.0.29:
     resolution: {integrity: sha512-58i+ZhUAUpwQ+9h5Hck0D+jr1qbYl4voRt5KffBx8qzELViQ4XdT/Tuo+mzq8u63teAG8K0lLaOiL5ofqW38rg==}
@@ -9017,11 +9436,121 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
+  '@mapbox/point-geometry@0.1.0': {}
+
+  '@mapbox/shelf-pack@3.2.0': {}
+
+  '@mapbox/vector-tile@1.3.1':
+    dependencies:
+      '@mapbox/point-geometry': 0.1.0
+
+  '@maptalks/3dtiles@0.102.1':
+    dependencies:
+      '@maptalks/function-type': 1.4.0
+      '@maptalks/gltf-loader': 0.98.4
+      '@maptalks/tbn-packer': 1.4.5
+      color: 3.2.1
+      frustum-intersects: 0.2.4
+      gl-matrix: 3.4.3
+      pako: 2.1.0
+      parse-dds: 1.2.1
+
+  '@maptalks/analysis@0.98.3':
+    dependencies:
+      '@turf/along': 6.5.0
+      '@turf/buffer': 6.5.0
+      '@turf/distance': 6.5.0
+      '@turf/helpers': 6.5.0
+
   '@maptalks/feature-filter@1.3.0': {}
 
   '@maptalks/function-type@1.4.0':
     dependencies:
       colorin: 0.5.0
+
+  '@maptalks/fusiongl@0.7.2':
+    dependencies:
+      fast-deep-equal: 2.0.1
+
+  '@maptalks/geojson-bbox@1.0.5': {}
+
+  '@maptalks/geojson-vt@3.5.0': {}
+
+  '@maptalks/gl@0.102.1':
+    dependencies:
+      '@maptalks/fusiongl': 0.7.2
+      '@maptalks/gltf-loader': 0.98.4
+      '@maptalks/martini': 0.4.0
+      '@maptalks/regl': 3.4.0
+      '@maptalks/reshader.gl': 0.101.1
+      color: 3.2.1
+      colorin: 0.6.0
+
+  '@maptalks/gltf-layer@0.101.1':
+    dependencies:
+      '@maptalks/feature-filter': 1.3.0
+      '@maptalks/function-type': 1.4.0
+      '@maptalks/gltf-loader': 0.98.4
+      frustum-intersects: 0.2.4
+
+  '@maptalks/gltf-loader@0.98.4':
+    dependencies:
+      gl-matrix: 3.4.3
+
+  '@maptalks/martini@0.4.0': {}
+
+  '@maptalks/msd-json-loader@0.1.0': {}
+
+  '@maptalks/regl@3.4.0': {}
+
+  '@maptalks/reshader.gl@0.101.1':
+    dependencies:
+      '@maptalks/gltf-loader': 0.98.4
+      '@maptalks/regl': 3.4.0
+      '@maptalks/tbn-packer': 1.4.5
+      earcut: 2.2.4
+      gl-matrix: 3.4.3
+
+  '@maptalks/tbn-packer@1.4.5':
+    dependencies:
+      gl-matrix: 2.8.1
+
+  '@maptalks/transform-control@0.102.1':
+    dependencies:
+      '@maptalks/gl': 0.102.1
+      '@maptalks/gltf-layer': 0.101.1
+      '@maptalks/gltf-loader': 0.98.4
+
+  '@maptalks/video-layer@0.98.3':
+    dependencies:
+      frustum-intersects: 0.2.4
+
+  '@maptalks/vt-plugin@0.96.3': {}
+
+  '@maptalks/vt@0.101.1':
+    dependencies:
+      '@mapbox/point-geometry': 0.1.0
+      '@mapbox/shelf-pack': 3.2.0
+      '@mapbox/vector-tile': 1.3.1
+      '@maptalks/feature-filter': 1.3.0
+      '@maptalks/function-type': 1.4.0
+      '@maptalks/geojson-bbox': 1.0.5
+      '@maptalks/geojson-vt': 3.5.0
+      '@maptalks/gl': 0.102.1
+      '@maptalks/tbn-packer': 1.4.5
+      '@maptalks/vt-plugin': 0.96.3
+      animation-easings: 0.1.0
+      color: 3.2.1
+      earcut: 2.2.4
+      fast-deep-equal: 2.0.1
+      gl-matrix: 3.4.3
+      pbf: 3.3.0
+      point-in-polygon: 1.1.0
+      quickselect: 1.1.1
+      rbush: 3.0.1
+      robust-predicates: 2.0.4
+      tinyqueue: 2.0.3
+      vt-pbf: 3.1.3
 
   '@monaco-editor/loader@1.4.0(monaco-editor@0.50.0)':
     dependencies:
@@ -9447,6 +9976,69 @@ snapshots:
       defer-to-connect: 2.0.1
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
+
+  '@turf/along@6.5.0':
+    dependencies:
+      '@turf/bearing': 6.5.0
+      '@turf/destination': 6.5.0
+      '@turf/distance': 6.5.0
+      '@turf/helpers': 6.5.0
+      '@turf/invariant': 6.5.0
+
+  '@turf/bbox@6.5.0':
+    dependencies:
+      '@turf/helpers': 6.5.0
+      '@turf/meta': 6.5.0
+
+  '@turf/bearing@6.5.0':
+    dependencies:
+      '@turf/helpers': 6.5.0
+      '@turf/invariant': 6.5.0
+
+  '@turf/buffer@6.5.0':
+    dependencies:
+      '@turf/bbox': 6.5.0
+      '@turf/center': 6.5.0
+      '@turf/helpers': 6.5.0
+      '@turf/meta': 6.5.0
+      '@turf/projection': 6.5.0
+      d3-geo: 1.7.1
+      turf-jsts: 1.2.3
+
+  '@turf/center@6.5.0':
+    dependencies:
+      '@turf/bbox': 6.5.0
+      '@turf/helpers': 6.5.0
+
+  '@turf/clone@6.5.0':
+    dependencies:
+      '@turf/helpers': 6.5.0
+
+  '@turf/destination@6.5.0':
+    dependencies:
+      '@turf/helpers': 6.5.0
+      '@turf/invariant': 6.5.0
+
+  '@turf/distance@6.5.0':
+    dependencies:
+      '@turf/helpers': 6.5.0
+      '@turf/invariant': 6.5.0
+
+  '@turf/helpers@6.5.0': {}
+
+  '@turf/invariant@6.5.0':
+    dependencies:
+      '@turf/helpers': 6.5.0
+
+  '@turf/meta@6.5.0':
+    dependencies:
+      '@turf/helpers': 6.5.0
+
+  '@turf/projection@6.5.0':
+    dependencies:
+      '@turf/clone': 6.5.0
+      '@turf/helpers': 6.5.0
+      '@turf/meta': 6.5.0
 
   '@types/aws-lambda@8.10.143': {}
 
@@ -10419,6 +11011,8 @@ snapshots:
       '@algolia/requester-node-http': 4.24.0
       '@algolia/transporter': 4.24.0
 
+  animation-easings@0.1.0: {}
+
   ansi-align@3.0.1:
     dependencies:
       string-width: 4.2.3
@@ -10850,11 +11444,23 @@ snapshots:
 
   color-name@1.1.4: {}
 
+  color-string@1.9.1:
+    dependencies:
+      color-name: 1.1.4
+      simple-swizzle: 0.2.2
+
+  color@3.2.1:
+    dependencies:
+      color-convert: 1.9.3
+      color-string: 1.9.1
+
   colord@2.9.3: {}
 
   colorette@2.0.20: {}
 
   colorin@0.5.0: {}
+
+  colorin@0.6.0: {}
 
   combined-stream@1.0.8:
     dependencies:
@@ -11097,6 +11703,8 @@ snapshots:
 
   cz-git@1.9.4: {}
 
+  d3-array@1.2.4: {}
+
   d3-array@3.2.4:
     dependencies:
       internmap: 2.0.3
@@ -11151,6 +11759,10 @@ snapshots:
       d3-timer: 3.0.1
 
   d3-format@3.1.0: {}
+
+  d3-geo@1.7.1:
+    dependencies:
+      d3-array: 1.2.4
 
   d3-geo@3.1.1:
     dependencies:
@@ -11456,6 +12068,8 @@ snapshots:
   dotenv@16.4.5: {}
 
   duplexer@0.1.2: {}
+
+  earcut@2.2.4: {}
 
   eastasianwidth@0.2.0: {}
 
@@ -12024,6 +12638,8 @@ snapshots:
 
   fast-copy@3.0.2: {}
 
+  fast-deep-equal@2.0.1: {}
+
   fast-deep-equal@3.1.3: {}
 
   fast-diff@1.3.0: {}
@@ -12165,6 +12781,8 @@ snapshots:
 
   frustum-intersects@0.1.0: {}
 
+  frustum-intersects@0.2.4: {}
+
   fs-extra@10.1.0:
     dependencies:
       graceful-fs: 4.2.11
@@ -12279,6 +12897,10 @@ snapshots:
   git-url-parse@14.0.0:
     dependencies:
       git-up: 7.0.0
+
+  gl-matrix@2.8.1: {}
+
+  gl-matrix@3.4.3: {}
 
   glob-parent@5.1.2:
     dependencies:
@@ -12651,6 +13273,8 @@ snapshots:
       get-intrinsic: 1.2.4
 
   is-arrayish@0.2.1: {}
+
+  is-arrayish@0.3.2: {}
 
   is-async-function@2.0.0:
     dependencies:
@@ -13173,10 +13797,35 @@ snapshots:
 
   make-synchronized@0.2.9: {}
 
+  maptalks-gl@0.103.1:
+    dependencies:
+      '@maptalks/3dtiles': 0.102.1
+      '@maptalks/analysis': 0.98.3
+      '@maptalks/gl': 0.102.1
+      '@maptalks/gltf-layer': 0.101.1
+      '@maptalks/msd-json-loader': 0.1.0
+      '@maptalks/transform-control': 0.102.1
+      '@maptalks/video-layer': 0.98.3
+      '@maptalks/vt': 0.101.1
+      maptalks: 1.0.0-rc.40
+
   maptalks@1.0.0-rc.37:
     dependencies:
       '@maptalks/feature-filter': 1.3.0
       '@maptalks/function-type': 1.4.0
+      frustum-intersects: 0.1.0
+      lineclip: 1.1.5
+      rbush: 2.0.2
+      simplify-js: 1.2.4
+    optionalDependencies:
+      '@rollup/rollup-darwin-x64': 4.20.0
+      '@rollup/rollup-linux-x64-gnu': 4.20.0
+
+  maptalks@1.0.0-rc.40:
+    dependencies:
+      '@maptalks/feature-filter': 1.3.0
+      '@maptalks/function-type': 1.4.0
+      colorin: 0.6.0
       frustum-intersects: 0.1.0
       lineclip: 1.1.5
       rbush: 2.0.2
@@ -13598,6 +14247,8 @@ snapshots:
 
   pako@1.0.11: {}
 
+  pako@2.1.0: {}
+
   param-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
@@ -13606,6 +14257,8 @@ snapshots:
   parent-module@1.0.1:
     dependencies:
       callsites: 3.1.0
+
+  parse-dds@1.2.1: {}
 
   parse-json@5.2.0:
     dependencies:
@@ -13678,6 +14331,11 @@ snapshots:
   pathe@1.1.2: {}
 
   pathval@2.0.0: {}
+
+  pbf@3.3.0:
+    dependencies:
+      ieee754: 1.2.1
+      resolve-protobuf-schema: 2.1.0
 
   pend@1.2.0: {}
 
@@ -13757,6 +14415,8 @@ snapshots:
       pathe: 1.1.2
 
   pngjs@7.0.0: {}
+
+  point-in-polygon@1.1.0: {}
 
   popmotion@11.0.5:
     dependencies:
@@ -13842,6 +14502,8 @@ snapshots:
 
   proto-list@1.2.4: {}
 
+  protocol-buffers-schema@3.6.0: {}
+
   protocols@2.0.1: {}
 
   proxy-agent@6.4.0:
@@ -13918,9 +14580,15 @@ snapshots:
 
   quickselect@1.1.1: {}
 
+  quickselect@2.0.0: {}
+
   rbush@2.0.2:
     dependencies:
       quickselect: 1.1.1
+
+  rbush@3.0.1:
+    dependencies:
+      quickselect: 2.0.0
 
   rc9@2.1.2:
     dependencies:
@@ -14066,6 +14734,10 @@ snapshots:
 
   resolve-pkg-maps@1.0.0: {}
 
+  resolve-protobuf-schema@2.1.0:
+    dependencies:
+      protocol-buffers-schema: 3.6.0
+
   resolve.exports@2.0.2: {}
 
   resolve@1.22.8:
@@ -14108,6 +14780,8 @@ snapshots:
     dependencies:
       glob: 11.0.0
       package-json-from-dist: 1.0.0
+
+  robust-predicates@2.0.4: {}
 
   robust-predicates@3.0.2: {}
 
@@ -14266,6 +14940,10 @@ snapshots:
   signal-exit@3.0.7: {}
 
   signal-exit@4.1.0: {}
+
+  simple-swizzle@0.2.2:
+    dependencies:
+      is-arrayish: 0.3.2
 
   simplify-js@1.2.4: {}
 
@@ -14674,6 +15352,8 @@ snapshots:
 
   tinypool@1.0.0: {}
 
+  tinyqueue@2.0.3: {}
+
   tinyrainbow@1.2.0: {}
 
   tinyspy@3.0.0: {}
@@ -14743,6 +15423,8 @@ snapshots:
       get-tsconfig: 4.7.6
     optionalDependencies:
       fsevents: 2.3.3
+
+  turf-jsts@1.2.3: {}
 
   tweakpane@4.0.4: {}
 
@@ -15299,6 +15981,12 @@ snapshots:
       - sugarss
       - supports-color
       - terser
+
+  vt-pbf@3.1.3:
+    dependencies:
+      '@mapbox/point-geometry': 0.1.0
+      '@mapbox/vector-tile': 1.3.1
+      pbf: 3.3.0
 
   vue-component-type-helpers@2.0.29: {}
 
