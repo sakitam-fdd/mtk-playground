@@ -1,6 +1,6 @@
 [build]
 publish = "dist"
-command = "pnpm run build:pls && pnpm run build:thumbnail && pnpm run build"
+command = "pnpm run build:thumbnail && pnpm run build"
 
 [build.environment]
 NODE_VERSION = "20.18.0"

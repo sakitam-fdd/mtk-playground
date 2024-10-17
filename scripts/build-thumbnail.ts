@@ -76,40 +76,41 @@ async function renderPage(page: Page, entry: Entries, options: Record<string, an
       resolve(config || {});
     };
   });
-  await page.goto(`http://${options.host}:${options.port}${entry.path}`, {
-    waitUntil: 'networkidle0',
-  });
-
-  await page.evaluate(
-    () =>
-      new Promise((resolve) => {
-        if (document.readyState === 'complete') {
-          resolve(true);
-        } else {
-          window.addEventListener('load', () => resolve(true));
-        }
-      }),
-  );
-
-  // Test for webgl support
-  // e.g. https://developer.mozilla.org/en-US/docs/Learn/WebGL/By_example/Detect_WebGL
-  // const webgl = await page.evaluate(() => {
-  //   const canvas = document.createElement('canvas');
-  //   const gl = canvas.getContext('webgl');
-  //   const expGl = canvas.getContext('experimental-webgl');
-  //
-  //   return {
-  //     gl: gl && gl instanceof WebGLRenderingContext,
-  //     expGl: expGl && expGl instanceof WebGLRenderingContext,
-  //   };
-  // });
-
-  // await page.waitForSelector(".content");
-
-  // const config = await renderCalled;
-  const actualPath = getActualScreenshotPath(entry);
+  console.log(`Screenshot ${entry.name} start`);
 
   try {
+    // Test for webgl support
+    // e.g. https://developer.mozilla.org/en-US/docs/Learn/WebGL/By_example/Detect_WebGL
+    // const webgl = await page.evaluate(() => {
+    //   const canvas = document.createElement('canvas');
+    //   const gl = canvas.getContext('webgl');
+    //   const expGl = canvas.getContext('experimental-webgl');
+    //
+    //   return {
+    //     gl: gl && gl instanceof WebGLRenderingContext,
+    //     expGl: expGl && expGl instanceof WebGLRenderingContext,
+    //   };
+    // });
+
+    // await page.waitForSelector(".content");
+
+    // const config = await renderCalled;
+    const actualPath = getActualScreenshotPath(entry);
+    await page.goto(`http://${options.host}:${options.port}${entry.path}`, {
+      waitUntil: 'networkidle0',
+    });
+
+    await page.evaluate(
+      () =>
+        new Promise((resolve) => {
+          if (document.readyState === 'complete') {
+            resolve(true);
+          } else {
+            window.addEventListener('load', () => resolve(true));
+          }
+        }),
+    );
+
     await fse.ensureDir(path.dirname(actualPath));
 
     const screenshot = await page.screenshot({ path: actualPath, type: 'webp' });

@@ -6,6 +6,149 @@ export const playgroundRoutes: RouteRecordRaw[] = [
     name: 'basic',
     children: [
       {
+        path: '3d',
+        name: 'basic_3d',
+        children: [
+          {
+            path: 'line-altitude',
+            name: 'basic_3d_line-altitude',
+            component: () => import('~/.playgrounds/basic/3d/line-altitude/src/App.vue'),
+          },
+          {
+            path: 'line-draw-altitude',
+            name: 'basic_3d_line-draw-altitude',
+            component: () => import('~/.playgrounds/basic/3d/line-draw-altitude/src/App.vue'),
+          },
+          {
+            path: 'marker-altitude',
+            name: 'basic_3d_marker-altitude',
+            component: () => import('~/.playgrounds/basic/3d/marker-altitude/src/App.vue'),
+          },
+          {
+            path: 'marker-draw-altitude',
+            name: 'basic_3d_marker-draw-altitude',
+            component: () => import('~/.playgrounds/basic/3d/marker-draw-altitude/src/App.vue'),
+          },
+          {
+            path: 'polygon-altitude',
+            name: 'basic_3d_polygon-altitude',
+            component: () => import('~/.playgrounds/basic/3d/polygon-altitude/src/App.vue'),
+          },
+          {
+            path: 'set-altitude',
+            name: 'basic_3d_set-altitude',
+            component: () => import('~/.playgrounds/basic/3d/set-altitude/src/App.vue'),
+          },
+        ],
+      },
+      {
+        path: 'geometry',
+        name: 'basic_geometry',
+        children: [
+          {
+            path: 'collection',
+            name: 'basic_geometry_collection',
+            component: () => import('~/.playgrounds/basic/geometry/collection/src/App.vue'),
+          },
+          {
+            path: 'collection-filter',
+            name: 'basic_geometry_collection-filter',
+            component: () => import('~/.playgrounds/basic/geometry/collection-filter/src/App.vue'),
+          },
+          {
+            path: 'connector-line',
+            name: 'basic_geometry_connector-line',
+            component: () => import('~/.playgrounds/basic/geometry/connector-line/src/App.vue'),
+          },
+          {
+            path: 'copy',
+            name: 'basic_geometry_copy',
+            component: () => import('~/.playgrounds/basic/geometry/copy/src/App.vue'),
+          },
+          {
+            path: 'curve',
+            name: 'basic_geometry_curve',
+            component: () => import('~/.playgrounds/basic/geometry/curve/src/App.vue'),
+          },
+          {
+            path: 'events',
+            name: 'basic_geometry_events',
+            component: () => import('~/.playgrounds/basic/geometry/events/src/App.vue'),
+          },
+          {
+            path: 'flash-geometry',
+            name: 'basic_geometry_flash-geometry',
+            component: () => import('~/.playgrounds/basic/geometry/flash-geometry/src/App.vue'),
+          },
+          {
+            path: 'label',
+            name: 'basic_geometry_label',
+            component: () => import('~/.playgrounds/basic/geometry/label/src/App.vue'),
+          },
+          {
+            path: 'linestring',
+            name: 'basic_geometry_linestring',
+            component: () => import('~/.playgrounds/basic/geometry/linestring/src/App.vue'),
+          },
+          {
+            path: 'marker',
+            name: 'basic_geometry_marker',
+            component: () => import('~/.playgrounds/basic/geometry/marker/src/App.vue'),
+          },
+          {
+            path: 'multilinestring',
+            name: 'basic_geometry_multilinestring',
+            component: () => import('~/.playgrounds/basic/geometry/multilinestring/src/App.vue'),
+          },
+          {
+            path: 'multipoint',
+            name: 'basic_geometry_multipoint',
+            component: () => import('~/.playgrounds/basic/geometry/multipoint/src/App.vue'),
+          },
+          {
+            path: 'multipolygon',
+            name: 'basic_geometry_multipolygon',
+            component: () => import('~/.playgrounds/basic/geometry/multipolygon/src/App.vue'),
+          },
+          {
+            path: 'polygon',
+            name: 'basic_geometry_polygon',
+            component: () => import('~/.playgrounds/basic/geometry/polygon/src/App.vue'),
+          },
+          {
+            path: 'rectangle-circle-ellipse-sector',
+            name: 'basic_geometry_rectangle-circle-ellipse-sector',
+            component: () => import('~/.playgrounds/basic/geometry/rectangle-circle-ellipse-sector/src/App.vue'),
+          },
+          {
+            path: 'textbox',
+            name: 'basic_geometry_textbox',
+            component: () => import('~/.playgrounds/basic/geometry/textbox/src/App.vue'),
+          },
+        ],
+      },
+      {
+        path: 'hellolayer',
+        name: 'basic_hellolayer',
+        children: [
+          {
+            path: 'animation',
+            name: 'basic_hellolayer_animation',
+            component: () => import('~/.playgrounds/basic/hellolayer/animation/src/App.vue'),
+          },
+          {
+            path: 'drawoninteracting',
+            name: 'basic_hellolayer_drawoninteracting',
+            component: () => import('~/.playgrounds/basic/hellolayer/drawoninteracting/src/App.vue'),
+          },
+          {
+            path: 'layer',
+            name: 'basic_hellolayer_layer',
+            component: () => import('~/.playgrounds/basic/hellolayer/layer/src/App.vue'),
+          },
+        ],
+      },
+      {
         path: 'layer',
         name: 'basic_layer',
         children: [
@@ -198,6 +341,27 @@ export const playgroundRoutes: RouteRecordRaw[] = [
         ],
       },
       {
+        path: 'plugin-develop',
+        name: 'basic_plugin-develop',
+        children: [
+          {
+            path: 'control',
+            name: 'basic_plugin-develop_control',
+            component: () => import('~/.playgrounds/basic/plugin-develop/control/src/App.vue'),
+          },
+          {
+            path: 'maptool',
+            name: 'basic_plugin-develop_maptool',
+            component: () => import('~/.playgrounds/basic/plugin-develop/maptool/src/App.vue'),
+          },
+          {
+            path: 'ui',
+            name: 'basic_plugin-develop_ui',
+            component: () => import('~/.playgrounds/basic/plugin-develop/ui/src/App.vue'),
+          },
+        ],
+      },
+      {
         path: 'tilelayer-projection',
         name: 'basic_tilelayer-projection',
         children: [
@@ -303,8 +467,17 @@ export const playgroundRoutes: RouteRecordRaw[] = [
           },
         ],
       },
+      {
+        path: 'utils',
+        name: 'basic_utils',
+        children: [
+          {
+            path: 'options-proxy',
+            name: 'basic_utils_options-proxy',
+            component: () => import('~/.playgrounds/basic/utils/options-proxy/src/App.vue'),
+          },
+        ],
+      },
     ],
   },
 ];
-
-export const playgroundPages = [];
