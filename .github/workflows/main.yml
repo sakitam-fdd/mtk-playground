@@ -24,7 +24,7 @@ jobs:
           submodules: 'recursive' # 检出子模块
       - uses: ./.github/setup
 
-      # - run: pnpm run build:pls
+      - run: pnpm run build:pls
       - run: pnpm run build:thumbnail
       - run: pnpm run build
 
@@ -33,4 +33,4 @@ jobs:
         with:
           github_token: ${{ secrets.PKG_DEPLOY_TOKEN }}
           publish_dir: dist
-          cname: examples.maptalks.com
+          cname: blog.sakitam.com

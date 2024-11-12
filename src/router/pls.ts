@@ -149,6 +149,73 @@ export const playgroundRoutes: RouteRecordRaw[] = [
         ],
       },
       {
+        path: 'interaction',
+        name: 'basic_interaction',
+        children: [
+          {
+            path: 'area-tool',
+            name: 'basic_interaction_area-tool',
+            component: () => import('~/.playgrounds/basic/interaction/area-tool/src/App.vue'),
+          },
+          {
+            path: 'distance-tool',
+            name: 'basic_interaction_distance-tool',
+            component: () => import('~/.playgrounds/basic/interaction/distance-tool/src/App.vue'),
+          },
+          {
+            path: 'drag-geometries',
+            name: 'basic_interaction_drag-geometries',
+            component: () => import('~/.playgrounds/basic/interaction/drag-geometries/src/App.vue'),
+          },
+          {
+            path: 'draw-tool',
+            name: 'basic_interaction_draw-tool',
+            component: () => import('~/.playgrounds/basic/interaction/draw-tool/src/App.vue'),
+          },
+        ],
+      },
+      {
+        path: 'json',
+        name: 'basic_json',
+        children: [
+          {
+            path: 'copy-map',
+            name: 'basic_json_copy-map',
+            component: () => import('~/.playgrounds/basic/json/copy-map/src/App.vue'),
+          },
+          {
+            path: 'geojson-to-geometry',
+            name: 'basic_json_geojson-to-geometry',
+            component: () => import('~/.playgrounds/basic/json/geojson-to-geometry/src/App.vue'),
+          },
+          {
+            path: 'geometry-json',
+            name: 'basic_json_geometry-json',
+            component: () => import('~/.playgrounds/basic/json/geometry-json/src/App.vue'),
+          },
+          {
+            path: 'geometry-to-geojson',
+            name: 'basic_json_geometry-to-geojson',
+            component: () => import('~/.playgrounds/basic/json/geometry-to-geojson/src/App.vue'),
+          },
+          {
+            path: 'json-to-map',
+            name: 'basic_json_json-to-map',
+            component: () => import('~/.playgrounds/basic/json/json-to-map/src/App.vue'),
+          },
+          {
+            path: 'layer-json',
+            name: 'basic_json_layer-json',
+            component: () => import('~/.playgrounds/basic/json/layer-json/src/App.vue'),
+          },
+          {
+            path: 'map-to-json',
+            name: 'basic_json_map-to-json',
+            component: () => import('~/.playgrounds/basic/json/map-to-json/src/App.vue'),
+          },
+        ],
+      },
+      {
         path: 'layer',
         name: 'basic_layer',
         children: [
@@ -475,6 +542,38 @@ export const playgroundRoutes: RouteRecordRaw[] = [
             path: 'options-proxy',
             name: 'basic_utils_options-proxy',
             component: () => import('~/.playgrounds/basic/utils/options-proxy/src/App.vue'),
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: 'vector',
+    name: 'vector',
+    children: [
+      {
+        path: 'geo',
+        name: 'vector_geo',
+        children: [
+          {
+            path: 'load-event',
+            name: 'vector_geo_load-event',
+            component: () => import('~/.playgrounds/vector/geo/load-event/src/App.vue'),
+          },
+          {
+            path: 'load-local',
+            name: 'vector_geo_load-local',
+            component: () => import('~/.playgrounds/vector/geo/load-local/src/App.vue'),
+          },
+          {
+            path: 'load-remote',
+            name: 'vector_geo_load-remote',
+            component: () => import('~/.playgrounds/vector/geo/load-remote/src/App.vue'),
+          },
+          {
+            path: 'transform-function',
+            name: 'vector_geo_transform-function',
+            component: () => import('~/.playgrounds/vector/geo/transform-function/src/App.vue'),
           },
         ],
       },
