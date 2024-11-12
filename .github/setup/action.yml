@@ -23,5 +23,5 @@ runs:
     - run: pnpm install
       shell: bash
     - name: Install Puppeteer browsers
-      run: npx only-allow pnpm && cross-env PUPPETEER_CHROME_DOWNLOAD_BASE_URL=https://cdn.npmmirror.com/binaries/chrome-for-testing
+      run: PUPPETEER_CHROME_DOWNLOAD_BASE_URL=https://cdn.npmmirror.com/binaries/chrome-for-testing
       shell: bash

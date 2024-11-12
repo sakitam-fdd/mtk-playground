@@ -20,7 +20,7 @@
     "build:pls": "tsx scripts/build-router.ts .env | pino-pretty --colorize",
     "build:thumbnail": "pnpm build && tsx scripts/build-thumbnail.ts .env | pino-pretty --colorize",
     "prepare": "husky install",
-    "preinstall": "npx only-allow pnpm && cross-env PUPPETEER_CHROME_DOWNLOAD_BASE_URL=https://cdn.npmmirror.com/binaries/chrome-for-testing",
+    "preinstall": "cross-env PUPPETEER_CHROME_DOWNLOAD_BASE_URL=https://cdn.npmmirror.com/binaries/chrome-for-testing",
     "commit": "git-cz",
     "semantic-release": "release-it"
   },
