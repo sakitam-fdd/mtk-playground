@@ -6,7 +6,6 @@ import path, { dirname } from 'path';
 import { exec } from 'child_process';
 import { preview } from 'vite';
 import png from 'pngjs';
-import puppeteer from 'puppeteer';
 import chromium from '@sparticuz/chromium';
 import puppeteerCore from 'puppeteer-core';
 import type { Page } from 'puppeteer';
@@ -152,6 +151,7 @@ async function render(entries: Entries[], options: Record<string, any>) {
   let browser: any;
 
   if (process.env.IS_SERVERLESS) {
+    console.info('run on serverless');
     browser = await puppeteerCore.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
@@ -159,6 +159,7 @@ async function render(entries: Entries[], options: Record<string, any>) {
       headless: chromium.headless,
     });
   } else {
+    const puppeteer = await import('puppeteer');
     browser = await puppeteer.launch({
       args: options.puppeteerArgs,
       headless: Boolean(options.headless),
