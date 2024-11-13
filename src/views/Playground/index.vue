@@ -108,7 +108,7 @@
   import FileTree from '@/components/FileTree/index.vue';
   import { to } from '@/utils/to';
   import { useTheme } from '@/hooks/useTheme';
-  import { getPlayground, matchSha, getFileTree, updatePlayground } from '@/api/graphql';
+  import { getPlayground, matchSha, getFileTree, updatePlayground, getGithubToken } from '@/api/graphql';
   import { IMPORTMAP_FILE, useStore } from './store';
   import Header from './Header.vue';
   import CreateForm from './CreateForm/index.vue';
@@ -407,7 +407,7 @@
   );
 
   onMounted(() => {
-    if (!import.meta.env.VITE_AUTH_TOKEN || !localStorage.getItem('GITHUB_AUTH_TOKEN')) {
+    if (!getGithubToken()) {
       openToken();
     }
 

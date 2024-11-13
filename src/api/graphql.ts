@@ -7,10 +7,15 @@ import { ElNotification } from 'element-plus';
 import { ascending } from '@/utils/utils';
 import { t } from '@/plugins/locales';
 import { playgroundRoutes } from '@/router/pls';
+
+export function getGithubToken() {
+  return localStorage.getItem('GITHUB_AUTH_TOKEN') || import.meta.env.VITE_AUTH_TOKEN;
+}
+
 // Octokit.js
 // https://github.com/octokit/core.js#readme
 const octokit = new Octokit({
-  auth: import.meta.env.VITE_AUTH_TOKEN || localStorage.getItem('GITHUB_AUTH_TOKEN'),
+  auth: getGithubToken(),
 });
 
 const owner = import.meta.env.VITE_GITHUB_OWNER;
