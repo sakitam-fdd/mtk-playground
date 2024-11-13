@@ -45,8 +45,10 @@ app:
       playgroundFolder: 请选择所属目录
       playgroundName: 请输入示例名称
       playgroundType: 请选择示例类型
+      githubToken: 请输入你的 github token
   title: maptalks-playground
   messages:
+    tip: 提示
     error: 错误
     updateRefError: 更新 ref 出错
     createCommitError: 创建 commit 出错

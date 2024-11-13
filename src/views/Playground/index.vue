@@ -52,6 +52,29 @@
         :showImportMap="true"
         :clearConsole="false"
         :preview-options="{
+          headHTML: `<style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial,
+          sans-serif;
+        font-size: 14px;
+        transition:
+          color 0.5s,
+          background-color 0.5s;
+        text-rendering: optimizelegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      #app {
+        height: 100%;
+        width: 100%;
+      }
+    </style>`,
           customCode: {
             importCode: `import { initCustomFormatter } from 'vue'`,
             useCode: `if (window.devtoolsFormatters) {
@@ -79,8 +102,9 @@
   import Monaco from '@vue/repl/monaco-editor';
   import { ref, watchEffect, onMounted, computed, watch } from 'vue';
   import { Plus } from '@element-plus/icons-vue';
-  import { ElMessage } from 'element-plus';
+  import { ElMessage, ElMessageBox } from 'element-plus';
   import { useRouter, useRoute } from 'vue-router';
+  import { useI18n } from 'vue-i18n';
   import FileTree from '@/components/FileTree/index.vue';
   import { to } from '@/utils/to';
   import { useTheme } from '@/hooks/useTheme';
@@ -91,6 +115,7 @@
   import PlaygroundForm from './PlaygroundForm/index.vue';
   import { buildCommit } from './Download/download';
 
+  const { t } = useI18n();
   const replRef = ref<InstanceType<typeof Repl>>();
   const list = ref<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -360,6 +385,17 @@
     setUserLoading(false);
   };
 
+  const openToken = () => {
+    ElMessageBox.prompt(t('app.tips.validate.githubToken'), t('app.messages.tip'), {
+      confirmButtonText: t('app.actions.confirm'),
+      cancelButtonText: t('app.actions.cancel'),
+      inputPattern: /\S/,
+      inputErrorMessage: t('app.tips.validate.githubToken'),
+    }).then(({ value }) => {
+      localStorage.setItem('GITHUB_AUTH_TOKEN', value);
+    });
+  };
+
   watch(
     () => [category, subclass, name],
     () => {
@@ -371,6 +407,10 @@
   );
 
   onMounted(() => {
+    if (!import.meta.env.VITE_AUTH_TOKEN || !localStorage.getItem('GITHUB_AUTH_TOKEN')) {
+      openToken();
+    }
+
     // @ts-expect-error process shim for old versions of @vue/compiler-sfc dependency
     window.process = { env: {} };
   });

@@ -192,7 +192,7 @@ export default defineComponent({
                           <div id={example.name} class={[styles.playgroundListItem, isDark.value ? styles.dark : '']}>
                             <div
                               class={['relative flex-1 overflow-hidden rounded-md p-[12px]', styles.header]}
-                              onClick={() => handleJump(example, sub, subList)}
+                              onClick={() => openNew(example, sub, subList)}
                             >
                               <div class={styles.content}>
                                 <div class="h-full w-full">

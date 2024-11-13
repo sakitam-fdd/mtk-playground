@@ -10,7 +10,7 @@ import { playgroundRoutes } from '@/router/pls';
 // Octokit.js
 // https://github.com/octokit/core.js#readme
 const octokit = new Octokit({
-  auth: import.meta.env.VITE_AUTH_TOKEN,
+  auth: import.meta.env.VITE_AUTH_TOKEN || localStorage.getItem('GITHUB_AUTH_TOKEN'),
 });
 
 const owner = import.meta.env.VITE_GITHUB_OWNER;

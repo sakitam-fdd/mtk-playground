@@ -45,8 +45,10 @@ app:
       playgroundFolder: Please select the parent directory
       playgroundName: Please enter the example name
       playgroundType: Please select the example type
+      githubToken: Please input github token
   title: maptalks-playground
   messages:
+    tip: Tip
     error: Error
     updateRefError: Update ref failed
     createCommitError: Create commit failed
