@@ -20,7 +20,7 @@
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "build:pls": "tsx scripts/build-router.ts .env | pino-pretty --colorize",
-    "build:thumbnail": "tsx scripts/build-thumbnail.ts .env | pino-pretty --colorize",
+    "build:thumbnail": "pnpm build:vercel && tsx scripts/build-thumbnail.ts .env | pino-pretty --colorize",
     "build:thumbnail_env": "pnpm build:vercel && cross-env IS_SERVERLESS=true tsx scripts/build-thumbnail.ts .env | pino-pretty --colorize",
     "prepare": "husky install",
     "preinstall": "cross-env PUPPETEER_CHROME_DOWNLOAD_BASE_URL=https://cdn.npmmirror.com/binaries/chrome-for-testing",
