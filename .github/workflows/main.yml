@@ -11,6 +11,8 @@ on:
       - 'main'
     paths:
       - '**'  # 监控所有文件的变更，包括子模块
+  # schedule:
+  #   - cron: "22 22 * * *"
 
 jobs:
   site:
@@ -31,6 +33,6 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.DEPLOY_TOKEN }}
           publish_dir: dist
           cname: blog.sakitam.com
