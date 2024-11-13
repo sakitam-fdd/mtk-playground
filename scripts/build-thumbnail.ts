@@ -151,12 +151,12 @@ async function render(entries: Entries[], options: Record<string, any>) {
   let browser: any;
 
   if (process.env.IS_SERVERLESS) {
-    console.info('run on serverless');
     browser = await puppeteerCore.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath(),
       headless: chromium.headless,
+      ignoreDefaultArgs: ['--disable-extensions'],
     });
   } else {
     const puppeteer = await import('puppeteer');

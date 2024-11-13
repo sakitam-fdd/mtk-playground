@@ -4,7 +4,7 @@ import { createRouterGuard } from '@/router/guard';
 import routes from './routes';
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.VITE_BASE_DIR),
+  history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
     return new Promise((resolve) => {
