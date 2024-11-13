@@ -10,6 +10,7 @@
     "start": "pnpm run dev",
     "dev": "vite --host --mode development",
     "build": "rimraf dist && vite build --mode production",
+    "build:vercel": "rimraf dist && vite build --mode vercel",
     "preview": "vite preview --host",
     "lint": "pnpm lint:eslint && pnpm lint:prettier && pnpm lint:stylelint",
     "lint:eslint": "eslint \"{src,mock,build}/**/*.{vue,js,jsx,mjs,ts,tsx}\" --fix --cache",

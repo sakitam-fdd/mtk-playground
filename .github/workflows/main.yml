@@ -26,6 +26,10 @@ jobs:
           submodules: 'recursive' # 检出子模块
       - uses: ./.github/setup
 
+      - run: |
+          echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=true" >> $GITHUB_ENV
+      - run: |
+          echo "PUPPETEER_EXECUTABLE_PATH=$(which google-chrome)" >> $GITHUB_ENV
       - run: pnpm run build:pls
       - run: pnpm run build:thumbnail
       - run: pnpm run build

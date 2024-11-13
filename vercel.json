@@ -2,19 +2,8 @@
   "github": {
     "silent": true
   },
+  "buildCommand": "pnpm run build:vercel",
   "rewrites": [{ "source": "/:path*", "destination": "/index.html" }],
-  "redirects": [
-    {
-      "source": "/mtk-playground/static/:path*",
-      "destination": "/static/:path*",
-      "permanent": true
-    },
-    {
-      "source": "/mtk-playground/resources/:path*",
-      "destination": "/resources/:path*",
-      "permanent": true
-    }
-  ],
   "headers": [
     {
       "source": "/thumbnail/(.*)",

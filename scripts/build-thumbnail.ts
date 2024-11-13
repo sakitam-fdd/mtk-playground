@@ -150,6 +150,7 @@ async function render(entries: Entries[], options: Record<string, any>) {
   const browser = await puppeteer.launch({
     args: options.puppeteerArgs,
     headless: Boolean(options.headless),
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
   });
 
   try {
