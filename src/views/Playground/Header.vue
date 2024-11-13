@@ -98,7 +98,7 @@
   const router = useRouter();
   const { toggleDark, isDark } = useTheme();
 
-  const currentCommit = '1.0.0-rc.37';
+  const currentCommit = '1.0.0-rc.40';
 
   const mtkVersion = computed(() => {
     if (store.loading) {
