@@ -7,6 +7,8 @@ import { exec } from 'child_process';
 import { preview } from 'vite';
 import png from 'pngjs';
 import puppeteer from 'puppeteer';
+import chromium from '@sparticuz/chromium';
+import puppeteerCore from 'puppeteer-core';
 import type { Page } from 'puppeteer';
 import { fileURLToPath } from 'url';
 import { playgroundRoutes } from '../src/router/pls';
@@ -147,11 +149,22 @@ async function renderEach(page: Page, entries: Entries[], options: Record<string
 }
 
 async function render(entries: Entries[], options: Record<string, any>) {
-  const browser = await puppeteer.launch({
-    args: options.puppeteerArgs,
-    headless: Boolean(options.headless),
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
-  });
+  let browser: any;
+
+  if (process.env.IS_SERVERLESS) {
+    browser = await puppeteerCore.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
+    });
+  } else {
+    browser = await puppeteer.launch({
+      args: options.puppeteerArgs,
+      headless: Boolean(options.headless),
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+    });
+  }
 
   try {
     const page = await browser.newPage();

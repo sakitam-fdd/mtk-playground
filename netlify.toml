@@ -1,6 +1,6 @@
 [build]
 publish = "dist"
-command = "pnpm run build:pls && pnpm run build:thumbnail && pnpm run build"
+command = "cross-env IS_SERVERLESS=true && pnpm run build:pls && pnpm run build:thumbnail && build:vercel"
 
 [build.environment]
 NODE_VERSION = "20.18.0"

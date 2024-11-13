@@ -2,7 +2,10 @@
   "github": {
     "silent": true
   },
-  "buildCommand": "pnpm run build:vercel",
+  "buildCommand": "pnpm run build:pls && pnpm run build:thumbnail && build:vercel",
+  "env": {
+    "IS_SERVERLESS": "true"
+  },
   "rewrites": [{ "source": "/:path*", "destination": "/index.html" }],
   "headers": [
     {
@@ -14,5 +17,6 @@
         }
       ]
     }
-  ]
+  ],
+  "framework": "vite"
 }
