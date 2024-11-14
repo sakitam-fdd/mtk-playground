@@ -9,7 +9,7 @@ import { t } from '@/plugins/locales';
 import { playgroundRoutes } from '@/router/pls';
 
 export function getGithubToken() {
-  return localStorage.getItem('GITHUB_AUTH_TOKEN') || import.meta.env.VITE_AUTH_TOKEN;
+  return localStorage.getItem('GITHUB_AUTH_TOKEN') || atob(atob(import.meta.env.VITE_AUTH_TOKEN));
 }
 
 // Octokit.js
@@ -838,4 +838,5 @@ export async function getPlaygroundList() {
 
 const baseDir = import.meta.env.VITE_BASE_DIR;
 // 注意这里缩略图，不同平台获取的路径并不相同
-export const THUMBNAIL_URL = `${window.location.protocol}//${window.location.host}${baseDir ? baseDir : '/'}thumbnails/`;
+// export const THUMBNAIL_URL = `${window.location.protocol}//${window.location.host}${baseDir ? baseDir : '/'}thumbnails/`;
+export const THUMBNAIL_URL = `https://blog.sakitam.com/mtk-playground/thumbnails/`;

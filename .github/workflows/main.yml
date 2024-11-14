@@ -33,6 +33,7 @@ jobs:
       - run: pnpm run build:pls
       - run: pnpm run build:thumbnail
       - run: pnpm run build
+      - run: cp dist/index.html dist/404.html
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4

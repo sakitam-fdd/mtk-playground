@@ -2,7 +2,7 @@
   "github": {
     "silent": true
   },
-  "buildCommand": "pnpm run build:serverless",
+  "buildCommand": "pnpm run build:vercel",
   "env": {
     "IS_SERVERLESS": "true"
   },

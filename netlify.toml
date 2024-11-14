@@ -1,6 +1,6 @@
 [build]
 publish = "dist"
-command = "pnpm run build:serverless"
+command = "pnpm run build:vercel"
 
 [build.environment]
 NODE_VERSION = "20.18.0"
